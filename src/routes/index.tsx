@@ -29,6 +29,45 @@ const services = [
   { icon: Star, title: "Signature Experience", desc: "Curated multi-service packages designed for the modern gentleman." },
 ];
 
+function BookingForm() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [service, setService] = useState("");
+  const [datetime, setDatetime] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const lines = [
+      "Hello, I would like to book an appointment at Excellence Zone Salon.",
+      `Name: ${name}`,
+      `Phone: ${phone}`,
+      service ? `Service: ${service}` : "",
+      datetime ? `Date/Time: ${datetime}` : "",
+      notes ? `Notes: ${notes}` : "",
+    ].filter(Boolean);
+    const text = encodeURIComponent(lines.join("\n"));
+    window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+  };
+
+  return (
+    <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit}>
+      <h3 className="font-serif text-2xl">Request an Appointment</h3>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Full name" required />
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Phone" required />
+      </div>
+      <select value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
+        <option value="">Select a service</option>
+        {services.map((s) => <option key={s.title} value={s.title}>{s.title}</option>)}
+      </select>
+      <input type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
+      <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Notes (optional)" />
+      <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">Send Request</button>
+    </form>
+  );
+}
+
 function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
