@@ -47,7 +47,7 @@ function BookingForm() {
       notes ? `Notes: ${notes}` : "",
     ].filter(Boolean);
     const text = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+    window.open(`https://wa.me/966564695965?text=${text}`, "_blank");
   };
 
   return (
@@ -190,7 +190,7 @@ function HomePage() {
             <p className="text-muted-foreground text-lg leading-relaxed mb-10">Walk-ins welcome. Reservations recommended for the full signature experience.</p>
             <ul className="space-y-6 text-sm">
               <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">Find us on Google Maps</a></li>
-              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" className="hover:text-primary transition">+966 59 967 6709</a></li>
+              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966564695965" className="hover:text-primary transition">+966 56 469 5965</a></li>
               <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Sat–Thu · 10:00 — 02:00</span></li>
               <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>@excellencezonesalon</span></li>
             </ul>
