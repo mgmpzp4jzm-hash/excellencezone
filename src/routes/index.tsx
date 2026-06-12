@@ -156,20 +156,8 @@ function HomePage() {
               <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>@excellencezonesalon</span></li>
             </ul>
           </div>
-          <form className="bg-card border border-border p-10 space-y-6" onSubmit={(e) => e.preventDefault()}>
-            <h3 className="font-serif text-2xl">Request an Appointment</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Full name" />
-              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Phone" />
-            </div>
-            <select className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
-              <option>Select a service</option>
-              {services.map((s) => <option key={s.title}>{s.title}</option>)}
-            </select>
-            <input type="datetime-local" className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" />
-            <textarea rows={3} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Notes (optional)" />
-            <button className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">Send Request</button>
-          </form>
+          <BookingForm />
+
         </div>
       </section>
 
