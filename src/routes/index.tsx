@@ -47,7 +47,7 @@ function BookingForm() {
       notes ? `Notes: ${notes}` : "",
     ].filter(Boolean);
     const text = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+    window.open(`https://wa.me/966564695965?text=${text}`, "_blank");
   };
 
   return (
