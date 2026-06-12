@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star } from "lucide-react";
 
+import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
 import img1 from "@/assets/salon/IMG_0473_enhanced.jpg";
 import img2 from "@/assets/salon/IMG_0477_enhanced.jpg";
 import img3 from "@/assets/salon/IMG_0478_enhanced.jpg";
@@ -51,7 +52,7 @@ function HomePage() {
       {/* HERO */}
       <section id="top" className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={img1} alt="Excellence Zone Salon interior" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImg.url} alt="Excellence Zone Salon interior" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background" />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-12 gap-12 items-end w-full">
