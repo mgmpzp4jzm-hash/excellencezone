@@ -139,6 +139,38 @@ function HomePage() {
         </div>
       </section>
 
+
+      {/* CONTACT */}
+      <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">Visit Us</p>
+            <h2 className="font-serif text-4xl md:text-5xl mb-8">Book your moment of excellence.</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-10">Walk-ins welcome. Reservations recommended for the full signature experience.</p>
+            <ul className="space-y-6 text-sm">
+              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">Find us on Google Maps</a></li>
+              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Call to reserve</span></li>
+              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Sat–Thu · 10:00 — 02:00</span></li>
+              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>@excellencezonesalon</span></li>
+            </ul>
+          </div>
+          <form className="bg-card border border-border p-10 space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <h3 className="font-serif text-2xl">Request an Appointment</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Full name" />
+              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Phone" />
+            </div>
+            <select className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
+              <option>Select a service</option>
+              {services.map((s) => <option key={s.title}>{s.title}</option>)}
+            </select>
+            <input type="datetime-local" className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" />
+            <textarea rows={3} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Notes (optional)" />
+            <button className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">Send Request</button>
+          </form>
+        </div>
+      </section>
+
       {/* REVIEWS */}
       <section id="reviews" className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 flex items-end justify-between flex-wrap gap-6">
@@ -190,37 +222,6 @@ function HomePage() {
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
-        <div className="grid lg:grid-cols-2 gap-16">
-          <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">Visit Us</p>
-            <h2 className="font-serif text-4xl md:text-5xl mb-8">Book your moment of excellence.</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-10">Walk-ins welcome. Reservations recommended for the full signature experience.</p>
-            <ul className="space-y-6 text-sm">
-              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">Find us on Google Maps</a></li>
-              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Call to reserve</span></li>
-              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Sat–Thu · 10:00 — 02:00</span></li>
-              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>@excellencezonesalon</span></li>
-            </ul>
-          </div>
-          <form className="bg-card border border-border p-10 space-y-6" onSubmit={(e) => e.preventDefault()}>
-            <h3 className="font-serif text-2xl">Request an Appointment</h3>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Full name" />
-              <input className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Phone" />
-            </div>
-            <select className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
-              <option>Select a service</option>
-              {services.map((s) => <option key={s.title}>{s.title}</option>)}
-            </select>
-            <input type="datetime-local" className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" />
-            <textarea rows={3} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Notes (optional)" />
-            <button className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">Send Request</button>
-          </form>
         </div>
       </section>
 
