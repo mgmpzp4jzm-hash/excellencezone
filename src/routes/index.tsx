@@ -138,6 +138,58 @@ function HomePage() {
         </div>
       </section>
 
+      {/* REVIEWS */}
+      <section id="reviews" className="max-w-7xl mx-auto px-6 py-28">
+        <div className="mb-16 flex items-end justify-between flex-wrap gap-6">
+          <div>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">Guest Words</p>
+            <h2 className="font-serif text-4xl md:text-5xl">Loved by our clients</h2>
+          </div>
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="flex gap-1 text-primary">
+              {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
+            </div>
+            <span className="tracking-widest uppercase text-xs">4.9 · 217 Google reviews</span>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {[
+            { name: "Ahmed", time: "10 months ago", text: "My experience was great at the salon. I got a hair cut and a beard trim. In addition to, face mask and hair mask. Sherif was a real friendly and professional guy. I really appreciate him and his work. Thank you sherif." },
+            { name: "Faisal Bakhsh", time: "3 months ago", text: "Soufiane did a really good job — very good haircut." },
+            { name: "Omar", time: "3 months ago", text: "Suffyan cut my hair perfectly. Will definitely go back again." },
+            { name: "Fahad Alalmai", time: "3 months ago", text: "Safwan the barber is soo good, he cut my hair good — I give him 5 stars." },
+            { name: "sultan alghamdi", time: "5 months ago", text: "It was an excellent experience. The staff is respectful and helpful. Sayed was my hairstylist and he was great." },
+            { name: "Abdulrahman Aljehani", time: "3 months ago", text: "Soufyan is really skillful and served us in an amazing manner — I really appreciate such a good treat!" },
+            { name: "Hamza Alzaini", time: "3 months ago", text: "Very nice and good. I would like to thank my barber Sufyan — he is the best!" },
+            { name: "Khalid Salman", time: "3 months ago", text: "Safwan is really good with cutting hair and I am one of his customers. He is very kind and helpful." },
+            { name: "Youssif Abdellatif", time: "3 months ago", text: "Really nice place. Soufiane cut my hair and as always it turned out very good. Highly recommend visiting." },
+            { name: "Rami Louai", time: "3 months ago", text: "Soufiane cut my hair and tbh I never felt more confident before — the place is really good. Highly recommended." },
+            { name: "Dawood", time: "3 months ago", text: "Amazing service and very happy with my haircut. Sufyan is a very skilled and professional barber. Would definitely go again and definitely recommend!" },
+            { name: "Mahmoud Alrifaiey", time: "4 months ago", text: "Recently visited this place and had a great experience. Special thanks to Sofyan — he's one of the best barbers, very professional, and always takes great care of his customers. Highly recommended!" },
+            { name: "Amjad bukary", time: "4 months ago", text: "Sofyan is the best barber in Saudi. Very clean and professional barber shop. Hundred percent would recommend." },
+            { name: "zumst y", time: "4 months ago", text: "Sofian is a really skilled barber who cares about his work and pays attention to the small details. You can tell he takes pride in what he does — highly recommend him." },
+            { name: "fofo", time: "3 months ago", text: "Excellent place. My barber is Sofian. He really knows what he is doing — an expert in his field, with nice and gentle hands." },
+            { name: "Jamal Abuzeid", time: "3 months ago", text: "Soufiane is a very good barber and has a good attitude." },
+            { name: "Abdullah Alhout", time: "10 months ago", text: "I went here twice and one time with my 2 kids. They were lovely with them. Very elegant place, clean and super amazing team working there. I really loved it and wish them all the best." },
+            { name: "Yazan Alrifaiey", time: "3 months ago", text: "Sufyan — best barber." },
+            { name: "R Perera", time: "6 months ago", text: "Great service 👏" },
+            { name: "F 92", time: "11 months ago", text: "Saif, not a mistake." },
+            { name: "Ammar Bawedan", time: "a year ago", text: "10/10 👏" },
+          ].map((r) => (
+            <article key={r.name + r.text.slice(0, 20)} className="bg-background p-8 flex flex-col gap-4 hover:bg-card transition-colors">
+              <div className="flex gap-1 text-primary">
+                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
+              </div>
+              <p className="text-sm leading-relaxed text-foreground/90 flex-1">"{r.text}"</p>
+              <div className="pt-4 border-t border-border">
+                <p className="font-serif text-base">{r.name}</p>
+                <p className="text-xs text-muted-foreground tracking-widest uppercase mt-1">{r.time}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       {/* CONTACT */}
       <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
         <div className="grid lg:grid-cols-2 gap-16">
