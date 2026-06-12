@@ -74,7 +74,7 @@ function HomePage() {
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Master Stylists</p>
             </div>
             <div className="border-l-2 border-primary pl-4">
-              <p className="text-3xl font-serif text-primary">5★</p>
+              <p className="text-3xl font-serif text-primary">4.9★</p>
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Guest Rated</p>
             </div>
           </div>
@@ -148,7 +148,8 @@ function HomePage() {
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <div className="flex gap-1 text-primary">
-              {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
+              {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
+              <Star className="w-4 h-4 fill-primary opacity-40" strokeWidth={0} />
             </div>
             <span className="tracking-widest uppercase text-xs">4.9 · 217 Google reviews</span>
           </div>
@@ -179,7 +180,8 @@ function HomePage() {
           ].map((r) => (
             <article key={r.name + r.text.slice(0, 20)} className="bg-background p-8 flex flex-col gap-4 hover:bg-card transition-colors">
               <div className="flex gap-1 text-primary">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
+                {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
+                <Star className="w-3.5 h-3.5 fill-primary opacity-40" strokeWidth={0} />
               </div>
               <p className="text-sm leading-relaxed text-foreground/90 flex-1">"{r.text}"</p>
               <div className="pt-4 border-t border-border">
