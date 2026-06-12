@@ -74,7 +74,7 @@ function HomePage() {
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Master Stylists</p>
             </div>
             <div className="border-l-2 border-primary pl-4">
-              <p className="text-3xl font-serif text-primary">5★</p>
+              <p className="text-3xl font-serif text-primary">4.9★</p>
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Guest Rated</p>
             </div>
           </div>
