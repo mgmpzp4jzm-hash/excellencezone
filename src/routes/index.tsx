@@ -40,6 +40,7 @@ function HomePage() {
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#services" className="hover:text-primary transition">Services</a>
             <a href="#gallery" className="hover:text-primary transition">Gallery</a>
+            <a href="#reviews" className="hover:text-primary transition">Reviews</a>
             <a href="#about" className="hover:text-primary transition">About</a>
             <a href="#contact" className="hover:text-primary transition">Contact</a>
           </nav>
