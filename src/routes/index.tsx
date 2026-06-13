@@ -147,16 +147,15 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
   ],
 };
 
-// Shop hours: 10:00 → 02:00 next day (16 hours). Slots every 30 min.
+// Shop hours: 10:00 → 02:00 next day (16 hours). Slots step by the service duration.
 const OPEN_MIN = 10 * 60;
 const CLOSE_MIN = OPEN_MIN + 16 * 60;
-const SLOT_STEP = 30;
 
 function buildSlots(duration: number): string[] {
   if (!duration) return [];
   const slots: string[] = [];
   const lastStart = CLOSE_MIN - duration;
-  for (let m = OPEN_MIN; m <= lastStart; m += SLOT_STEP) {
+  for (let m = OPEN_MIN; m <= lastStart; m += duration) {
     const h = Math.floor(m / 60) % 24;
     const mm = m % 60;
     slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
