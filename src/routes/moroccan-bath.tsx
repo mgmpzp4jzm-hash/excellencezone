@@ -235,12 +235,14 @@ function MoroccanBathPage() {
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={() => setLang(lang === "en" ? "ar" : "en")}
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-xs tracking-[0.25em] uppercase hover:opacity-90 transition"
+          className="inline-flex items-center gap-2 bg-background border border-border px-3 py-2 text-xs tracking-[0.2em] uppercase hover:border-primary transition"
           style={{ boxShadow: "var(--shadow-luxe)" }}
           aria-label="Toggle language"
         >
-          <Languages className="w-4 h-4" strokeWidth={1.5} />
-          {L.toggle}
+          <Languages className="w-4 h-4 text-primary" strokeWidth={1.5} />
+          <span className={lang === "ar" ? "text-primary" : "text-muted-foreground"}>ع</span>
+          <span className="text-muted-foreground/40">|</span>
+          <span className={lang === "en" ? "text-primary" : "text-muted-foreground"}>EN</span>
         </button>
       </div>
 
