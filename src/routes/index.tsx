@@ -358,6 +358,27 @@ function HomePage() {
       </section>
 
 
+
+      {/* TEAM */}
+      <section id="team" className="max-w-7xl mx-auto px-6 py-28">
+        <div className="mb-16 max-w-2xl">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.team.tag}</p>
+          <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.team.h}</h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">{L.team.p}</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {team.map((m) => (
+            <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
+              <p className="text-primary/40 font-serif text-5xl leading-none mb-6">
+                {m.name[lang].charAt(0)}
+              </p>
+              <h3 className="font-serif text-2xl mb-2">{m.name[lang]}</h3>
+              <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* MOROCCAN BATH BENEFITS */}
       <MoroccanBathBenefits globalLang={lang} />
 
