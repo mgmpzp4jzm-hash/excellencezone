@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
