@@ -420,8 +420,7 @@ function HomePage() {
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <div className="flex gap-1 text-primary">
-              {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
-              <Star className="w-4 h-4 fill-primary opacity-40" strokeWidth={0} />
+              {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
             </div>
             <span className="tracking-widest uppercase text-xs">{L.reviews.rating}</span>
           </div>
