@@ -172,38 +172,119 @@ function BookingForm({ lang }: { lang: Lang }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
+  const [taken, setTaken] = useState<{ startAt: string; endAt: string }[]>([]);
+  const [submitting, setSubmitting] = useState(false);
   const tr = t[lang].form;
+
+  const fetchTaken = useServerFn(getTakenBookings);
+  const createBookingFn = useServerFn(createBooking);
 
   const selectedService = bookingServices[lang].find((s) => s.value === service);
   const slots = buildSlots(selectedService?.duration ?? 0);
 
-  const handleServiceChange = (val: string) => {
-    setService(val);
-    const next = bookingServices[lang].find((s) => s.value === val);
-    const nextSlots = buildSlots(next?.duration ?? 0);
-    if (time && !nextSlots.includes(time)) setTime("");
+  const slotTimes = (slotHHMM: string) => {
+    if (!date || !selectedService) return null;
+    const [hh, mm] = slotHHMM.split(":").map(Number);
+    const [Y, M, D] = date.split("-").map(Number);
+    const start = new Date(Y, M - 1, D, hh, mm).getTime();
+    const end = start + selectedService.duration * 60_000;
+    return { start, end };
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const isTaken = (slotHHMM: string) => {
+    const t = slotTimes(slotHHMM);
+    if (!t) return false;
+    return taken.some((b) => {
+      const bs = new Date(b.startAt).getTime();
+      const be = new Date(b.endAt).getTime();
+      return t.start < be && t.end > bs;
+    });
+  };
+
+  const refreshTaken = async (w: string, d: string) => {
+    if (!w || !d) {
+      setTaken([]);
+      return;
+    }
+    const [Y, M, D] = d.split("-").map(Number);
+    const dayStart = new Date(Y, M - 1, D).toISOString();
+    const dayEnd = new Date(Y, M - 1, D + 2).toISOString();
+    try {
+      const rows = await fetchTaken({ data: { worker: w, dayStart, dayEnd } });
+      setTaken(rows);
+    } catch {
+      setTaken([]);
+    }
+  };
+
+  useEffect(() => {
+    refreshTaken(worker, date);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [worker, date]);
+
+  // Clear time when it becomes invalid for new service/availability
+  useEffect(() => {
+    if (!time) return;
+    if (!slots.includes(time) || isTaken(time)) setTime("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service, worker, date, taken]);
+
+  const handleServiceChange = (val: string) => {
+    setService(val);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const datetime = date && time ? `${date} ${time}` : "";
-    const lines = [
-      tr.greeting,
-      `${tr.lName}: ${name}`,
-      `${tr.lPhone}: ${phone}`,
-      service ? `${tr.lService}: ${service}` : "",
-      worker ? `${tr.lWorker}: ${worker}` : "",
-      datetime ? `${tr.lDate}: ${datetime}` : "",
-      notes ? `${tr.lNotes}: ${notes}` : "",
-    ].filter(Boolean);
-    const text = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+    if (!service || !worker || !date || !time || !selectedService) return;
+    const t = slotTimes(time);
+    if (!t) return;
+    setSubmitting(true);
+    try {
+      const res = await createBookingFn({
+        data: {
+          service,
+          worker,
+          startAt: new Date(t.start).toISOString(),
+          durationMin: selectedService.duration,
+          customerName: name,
+          customerPhone: phone,
+          notes: notes || null,
+        },
+      });
+      if (!res.ok) {
+        if (res.error === "SLOT_TAKEN") {
+          toast.error(lang === "ar" ? "هذا الوقت محجوز، اختر وقت ثاني" : "That time was just booked. Please pick another slot.");
+          await refreshTaken(worker, date);
+          setTime("");
+        } else {
+          toast.error(res.error);
+        }
+        return;
+      }
+      const datetime = `${date} ${time}`;
+      const lines = [
+        tr.greeting,
+        `${tr.lName}: ${name}`,
+        `${tr.lPhone}: ${phone}`,
+        `${tr.lService}: ${service}`,
+        `${tr.lWorker}: ${worker}`,
+        `${tr.lDate}: ${datetime}`,
+        notes ? `${tr.lNotes}: ${notes}` : "",
+      ].filter(Boolean);
+      const text = encodeURIComponent(lines.join("\n"));
+      window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+      toast.success(lang === "ar" ? "تم الحجز بنجاح" : "Booking confirmed");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const timePlaceholder = lang === "ar"
-    ? (service ? "اختر الوقت" : "اختر الخدمة أولاً")
-    : (service ? "Select time" : "Select a service first");
+    ? (!service ? "اختر الخدمة أولاً" : !worker ? "اختر الحلاق أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
+    : (!service ? "Select a service first" : !worker ? "Select a worker first" : !date ? "Select a date first" : "Select time");
 
+  const takenLabel = lang === "ar" ? "محجوز" : "Taken";
+  const timeDisabled = !service || !worker || !date;
   const today = new Date().toISOString().slice(0, 10);
 
   return (
@@ -217,24 +298,25 @@ function BookingForm({ lang }: { lang: Lang }) {
         <option value="">{tr.selectService}</option>
         {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
       </select>
-      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
+      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectWorker}</option>
         {team.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
       </select>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
-        <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={!service} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
+        <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={timeDisabled} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
           <option value="">{timePlaceholder}</option>
           {slots.map((s) => {
             const h = parseInt(s.slice(0, 2), 10);
-            const label = h >= 24 ? `${String(h - 24).padStart(2, "0")}:${s.slice(3)} (+1)` : s;
-            return <option key={s} value={s}>{label}</option>;
+            const base = h >= 24 ? `${String(h - 24).padStart(2, "0")}:${s.slice(3)} (+1)` : s;
+            const taken = isTaken(s);
+            return <option key={s} value={s} disabled={taken}>{taken ? `${base} — ${takenLabel}` : base}</option>;
           })}
         </select>
       </div>
       <textarea aria-label={tr.notes} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
 
-      <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">{tr.submit}</button>
+      <button type="submit" disabled={submitting} className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition disabled:opacity-60">{submitting ? (lang === "ar" ? "جارٍ الحجز..." : "Booking...") : tr.submit}</button>
     </form>
   );
 }
