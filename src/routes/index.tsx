@@ -346,8 +346,12 @@ function HomePage() {
                 <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
                 <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
+                <div className="mt-4 flex items-center gap-2 text-xs tracking-widest uppercase text-primary/80">
+                  <Clock className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  <span>{s[lang].duration}</span>
+                </div>
                 {link && (
-                  <span className="mt-4 inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+                  <span className="mt-3 inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
                     Learn more →
                   </span>
                 )}
