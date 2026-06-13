@@ -9,7 +9,7 @@ import {
   Clock,
   CalendarCheck,
 } from "lucide-react";
-import bathImg from "@/assets/salon/moroccan-bath.jpg";
+
 
 const CANONICAL = "https://exllencezone.lovable.app/moroccan-bath";
 
@@ -161,19 +161,9 @@ function MoroccanBathPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Hero */}
-      <section className="relative min-h-[70vh] flex items-end overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={bathImg}
-            alt="Moroccan Bath Hammam interior at Excellence Zone Salon"
-            width={1344}
-            height={768}
-            fetchPriority="high"
-            decoding="async"
-            className="w-full h-full object-cover opacity-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-        </div>
+      <section className="relative min-h-[70vh] flex items-end overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
+
         <div className="relative max-w-7xl mx-auto px-6 py-20 w-full">
           <nav className="mb-8 text-sm text-muted-foreground">
             <Link to="/" className="hover:underline">
@@ -278,7 +268,7 @@ function MoroccanBathPage() {
 
       {/* What to Expect */}
       <section className="max-w-7xl mx-auto px-6 py-28">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-3xl mx-auto">
           <div>
             <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
               Your Visit
@@ -320,16 +310,6 @@ function MoroccanBathPage() {
                 </li>
               </ul>
             </div>
-          </div>
-          <div className="relative aspect-[4/5] overflow-hidden">
-            <img
-              src={bathImg}
-              alt="Moroccan Bath preparation and treatment at Excellence Zone Salon"
-              width={768}
-              height={960}
-              loading="lazy"
-              className="w-full h-full object-cover"
-            />
           </div>
         </div>
       </section>
