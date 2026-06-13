@@ -183,11 +183,10 @@ function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
-  const [worker, setWorker] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
-  const [taken, setTaken] = useState<{ startAt: string; endAt: string }[]>([]);
+  const [taken, setTaken] = useState<{ worker: string; startAt: string; endAt: string }[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const tr = t[lang].form;
 
@@ -199,15 +198,8 @@ function BookingForm({ lang }: { lang: Lang }) {
   const serviceEn = serviceIdx >= 0 ? bookingServices.en[serviceIdx].value : "";
   const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
+  const workerNames = availableTeam.map((m) => m.name[lang]);
   const slots = buildSlots(selectedService?.duration ?? 0);
-
-  // Clear worker if it's not allowed for the current service
-  useEffect(() => {
-    if (!service || !worker) return;
-    const isAllowed = availableTeam.some((m) => m.name[lang] === worker);
-    if (!isAllowed) setWorker("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service]);
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
@@ -220,16 +212,18 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const isTaken = (slotHHMM: string) => {
     const t = slotTimes(slotHHMM);
-    if (!t) return false;
-    return taken.some((b) => {
+    if (!t || workerNames.length === 0) return false;
+    const busy = new Set<string>();
+    for (const b of taken) {
       const bs = new Date(b.startAt).getTime();
       const be = new Date(b.endAt).getTime();
-      return t.start < be && t.end > bs;
-    });
+      if (t.start < be && t.end > bs) busy.add(b.worker);
+    }
+    return busy.size >= workerNames.length;
   };
 
-  const refreshTaken = async (w: string, d: string) => {
-    if (!w || !d) {
+  const refreshTaken = async (workers: string[], d: string) => {
+    if (workers.length === 0 || !d) {
       setTaken([]);
       return;
     }
@@ -237,7 +231,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     const dayStart = new Date(Y, M - 1, D).toISOString();
     const dayEnd = new Date(Y, M - 1, D + 2).toISOString();
     try {
-      const rows = await fetchTaken({ data: { worker: w, dayStart, dayEnd } });
+      const rows = await fetchTaken({ data: { workers, dayStart, dayEnd } });
       setTaken(rows);
     } catch {
       setTaken([]);
@@ -245,16 +239,16 @@ function BookingForm({ lang }: { lang: Lang }) {
   };
 
   useEffect(() => {
-    refreshTaken(worker, date);
+    refreshTaken(workerNames, date);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worker, date]);
+  }, [service, date]);
 
   // Clear time when it becomes invalid for new service/availability
   useEffect(() => {
     if (!time) return;
     if (!slots.includes(time) || isTaken(time)) setTime("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service, worker, date, taken]);
+  }, [service, date, taken]);
 
   const handleServiceChange = (val: string) => {
     setService(val);
@@ -262,7 +256,7 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!service || !worker || !date || !time || !selectedService) return;
+    if (!service || !date || !time || !selectedService || workerNames.length === 0) return;
     const t = slotTimes(time);
     if (!t) return;
     setSubmitting(true);
@@ -270,7 +264,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const res = await createBookingFn({
         data: {
           service,
-          worker,
+          workers: workerNames,
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
@@ -281,7 +275,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       if (!res.ok) {
         if (res.error === "SLOT_TAKEN") {
           toast.error(lang === "ar" ? "هذا الوقت محجوز، اختر وقت ثاني" : "That time was just booked. Please pick another slot.");
-          await refreshTaken(worker, date);
+          await refreshTaken(workerNames, date);
           setTime("");
         } else {
           toast.error(res.error);
@@ -294,7 +288,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         `${tr.lName}: ${name}`,
         `${tr.lPhone}: ${phone}`,
         `${tr.lService}: ${service}`,
-        `${tr.lWorker}: ${worker}`,
+        `${tr.lWorker}: ${res.worker}`,
         `${tr.lDate}: ${datetime}`,
         notes ? `${tr.lNotes}: ${notes}` : "",
       ].filter(Boolean);
@@ -307,11 +301,11 @@ function BookingForm({ lang }: { lang: Lang }) {
   };
 
   const timePlaceholder = lang === "ar"
-    ? (!service ? "اختر الخدمة أولاً" : !worker ? "اختر الحلاق أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
-    : (!service ? "Select a service first" : !worker ? "Select a worker first" : !date ? "Select a date first" : "Select time");
+    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
+    : (!service ? "Select a service first" : !date ? "Select a date first" : "Select time");
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
-  const timeDisabled = !service || !worker || !date;
+  const timeDisabled = !service || !date;
   const today = new Date().toISOString().slice(0, 10);
 
   return (
@@ -324,10 +318,6 @@ function BookingForm({ lang }: { lang: Lang }) {
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
         {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
-      </select>
-      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} disabled={!service} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
-        <option value="">{!service ? (lang === "ar" ? "اختر الخدمة أولاً" : "Select a service first") : tr.selectWorker}</option>
-        {availableTeam.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
       </select>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
