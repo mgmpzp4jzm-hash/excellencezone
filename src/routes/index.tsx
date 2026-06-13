@@ -139,7 +139,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       </div>
       <select aria-label={tr.selectService} value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
-        {servicesData.map((s) => <option key={s.en.title} value={s[lang].title}>{s[lang].title}</option>)}
+        {bookingServices[lang].map((s) => <option key={s} value={s}>{s}</option>)}
       </select>
       <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
         <option value="">{tr.selectWorker}</option>
