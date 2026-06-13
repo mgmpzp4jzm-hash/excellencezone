@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
@@ -89,6 +89,7 @@ const t = {
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
     contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00" },
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lDate: "Date/Time", lNotes: "Notes" },
+    moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
     footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
   },
@@ -107,6 +108,7 @@ const t = {
     gallery: { tag: "المكان", h: "داخل إكسلنس زون" },
     contact: { tag: "زرنا", h: "احجز لحظة تميّزك.", p: "الزيارات بدون موعد مرحّب بها. يُفضّل الحجز للتجربة الكاملة.", maps: "موقعنا على خرائط جوجل", hours: "السبت–الخميس · 10:00 — 02:00" },
     form: { title: "اطلب موعداً", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "مرحباً، أرغب في حجز موعد في صالون إكسلنس زون.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
+    moroccanBath: { tag: "طقس مميز", h: "فوائد الحمام المغربي", p: "أكثر من مجرد تنظيف — الحمام المغربي هو تجديد كامل للجسم يترك بشرتك أنعم، وذهنك أكثر هدوءاً، وروتين العناية أكثر فعالية.", link: "استكشف الطقس كاملاً →" },
     reviews: { tag: "كلمات الضيوف", h: "محبوبون من عملائنا", rating: "4.9 · 217 تقييم على جوجل" },
     footer: { rights: "صالون إكسلنس زون", tagline: "بصُنع متقن · للعناية بالرجل" },
   },
@@ -175,6 +177,15 @@ const reviews = [
   { name: "R Perera", time: "6 months ago", text: "Great service 👏" },
   { name: "F 92", time: "11 months ago", text: "Saif, not a mistake." },
   { name: "Ammar Bawedan", time: "a year ago", text: "10/10 👏" },
+];
+
+const moroccanBathBenefits = [
+  { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يزيل أسابيع من تراكم الجلد الميت في جلسة واحدة، مكشفاً بشرة جديدة وصحية." } },
+  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نظيفة", desc: "البخار والصابون البلدي ينظفان المسام، مما يساعد على منع التهيجات والشعر النامي تحت الجلد." } },
+  { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أكثر إشراقاً ونعومة", desc: "البشرة المتجددة تحسّن اللون والملمس وامتصاص المنتجات — عنايتك اليومية تصبح أكثر فعالية." } },
+  { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تحسين الدورة الدموية", desc: "الحرارة والمساج ينشطان الدورة الدموية والتصريف اللمفاوي، مما يقلل الانتفاخ والإرهاق." } },
+  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "الاسترخاء وتخفيف التوتر", desc: "وتيرة الطقس البطيئة والحسية تهدئ الجهاز العصبي وتذيب التوتر." } },
+  { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أفضل", desc: "البشرة الملمّعة تجعل القصات، العناية باللحية، والعناية اليومية أكثر فعالية بشكل واضح." } },
 ];
 
 function HomePage() {
@@ -322,6 +333,29 @@ function HomePage() {
           </div>
           <BookingForm lang={lang} />
 
+        </div>
+      </section>
+
+      {/* MOROCCAN BATH BENEFITS */}
+      <section className="max-w-7xl mx-auto px-6 py-28">
+        <div className="mb-16 max-w-2xl">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.moroccanBath.tag}</p>
+          <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.moroccanBath.h}</h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">{L.moroccanBath.p}</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {moroccanBathBenefits.map(({ icon: Icon, ...b }) => (
+            <div key={b.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
+              <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
+              <h3 className="font-serif text-xl mb-3">{b[lang].title}</h3>
+              <p className="text-muted-foreground leading-relaxed text-sm">{b[lang].desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Link to="/moroccan-bath" className="inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+            {L.moroccanBath.link}
+          </Link>
         </div>
       </section>
 
