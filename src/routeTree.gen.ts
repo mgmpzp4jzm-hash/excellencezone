@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogWhatIsAMoroccanBathHammamRouteImport } from './routes/blog.what-is-a-moroccan-bath-hammam'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -22,31 +23,41 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogWhatIsAMoroccanBathHammamRoute =
+  BlogWhatIsAMoroccanBathHammamRouteImport.update({
+    id: '/blog/what-is-a-moroccan-bath-hammam',
+    path: '/blog/what-is-a-moroccan-bath-hammam',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml'
+  fullPaths: '/' | '/sitemap.xml' | '/blog/what-is-a-moroccan-bath-hammam'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml'
-  id: '__root__' | '/' | '/sitemap.xml'
+  to: '/' | '/sitemap.xml' | '/blog/what-is-a-moroccan-bath-hammam'
+  id: '__root__' | '/' | '/sitemap.xml' | '/blog/what-is-a-moroccan-bath-hammam'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  BlogWhatIsAMoroccanBathHammamRoute: typeof BlogWhatIsAMoroccanBathHammamRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +76,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/what-is-a-moroccan-bath-hammam': {
+      id: '/blog/what-is-a-moroccan-bath-hammam'
+      path: '/blog/what-is-a-moroccan-bath-hammam'
+      fullPath: '/blog/what-is-a-moroccan-bath-hammam'
+      preLoaderRoute: typeof BlogWhatIsAMoroccanBathHammamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  BlogWhatIsAMoroccanBathHammamRoute: BlogWhatIsAMoroccanBathHammamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
