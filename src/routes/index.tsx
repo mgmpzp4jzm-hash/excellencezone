@@ -16,7 +16,49 @@ import img10 from "@/assets/salon/IMG_0499_enhanced.jpg";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  head: () => ({
+    meta: [
+      { title: "Excellence Zone Salon — Luxury Men's Grooming" },
+      { name: "description", content: "Excellence Zone Salon: expert haircuts, Moroccan bath, skin, hand & foot care, and relaxing massage for the modern gentleman." },
+      { property: "og:title", content: "Excellence Zone Salon — Luxury Men's Grooming" },
+      { property: "og:description", content: "Expert haircuts, Moroccan bath, skin care, and signature grooming rituals — rated 4.9 by guests." },
+      { property: "og:url", content: "https://exellencezone.lovable.app/" },
+      { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://exellencezone.lovable.app/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BarberShop",
+          name: "Excellence Zone Salon",
+          url: "https://exellencezone.lovable.app/",
+          telephone: "+966599676709",
+          priceRange: "$$",
+          image: "https://exellencezone.lovable.app/",
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+              opens: "10:00",
+              closes: "02:00",
+            },
+          ],
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            reviewCount: "217",
+          },
+          sameAs: ["https://www.instagram.com/excellencezonesalon"],
+        }),
+      },
+    ],
+  }),
 });
+
 
 const gallery = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 
@@ -93,18 +135,19 @@ function BookingForm({ lang }: { lang: Lang }) {
   };
 
   return (
-    <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit}>
+    <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit} aria-label={tr.title}>
       <h3 className="font-serif text-2xl">{tr.title}</h3>
       <div className="grid sm:grid-cols-2 gap-4">
-        <input value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
+        <input aria-label={tr.name} value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
+        <input aria-label={tr.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
       </div>
-      <select value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
+      <select aria-label={tr.selectService} value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
         {servicesData.map((s) => <option key={s.en.title} value={s[lang].title}>{s[lang].title}</option>)}
       </select>
-      <input type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
-      <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
+      <input aria-label="Preferred date and time" type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
+      <textarea aria-label={tr.notes} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
+
       <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">{tr.submit}</button>
     </form>
   );
@@ -168,7 +211,7 @@ function HomePage() {
       {/* HERO */}
       <section id="top" className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImg.url} alt="Excellence Zone Salon interior" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImg.url} alt="Excellence Zone Salon interior" width={1920} height={1080} fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background" />
         </div>
         <div className="relative max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-12 gap-12 items-end w-full">

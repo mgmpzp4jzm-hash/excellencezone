@@ -77,21 +77,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "صالون منطقة التمييز" },
+      { title: "Excellence Zone Salon — Luxury Men's Grooming" },
       { name: "description", content: "Luxury men's grooming at Excellence Zone Salon: expert haircuts, Moroccan bath, skin, hand & foot care, and relaxing massage." },
-      { property: "og:title", content: "صالون منطقة التمييز" },
+      { property: "og:title", content: "Excellence Zone Salon — Luxury Men's Grooming" },
       { property: "og:description", content: "Luxury men's grooming at Excellence Zone Salon: expert haircuts, Moroccan bath, skin, hand & foot care, and relaxing massage." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Excellence Zone Salon" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "صالون منطقة التمييز" },
+      { name: "twitter:title", content: "Excellence Zone Salon — Luxury Men's Grooming" },
       { name: "twitter:description", content: "Luxury men's grooming at Excellence Zone Salon: expert haircuts, Moroccan bath, skin, hand & foot care, and relaxing massage." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/006687d5-4e9d-4390-98e1-9dc51a07b57f/id-preview-84d63f8e--4e56a0dc-562d-42f1-8a1e-bc32e13b4f21.lovable.app-1781199706780.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/006687d5-4e9d-4390-98e1-9dc51a07b57f/id-preview-84d63f8e--4e56a0dc-562d-42f1-8a1e-bc32e13b4f21.lovable.app-1781199706780.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Excellence Zone Salon",
+          url: "https://exellencezone.lovable.app",
+          telephone: "+966599676709",
+          sameAs: ["https://www.instagram.com/excellencezonesalon"],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Excellence Zone Salon",
+          url: "https://exellencezone.lovable.app",
+        }),
+      },
+    ],
   }),
+
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
