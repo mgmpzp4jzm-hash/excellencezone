@@ -161,19 +161,9 @@ function MoroccanBathPage() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Hero */}
-      <section className="relative min-h-[70vh] flex items-end overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={bathImg}
-            alt="Moroccan Bath Hammam interior at Excellence Zone Salon"
-            width={1344}
-            height={768}
-            fetchPriority="high"
-            decoding="async"
-            className="w-full h-full object-cover opacity-50"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30" />
-        </div>
+      <section className="relative min-h-[70vh] flex items-end overflow-hidden border-b border-border">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
+
         <div className="relative max-w-7xl mx-auto px-6 py-20 w-full">
           <nav className="mb-8 text-sm text-muted-foreground">
             <Link to="/" className="hover:underline">
