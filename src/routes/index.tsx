@@ -429,8 +429,7 @@ function HomePage() {
           {reviews.map((r) => (
             <article key={r.name + r.text.slice(0, 20)} className="bg-background p-8 flex flex-col gap-4 hover:bg-card transition-colors">
               <div className="flex gap-1 text-primary">
-                {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
-                <Star className="w-3.5 h-3.5 fill-primary opacity-40" strokeWidth={0} />
+                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
               </div>
               <p className="text-sm leading-relaxed text-foreground/90 flex-1" dir="ltr">"{r.text}"</p>
               <div className="pt-4 border-t border-border">
