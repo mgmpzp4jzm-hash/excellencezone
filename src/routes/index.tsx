@@ -74,7 +74,7 @@ const t = {
       cta1: "Reserve your seat", cta2: "Explore services",
       stat1: "Master Stylists", stat2: "Guest Rated",
     },
-    about: { tag: "The Philosophy", h: "A sanctuary tailored for the discerning man.", p: "At Excellence Zone Salon we attend to every detail — from the first greeting to the final mirror reveal — ensuring an exceptional experience that combines luxury and comfort. Our standards never waver; your satisfaction is the measure." },
+    about: { tag: "The Philosophy", h: "A sanctuary tailored for the discerning guest.", p: "At Excellence Zone Salon we attend to every detail — from the first greeting to the final mirror reveal — ensuring an exceptional experience that combines luxury and comfort. Our standards never waver; your satisfaction is the measure." },
     services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
     team: { tag: "The Team", h: "Meet Our Specialists", p: "A dedicated team of barbers and therapists, each with their own craft." },
