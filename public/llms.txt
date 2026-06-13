@@ -7,3 +7,4 @@ Excellence Zone Salon is a men's grooming destination featuring master stylists,
 ## Pages
 
 - [Home](/): Services, gallery, reviews, location, and online booking via WhatsApp.
+- [What is a Moroccan Bath (Hammam)?](/blog/what-is-a-moroccan-bath-hammam): Guide to the Hammam ritual, benefits of black soap and kessa exfoliation, and what to expect at Excellence Zone Salon.
