@@ -179,6 +179,15 @@ const reviews = [
   { name: "Ammar Bawedan", time: "a year ago", text: "10/10 👏" },
 ];
 
+const moroccanBathBenefits = [
+  { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يزيل أسابيع من تراكم الجلد الميت في جلسة واحدة، مكشفاً بشرة جديدة وصحية." } },
+  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نظيفة", desc: "البخار والصابون البلدي ينظفان المسام، مما يساعد على منع التهيجات والشعر النامي تحت الجلد." } },
+  { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أكثر إشراقاً ونعومة", desc: "البشرة المتجددة تحسّن اللون والملمس وامتصاص المنتجات — عنايتك اليومية تصبح أكثر فعالية." } },
+  { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تحسين الدورة الدموية", desc: "الحرارة والمساج ينشطان الدورة الدموية والتصريف اللمفاوي، مما يقلل الانتفاخ والإرهاق." } },
+  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "الاسترخاء وتخفيف التوتر", desc: "وتيرة الطقس البطيئة والحسية تهدئ الجهاز العصبي وتذيب التوتر." } },
+  { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أفضل", desc: "البشرة الملمّعة تجعل القصات، العناية باللحية، والعناية اليومية أكثر فعالية بشكل واضح." } },
+];
+
 function HomePage() {
   const [lang, setLang] = useState<Lang>("en");
   const L = t[lang];
