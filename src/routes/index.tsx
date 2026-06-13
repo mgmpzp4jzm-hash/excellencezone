@@ -57,12 +57,17 @@ export const Route = createFileRoute("/")({
 
 type Lang = "en" | "ar";
 
-const servicesData = [
-  { icon: Scissors, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques.", duration: "40 min" }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات.", duration: "٤٠ دقيقة" } },
-  { icon: Star, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية، حلاقة بالمنشفة الساخنة، وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
-  { icon: Scissors, en: { title: "Haircut & Beard", desc: "The full grooming package — a fresh cut paired with a sharp beard shape-up and shave.", duration: "1 hour" }, ar: { title: "قص الشعر واللحية", desc: "الباقة الكاملة — قصّة شعر نظيفة مع تشذيب اللحية وحلاقة مرتبة.", duration: "ساعة" } },
-  { icon: Sparkles, en: { title: "Perm — Long Lasting", desc: "A long-lasting perm treatment that gives your hair lasting texture and shape.", duration: "75 min" }, ar: { title: "كيرلي دائم", desc: "جلسة كيرلي تدوم طويلاً، تمنح الشعر ملمساً وشكلاً يبقى معاك.", duration: "٧٥ دقيقة" } },
-  { icon: Sparkles, en: { title: "Perm — Classic", desc: "A classic perm treatment to add volume and soft waves to your hair.", duration: "25 min" }, ar: { title: "كيرلي كلاسيك", desc: "كيرلي كلاسيكي يضيف كثافة وموجات ناعمة للشعر.", duration: "٢٥ دقيقة" } },
+const servicesData: Array<{
+  icon: any;
+  price?: number;
+  en: { title: string; desc: string; duration: string; link?: string };
+  ar: { title: string; desc: string; duration: string; link?: string };
+}> = [
+  { icon: Scissors, price: 45, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques.", duration: "40 min" }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات.", duration: "٤٠ دقيقة" } },
+  { icon: Star, price: 35, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية، حلاقة بالمنشفة الساخنة، وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
+  { icon: Scissors, price: 65, en: { title: "Haircut & Beard", desc: "The full grooming package — a fresh cut paired with a sharp beard shape-up and shave.", duration: "1 hour" }, ar: { title: "قص الشعر واللحية", desc: "الباقة الكاملة — قصّة شعر نظيفة مع تشذيب اللحية وحلاقة مرتبة.", duration: "ساعة" } },
+  { icon: Sparkles, price: 350, en: { title: "Perm — Long Lasting", desc: "A long-lasting perm treatment that gives your hair lasting texture and shape.", duration: "75 min" }, ar: { title: "كيرلي دائم", desc: "جلسة كيرلي تدوم طويلاً، تمنح الشعر ملمساً وشكلاً يبقى معاك.", duration: "٧٥ دقيقة" } },
+  { icon: Sparkles, price: 100, en: { title: "Perm — Classic", desc: "A classic perm treatment to add volume and soft waves to your hair.", duration: "25 min" }, ar: { title: "كيرلي كلاسيك", desc: "كيرلي كلاسيكي يضيف كثافة وموجات ناعمة للشعر.", duration: "٢٥ دقيقة" } },
   { icon: Flower2, en: { title: "Moroccan Bath — Classic", desc: "A deeply cleansing body ritual using authentic black soap and kessa exfoliation.", duration: "35 min", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — كلاسيك", desc: "جلسة تنظيف عميق للجسم بالصابون البلدي الأصلي وتقشير الكيسة.", duration: "٣٥ دقيقة", link: "/moroccan-bath" } },
   { icon: Flower2, en: { title: "Moroccan Bath — King", desc: "The full royal Hammam experience — extended exfoliation, relaxation, and care.", duration: "1 hour", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — ملكي", desc: "تجربة الحمام الملكي الكاملة — تقشير ممتد، استرخاء، وعناية فاخرة.", duration: "ساعة", link: "/moroccan-bath" } },
   { icon: Waves, en: { title: "Massage — Classic", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance.", duration: "40 min" }, ar: { title: "مساج — كلاسيك", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك.", duration: "٤٠ دقيقة" } },
@@ -70,7 +75,7 @@ const servicesData = [
   { icon: Hand, en: { title: "Manicure", desc: "Meticulous hand care with attention to nail health, cuticles, and a clean finish.", duration: "30 min" }, ar: { title: "مانيكير", desc: "عناية دقيقة باليدين — صحة الأظافر، الجلد الزائد، ولمسة نهائية نضيفة.", duration: "٣٠ دقيقة" } },
   { icon: Hand, en: { title: "Pedicure", desc: "Thorough foot care including exfoliation, nail grooming, and skin health.", duration: "30 min" }, ar: { title: "باديكير", desc: "عناية شاملة بالقدمين — تقشير، ترتيب الأظافر، وصحة البشرة.", duration: "٣٠ دقيقة" } },
   { icon: Hand, en: { title: "Manicure & Pedicure", desc: "Complete hand and foot care in one session — nails, skin, and a polished finish.", duration: "1 hour" }, ar: { title: "مانيكير وباديكير", desc: "عناية كاملة باليدين والقدمين في جلسة واحدة — أظافر، بشرة، ولمعة نهائية.", duration: "ساعة" } },
-  { icon: Sparkles, en: { title: "Facial & Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant.", duration: "30 min" }, ar: { title: "العناية بالوجه والبشرة", desc: "جلسات وجه مخصّصة لك، تخلي بشرتك منتعشة ومتوازنة ومشرقة.", duration: "٣٠ دقيقة" } },
+  { icon: Sparkles, price: 50, en: { title: "Facial & Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant.", duration: "30 min" }, ar: { title: "العناية بالوجه والبشرة", desc: "جلسات وجه مخصّصة لك، تخلي بشرتك منتعشة ومتوازنة ومشرقة.", duration: "٣٠ دقيقة" } },
 ];
 
 const t = {
