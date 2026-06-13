@@ -1,0 +1,9 @@
+# Excellence Zone Salon
+
+> Luxury men's grooming salon offering expert haircuts, Moroccan bath, skin care, hand & foot care, and relaxing massage.
+
+Excellence Zone Salon is a men's grooming destination featuring master stylists, traditional rituals, and a sophisticated atmosphere. Located in Saudi Arabia, the salon is rated 4.9 stars by guests.
+
+## Pages
+
+- [Home](/): Services, gallery, reviews, location, and online booking via WhatsApp.
