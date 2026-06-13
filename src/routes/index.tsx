@@ -147,6 +147,22 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
   ],
 };
 
+// Which workers (by English name) can perform each service (keyed by English service name)
+const serviceWorkers: Record<string, string[]> = {
+  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Perm — Long Lasting": ["Yassine"],
+  "Perm — Classic": ["Yassine"],
+  "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
+  "Moroccan Bath — King": ["Rasheed 🇲🇦"],
+  "Massage — Classic": ["Rasheed 🇲🇦"],
+  "Massage — King": ["Rasheed 🇲🇦"],
+  "Manicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Pedicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Facial & Skin Care": ["Rasheed 🇲🇦"],
+};
+
 // Shop hours: 10:00 → 02:00 next day (16 hours). Slots step by the service duration.
 const OPEN_MIN = 10 * 60;
 const CLOSE_MIN = OPEN_MIN + 16 * 60;
@@ -178,8 +194,20 @@ function BookingForm({ lang }: { lang: Lang }) {
   const fetchTaken = useServerFn(getTakenBookings);
   const createBookingFn = useServerFn(createBooking);
 
-  const selectedService = bookingServices[lang].find((s) => s.value === service);
+  const serviceIdx = bookingServices[lang].findIndex((s) => s.value === service);
+  const selectedService = serviceIdx >= 0 ? bookingServices[lang][serviceIdx] : undefined;
+  const serviceEn = serviceIdx >= 0 ? bookingServices.en[serviceIdx].value : "";
+  const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
+  const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const slots = buildSlots(selectedService?.duration ?? 0);
+
+  // Clear worker if it's not allowed for the current service
+  useEffect(() => {
+    if (!service || !worker) return;
+    const isAllowed = availableTeam.some((m) => m.name[lang] === worker);
+    if (!isAllowed) setWorker("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service]);
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
@@ -297,9 +325,9 @@ function BookingForm({ lang }: { lang: Lang }) {
         <option value="">{tr.selectService}</option>
         {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
       </select>
-      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
-        <option value="">{tr.selectWorker}</option>
-        {team.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
+      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} disabled={!service} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
+        <option value="">{!service ? (lang === "ar" ? "اختر الخدمة أولاً" : "Select a service first") : tr.selectWorker}</option>
+        {availableTeam.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
       </select>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
