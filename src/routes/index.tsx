@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages } from "lucide-react";
 import { useState } from "react";
 
@@ -66,7 +66,7 @@ type Lang = "en" | "ar";
 
 const servicesData = [
   { icon: Scissors, en: { title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصات دقيقة وتصفيف راقٍ على يد خبراء باستخدام أحدث الأدوات والتقنيات." } },
-  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic, natural products." }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام منتجات طبيعية أصيلة." } },
+  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام الصابون البلدي الأصيل والتقشير بالكيسة. تقشير عميق ومسام نظيفة واسترخاء تام.", link: "/moroccan-bath" } },
   { icon: Waves, en: { title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج استرخائي", desc: "تقنيات متخصصة لتنشيط الدورة الدموية وتخفيف التوتر واستعادة الإشراق." } },
   { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والقدمين", desc: "مانيكير وباديكير بعناية فائقة بصحة البشرة ولمستها النهائية." } },
   { icon: Sparkles, en: { title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالبشرة", desc: "علاجات وجه مخصصة للحفاظ على بشرة منتعشة ومتوازنة ومشرقة." } },
@@ -260,13 +260,23 @@ function HomePage() {
           <p className="max-w-md text-muted-foreground">{L.services.p}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {servicesData.map(({ icon: Icon, ...s }) => (
-            <div key={s.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
-              <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
-              <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
-            </div>
-          ))}
+          {servicesData.map(({ icon: Icon, ...s }) => {
+            const link = s[lang].link;
+            const Wrapper = link ? Link : "div";
+            const wrapperProps = link ? { to: link, className: "block bg-background p-10 group hover:bg-card transition-colors cursor-pointer" } : { className: "bg-background p-10 group hover:bg-card transition-colors" };
+            return (
+              <Wrapper key={s.en.title} {...wrapperProps}>
+                <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
+                <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
+                {link && (
+                  <span className="mt-4 inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+                    Learn more →
+                  </span>
+                )}
+              </Wrapper>
+            );
+          })}
         </div>
       </section>
 
