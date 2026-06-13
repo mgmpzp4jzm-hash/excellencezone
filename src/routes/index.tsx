@@ -188,6 +188,46 @@ const moroccanBathBenefits = [
   { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أفضل", desc: "البشرة الملمّعة تجعل القصات، العناية باللحية، والعناية اليومية أكثر فعالية بشكل واضح." } },
 ];
 
+function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
+  const [bathLang, setBathLang] = useState<Lang>(globalLang);
+  const B = t[bathLang].moroccanBath;
+  const toggleBathLang = () => setBathLang(bathLang === "en" ? "ar" : "en");
+
+  return (
+    <section className="max-w-7xl mx-auto px-6 py-28">
+      <div className="mb-16 max-w-2xl">
+        <div className="flex items-center gap-4 mb-4">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase">{B.tag}</p>
+          <button
+            onClick={toggleBathLang}
+            aria-label="Toggle bath section language"
+            className="flex items-center gap-1 text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition border border-border px-2 py-1"
+          >
+            <Languages className="w-3 h-3" strokeWidth={1.5} />
+            <span>{bathLang === "en" ? "AR" : "EN"}</span>
+          </button>
+        </div>
+        <h2 className="font-serif text-4xl md:text-5xl leading-tight">{B.h}</h2>
+        <p className="mt-4 text-muted-foreground leading-relaxed">{B.p}</p>
+      </div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        {moroccanBathBenefits.map(({ icon: Icon, ...b }) => (
+          <div key={b.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
+            <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
+            <h3 className="font-serif text-xl mb-3">{b[bathLang].title}</h3>
+            <p className="text-muted-foreground leading-relaxed text-sm">{b[bathLang].desc}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-10">
+        <Link to="/moroccan-bath" className="inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+          {B.link}
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function HomePage() {
   const [lang, setLang] = useState<Lang>("en");
   const L = t[lang];
