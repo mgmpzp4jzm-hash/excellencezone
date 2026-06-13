@@ -321,33 +321,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* GALLERY */}
-      <section id="gallery" className="bg-card border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 py-28">
-          <div className="mb-16">
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.gallery.tag}</p>
-            <h2 className="font-serif text-4xl md:text-5xl">{L.gallery.h}</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {gallery.map((src, i) => (
-              <div
-                key={src}
-                className={`relative overflow-hidden ${i % 5 === 0 ? "row-span-2 aspect-[3/4]" : "aspect-square"}`}
-              >
-                <img
-                  src={src}
-                  alt={`Excellence Zone Salon ${i + 1}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-
       {/* TEAM */}
       <section id="team" className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 max-w-2xl">
