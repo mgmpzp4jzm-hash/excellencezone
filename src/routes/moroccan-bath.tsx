@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   Sparkles,
   Droplets,
@@ -8,71 +9,137 @@ import {
   ShieldCheck,
   Clock,
   CalendarCheck,
+  Languages,
 } from "lucide-react";
 
 
 const CANONICAL = "https://exllencezone.lovable.app/moroccan-bath";
 
+type Lang = "en" | "ar";
+
 const benefits = [
   {
     icon: Droplets,
-    title: "Deep Exfoliation",
-    desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath.",
+    en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." },
+    ar: { title: "تقشير عميق", desc: "يزيل خلايا الجلد الميتة المتراكمة لأسابيع في جلسة واحدة، ليكشف عن بشرة نضرة وصحية." },
   },
   {
     icon: Sparkles,
-    title: "Clearer Pores",
-    desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin.",
+    en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." },
+    ar: { title: "مسام أنقى", desc: "البخار والصابون الأسود يفتحان المسام، مما يساعد على منع الحبوب والشعر الناشب لبشرة أنعم." },
   },
   {
     icon: Sun,
-    title: "Brighter, Softer Skin",
-    desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward.",
+    en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." },
+    ar: { title: "بشرة أكثر إشراقاً ونعومة", desc: "البشرة المتجددة تحسّن اللون والملمس وامتصاص المنتجات — لتعمل العناية بفعالية أكبر." },
   },
   {
     icon: Heart,
-    title: "Improved Circulation",
-    desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue.",
+    en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." },
+    ar: { title: "تحسين الدورة الدموية", desc: "الحرارة والتدليك ينشطان الدورة الدموية والتصريف اللمفاوي، مما يقلل الانتفاخ والتعب." },
   },
   {
     icon: Wind,
-    title: "Relaxation & Stress Relief",
-    desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension.",
+    en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." },
+    ar: { title: "استرخاء وراحة من التوتر", desc: "الإيقاع الهادئ للطقوس يهدئ الجهاز العصبي ويذيب التوتر." },
   },
   {
     icon: ShieldCheck,
-    title: "Better Grooming Results",
-    desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective.",
+    en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." },
+    ar: { title: "نتائج عناية أفضل", desc: "البشرة المصقولة تجعل قص الشعر والعناية باللحية والروتين اليومي أكثر فعالية." },
   },
 ];
 
 const steps = [
   {
     num: "01",
-    title: "Warm Steam",
-    desc: "You begin in a heated steam room. The humidity softens the skin, opens the pores, and prepares the body for deep cleansing.",
+    en: { title: "Warm Steam", desc: "You begin in a heated steam room. The humidity softens the skin, opens the pores, and prepares the body for deep cleansing." },
+    ar: { title: "البخار الدافئ", desc: "تبدأ في غرفة بخار دافئة. الرطوبة تليّن البشرة وتفتح المسام وتهيّئ الجسم للتنظيف العميق." },
   },
   {
     num: "02",
-    title: "Black Soap (Savon Beldi)",
-    desc: "A dark, olive-based soap rich in vitamin E is massaged over the body and left to absorb. It loosens dead skin and conditions the surface.",
+    en: { title: "Black Soap (Savon Beldi)", desc: "A dark, olive-based soap rich in vitamin E is massaged over the body and left to absorb. It loosens dead skin and conditions the surface." },
+    ar: { title: "الصابون الأسود (البلدي)", desc: "صابون داكن مصنوع من زيت الزيتون وغني بفيتامين E، يُدلَّك على الجسم ويُترك ليُمتص. يفكك الجلد الميت ويغذي البشرة." },
   },
   {
     num: "03",
-    title: "Kessa Exfoliation",
-    desc: "Using a coarse kessa glove, your therapist exfoliates the entire body in long, firm strokes. Dead skin lifts away in visible ribbons.",
+    en: { title: "Kessa Exfoliation", desc: "Using a coarse kessa glove, your therapist exfoliates the entire body in long, firm strokes. Dead skin lifts away in visible ribbons." },
+    ar: { title: "تقشير الكيس المغربي", desc: "باستخدام قفاز الكيس الخشن، يقوم المعالج بتقشير كامل الجسم بحركات طويلة وحازمة. يتساقط الجلد الميت بشكل واضح." },
   },
   {
     num: "04",
-    title: "Rinse & Rebalance",
-    desc: "A warm rinse removes every trace of soap and exfoliated skin, leaving you feeling remarkably clean.",
+    en: { title: "Rinse & Rebalance", desc: "A warm rinse removes every trace of soap and exfoliated skin, leaving you feeling remarkably clean." },
+    ar: { title: "الشطف وإعادة التوازن", desc: "شطف دافئ يزيل كل آثار الصابون والجلد المتقشر، ليتركك بإحساس نظافة استثنائي." },
   },
   {
     num: "05",
-    title: "Nourishing Mask & Oils",
-    desc: "A clay or argan-based treatment is applied to hydrate and soothe the freshly polished skin.",
+    en: { title: "Nourishing Mask & Oils", desc: "A clay or argan-based treatment is applied to hydrate and soothe the freshly polished skin." },
+    ar: { title: "قناع مغذٍ وزيوت", desc: "يتم تطبيق قناع من الطين أو زيت الأرغان لترطيب وتهدئة البشرة المصقولة حديثاً." },
   },
 ];
+
+const t = {
+  en: {
+    back: "← Back to Excellence Zone Salon",
+    signature: "Signature Ritual",
+    heroTitle: "The Moroccan Bath",
+    heroDesc: "A centuries-old ritual of steam, black soap, and kessa exfoliation — one of the most transformative experiences at Excellence Zone Salon.",
+    duration: "45–60 min",
+    frequency: "Every 2–4 weeks recommended",
+    bookHammam: "Book Your Hammam",
+    whyKicker: "Why It Works",
+    benefitsTitle: "Benefits of a Moroccan Bath",
+    benefitsDesc: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.",
+    experienceKicker: "The Experience",
+    ritualTitle: "The Ritual, Step by Step",
+    visitKicker: "Your Visit",
+    expectTitle: "What to Expect",
+    expect1: "Our Moroccan Bath is performed in a private, climate-controlled room by trained therapists. You will be provided with disposable shorts and clean towels — modesty is fully respected throughout.",
+    expect2: "After your treatment, take a few quiet minutes with water or tea before heading back into the day. Many guests report feeling lighter, calmer, and noticeably smoother for days afterward.",
+    prepTitle: "How to Prepare",
+    prep: [
+      "Avoid shaving the same day — exfoliation is gentler on unshaved skin.",
+      "Hydrate well before your appointment.",
+      "Skip heavy lotions or oils on the day of your bath.",
+      "Arrive 10 minutes early to settle in.",
+    ],
+    ctaTitle: "Ready to Experience the Hammam?",
+    ctaDesc: "Reserve your Moroccan Bath at Excellence Zone Salon and discover why this ancient ritual is still one of the most requested treatments by our guests.",
+    bookSession: "Book Your Session",
+    walkins: "Walk-ins welcome · Reservations recommended",
+    toggle: "AR",
+  },
+  ar: {
+    back: "→ العودة إلى صالون منطقة الامتياز",
+    signature: "طقوس مميزة",
+    heroTitle: "الحمام المغربي",
+    heroDesc: "طقوس عمرها قرون من البخار والصابون الأسود وتقشير الكيس — واحدة من أكثر التجارب تحولاً في صالون منطقة الامتياز.",
+    duration: "٤٥–٦٠ دقيقة",
+    frequency: "يُنصح به كل ٢–٤ أسابيع",
+    bookHammam: "احجز حمامك",
+    whyKicker: "لماذا يعمل",
+    benefitsTitle: "فوائد الحمام المغربي",
+    benefitsDesc: "أكثر من مجرد تنظيف — الحمام هو تجديد كامل للجسم يترك بشرتك أنعم وعقلك أهدأ وروتين العناية أكثر فعالية.",
+    experienceKicker: "التجربة",
+    ritualTitle: "الطقوس خطوة بخطوة",
+    visitKicker: "زيارتك",
+    expectTitle: "ماذا تتوقع",
+    expect1: "يُقدَّم الحمام المغربي في غرفة خاصة بمناخ مضبوط على يد معالجين مدربين. يُوفَّر لك سروال يُستخدم مرة واحدة ومناشف نظيفة — مع احترام كامل للخصوصية.",
+    expect2: "بعد العلاج، خذ بضع دقائق هادئة مع الماء أو الشاي قبل العودة إلى يومك. يشعر كثير من الضيوف بخفة وهدوء ونعومة ملحوظة لأيام بعدها.",
+    prepTitle: "كيف تستعد",
+    prep: [
+      "تجنّب الحلاقة في نفس اليوم — التقشير ألطف على البشرة غير المحلوقة.",
+      "اشرب الماء جيداً قبل موعدك.",
+      "تجنّب المرطبات أو الزيوت الثقيلة في يوم الحمام.",
+      "احضر قبل ١٠ دقائق للاستقرار.",
+    ],
+    ctaTitle: "هل أنت مستعد لتجربة الحمام؟",
+    ctaDesc: "احجز حمامك المغربي في صالون منطقة الامتياز واكتشف لماذا لا تزال هذه الطقوس القديمة من أكثر العلاجات طلباً.",
+    bookSession: "احجز جلستك",
+    walkins: "نرحب بالزيارات بدون موعد · يُفضّل الحجز",
+    toggle: "EN",
+  },
+};
 
 export const Route = createFileRoute("/moroccan-bath")({
   head: () => ({
@@ -158,8 +225,25 @@ export const Route = createFileRoute("/moroccan-bath")({
 });
 
 function MoroccanBathPage() {
+  const [lang, setLang] = useState<Lang>("en");
+  const L = t[lang];
+  const dir = lang === "ar" ? "rtl" : "ltr";
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans" dir={dir}>
+      {/* Language Toggle */}
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setLang(lang === "en" ? "ar" : "en")}
+          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-xs tracking-[0.25em] uppercase hover:opacity-90 transition"
+          style={{ boxShadow: "var(--shadow-luxe)" }}
+          aria-label="Toggle language"
+        >
+          <Languages className="w-4 h-4" strokeWidth={1.5} />
+          {L.toggle}
+        </button>
+      </div>
+
       {/* Hero */}
       <section className="relative min-h-[70vh] flex items-end overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
@@ -167,27 +251,26 @@ function MoroccanBathPage() {
         <div className="relative max-w-7xl mx-auto px-6 py-20 w-full">
           <nav className="mb-8 text-sm text-muted-foreground">
             <Link to="/" className="hover:underline">
-              ← Back to Excellence Zone Salon
+              {L.back}
             </Link>
           </nav>
           <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
-            Signature Ritual
+            {L.signature}
           </p>
           <h1 className="font-serif text-5xl md:text-7xl leading-tight max-w-3xl">
-            The Moroccan Bath
+            {L.heroTitle}
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-            A centuries-old ritual of steam, black soap, and kessa exfoliation —
-            one of the most transformative experiences at Excellence Zone Salon.
+            {L.heroDesc}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-primary" strokeWidth={1.5} />
-              45–60 min
+              {L.duration}
             </span>
             <span className="flex items-center gap-2">
               <CalendarCheck className="w-4 h-4 text-primary" strokeWidth={1.5} />
-              Every 2–4 weeks recommended
+              {L.frequency}
             </span>
           </div>
           <div className="mt-8">
@@ -196,7 +279,7 @@ function MoroccanBathPage() {
               className="inline-flex items-center justify-center bg-primary px-8 py-4 text-sm tracking-[0.25em] uppercase text-primary-foreground hover:opacity-90 transition"
               style={{ boxShadow: "var(--shadow-luxe)" }}
             >
-              Book Your Hammam
+              {L.bookHammam}
             </a>
           </div>
         </div>
@@ -206,30 +289,28 @@ function MoroccanBathPage() {
       <section className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 max-w-2xl">
           <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
-            Why It Works
+            {L.whyKicker}
           </p>
           <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-            Benefits of a Moroccan Bath
+            {L.benefitsTitle}
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            More than a cleanse — the Hammam is a full-body renewal that
-            leaves your skin smoother, your mind calmer, and your grooming
-            routine more effective.
+            {L.benefitsDesc}
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {benefits.map(({ icon: Icon, title, desc }) => (
+          {benefits.map(({ icon: Icon, ...b }) => (
             <div
-              key={title}
+              key={b.en.title}
               className="bg-background p-10 group hover:bg-card transition-colors"
             >
               <Icon
                 className="w-8 h-8 text-primary mb-6"
                 strokeWidth={1.2}
               />
-              <h3 className="font-serif text-xl mb-3">{title}</h3>
+              <h3 className="font-serif text-xl mb-3">{b[lang].title}</h3>
               <p className="text-muted-foreground leading-relaxed text-sm">
-                {desc}
+                {b[lang].desc}
               </p>
             </div>
           ))}
@@ -241,24 +322,24 @@ function MoroccanBathPage() {
         <div className="max-w-7xl mx-auto px-6 py-28">
           <div className="mb-16 max-w-2xl">
             <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
-              The Experience
+              {L.experienceKicker}
             </p>
             <h2 className="font-serif text-4xl md:text-5xl leading-tight">
-              The Ritual, Step by Step
+              {L.ritualTitle}
             </h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-            {steps.map(({ num, title, desc }) => (
+            {steps.map((s) => (
               <div
-                key={num}
+                key={s.num}
                 className="bg-background p-10 group hover:bg-card transition-colors"
               >
                 <span className="text-primary/40 font-serif text-5xl leading-none">
-                  {num}
+                  {s.num}
                 </span>
-                <h3 className="font-serif text-xl mt-6 mb-3">{title}</h3>
+                <h3 className="font-serif text-xl mt-6 mb-3">{s[lang].title}</h3>
                 <p className="text-muted-foreground leading-relaxed text-sm">
-                  {desc}
+                  {s[lang].desc}
                 </p>
               </div>
             ))}
@@ -271,43 +352,24 @@ function MoroccanBathPage() {
         <div className="max-w-3xl mx-auto">
           <div>
             <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
-              Your Visit
+              {L.visitKicker}
             </p>
             <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-8">
-              What to Expect
+              {L.expectTitle}
             </h2>
             <div className="space-y-6 text-muted-foreground leading-relaxed">
-              <p>
-                Our Moroccan Bath is performed in a private, climate-controlled
-                room by trained therapists. You will be provided with disposable
-                shorts and clean towels — modesty is fully respected throughout.
-              </p>
-              <p>
-                After your treatment, take a few quiet minutes with water or tea
-                before heading back into the day. Many guests report feeling
-                lighter, calmer, and noticeably smoother for days afterward.
-              </p>
+              <p>{L.expect1}</p>
+              <p>{L.expect2}</p>
             </div>
             <div className="mt-10 space-y-4">
-              <h4 className="font-serif text-lg">How to Prepare</h4>
+              <h4 className="font-serif text-lg">{L.prepTitle}</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">—</span>
-                  Avoid shaving the same day — exfoliation is gentler on
-                  unshaved skin.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">—</span>
-                  Hydrate well before your appointment.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">—</span>
-                  Skip heavy lotions or oils on the day of your bath.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">—</span>
-                  Arrive 10 minutes early to settle in.
-                </li>
+                {L.prep.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-primary mt-1">—</span>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -318,22 +380,20 @@ function MoroccanBathPage() {
       <section className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-28 text-center">
           <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-6">
-            Ready to Experience the Hammam?
+            {L.ctaTitle}
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-            Reserve your Moroccan Bath at Excellence Zone Salon and discover
-            why this ancient ritual is still one of the most requested
-            treatments by our guests.
+            {L.ctaDesc}
           </p>
           <a
             href="/"
             className="inline-flex items-center justify-center bg-primary px-10 py-4 text-sm tracking-[0.25em] uppercase text-primary-foreground hover:opacity-90 transition"
             style={{ boxShadow: "var(--shadow-luxe)" }}
           >
-            Book Your Session
+            {L.bookSession}
           </a>
           <p className="mt-6 text-xs text-muted-foreground tracking-widest uppercase">
-            Walk-ins welcome · Reservations recommended
+            {L.walkins}
           </p>
         </div>
       </section>
