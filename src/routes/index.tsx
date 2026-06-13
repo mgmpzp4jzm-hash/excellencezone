@@ -336,6 +336,29 @@ function HomePage() {
         </div>
       </section>
 
+      {/* MOROCCAN BATH BENEFITS */}
+      <section className="max-w-7xl mx-auto px-6 py-28">
+        <div className="mb-16 max-w-2xl">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.moroccanBath.tag}</p>
+          <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.moroccanBath.h}</h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">{L.moroccanBath.p}</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {moroccanBathBenefits.map(({ icon: Icon, ...b }) => (
+            <div key={b.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
+              <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
+              <h3 className="font-serif text-xl mb-3">{b[lang].title}</h3>
+              <p className="text-muted-foreground leading-relaxed text-sm">{b[lang].desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10">
+          <Link to="/moroccan-bath" className="inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+            {L.moroccanBath.link}
+          </Link>
+        </div>
+      </section>
+
       {/* REVIEWS */}
       <section id="reviews" className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 flex items-end justify-between flex-wrap gap-6">
