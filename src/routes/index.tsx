@@ -66,7 +66,7 @@ type Lang = "en" | "ar";
 
 const servicesData = [
   { icon: Scissors, en: { title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصات دقيقة وتصفيف راقٍ على يد خبراء باستخدام أحدث الأدوات والتقنيات." } },
-  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic, natural products." }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام منتجات طبيعية أصيلة." } },
+  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام الصابون البلدي الأصيل والتقشير بالكيسة. تقشير عميق ومسام نظيفة واسترخاء تام.", link: "/moroccan-bath" } },
   { icon: Waves, en: { title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج استرخائي", desc: "تقنيات متخصصة لتنشيط الدورة الدموية وتخفيف التوتر واستعادة الإشراق." } },
   { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والقدمين", desc: "مانيكير وباديكير بعناية فائقة بصحة البشرة ولمستها النهائية." } },
   { icon: Sparkles, en: { title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالبشرة", desc: "علاجات وجه مخصصة للحفاظ على بشرة منتعشة ومتوازنة ومشرقة." } },
