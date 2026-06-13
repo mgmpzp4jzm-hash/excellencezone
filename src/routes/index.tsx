@@ -260,13 +260,23 @@ function HomePage() {
           <p className="max-w-md text-muted-foreground">{L.services.p}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {servicesData.map(({ icon: Icon, ...s }) => (
-            <div key={s.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
-              <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
-              <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
-            </div>
-          ))}
+          {servicesData.map(({ icon: Icon, ...s }) => {
+            const link = s[lang].link;
+            const Wrapper = link ? Link : "div";
+            const wrapperProps = link ? { to: link, className: "block bg-background p-10 group hover:bg-card transition-colors cursor-pointer" } : { className: "bg-background p-10 group hover:bg-card transition-colors" };
+            return (
+              <Wrapper key={s.en.title} {...wrapperProps}>
+                <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
+                <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
+                {link && (
+                  <span className="mt-4 inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
+                    Learn more →
+                  </span>
+                )}
+              </Wrapper>
+            );
+          })}
         </div>
       </section>
 
