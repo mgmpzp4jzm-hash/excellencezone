@@ -9,7 +9,7 @@ import {
   Clock,
   CalendarCheck,
 } from "lucide-react";
-import bathImg from "@/assets/salon/moroccan-bath.jpg";
+
 
 const CANONICAL = "https://exllencezone.lovable.app/moroccan-bath";
 
