@@ -233,7 +233,6 @@ function HomePage() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#services" className="hover:text-primary transition">{L.nav.services}</a>
-            <a href="#gallery" className="hover:text-primary transition">{L.nav.gallery}</a>
             <a href="#reviews" className="hover:text-primary transition">{L.nav.reviews}</a>
             <a href="#about" className="hover:text-primary transition">{L.nav.about}</a>
             <a href="#contact" className="hover:text-primary transition">{L.nav.contact}</a>
