@@ -77,6 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "uq9tA8rBE-cKvb_Rt0Dy-3l_A3Jf_JbbzsFyFXMbruE" },
       { title: "Excellence Zone Salon — Luxury Men's Grooming" },
       { name: "description", content: "Luxury men's grooming at Excellence Zone Salon: expert haircuts, Moroccan bath, skin, hand & foot care, and relaxing massage." },
       { property: "og:title", content: "Excellence Zone Salon — Luxury Men's Grooming" },
