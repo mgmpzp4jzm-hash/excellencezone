@@ -113,48 +113,77 @@ const t = {
   },
 };
 
-const bookingServices: Record<Lang, string[]> = {
+const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
   en: [
-    "Haircut & Styling",
-    "Beard Trimming",
-    "Haircut & Beard",
-    "Perm — Long Lasting",
-    "Perm — Classic",
-    "Moroccan Bath — Classic",
-    "Moroccan Bath — King",
-    "Massage — Classic",
-    "Massage — King",
-    "Manicure",
-    "Pedicure",
-    "Facial & Skin Care",
+    { value: "Haircut & Styling", duration: 40 },
+    { value: "Beard Trimming", duration: 30 },
+    { value: "Haircut & Beard", duration: 60 },
+    { value: "Perm — Long Lasting", duration: 75 },
+    { value: "Perm — Classic", duration: 25 },
+    { value: "Moroccan Bath — Classic", duration: 35 },
+    { value: "Moroccan Bath — King", duration: 60 },
+    { value: "Massage — Classic", duration: 40 },
+    { value: "Massage — King", duration: 60 },
+    { value: "Manicure", duration: 30 },
+    { value: "Pedicure", duration: 30 },
+    { value: "Facial & Skin Care", duration: 30 },
   ],
   ar: [
-    "قص وتصفيف الشعر",
-    "تشذيب اللحية",
-    "قص الشعر واللحية",
-    "كيرلي دائم",
-    "كيرلي كلاسيك",
-    "الحمام المغربي — كلاسيك",
-    "الحمام المغربي — ملكي",
-    "مساج — كلاسيك",
-    "مساج — ملكي",
-    "مانيكير",
-    "باديكير",
-    "العناية بالوجه والبشرة",
+    { value: "قص وتصفيف الشعر", duration: 40 },
+    { value: "تشذيب اللحية", duration: 30 },
+    { value: "قص الشعر واللحية", duration: 60 },
+    { value: "كيرلي دائم", duration: 75 },
+    { value: "كيرلي كلاسيك", duration: 25 },
+    { value: "الحمام المغربي — كلاسيك", duration: 35 },
+    { value: "الحمام المغربي — ملكي", duration: 60 },
+    { value: "مساج — كلاسيك", duration: 40 },
+    { value: "مساج — ملكي", duration: 60 },
+    { value: "مانيكير", duration: 30 },
+    { value: "باديكير", duration: 30 },
+    { value: "العناية بالوجه والبشرة", duration: 30 },
   ],
 };
+
+// Shop hours: 10:00 → 02:00 next day (16 hours). Slots every 30 min.
+const OPEN_MIN = 10 * 60;
+const CLOSE_MIN = OPEN_MIN + 16 * 60;
+const SLOT_STEP = 30;
+
+function buildSlots(duration: number): string[] {
+  if (!duration) return [];
+  const slots: string[] = [];
+  const lastStart = CLOSE_MIN - duration;
+  for (let m = OPEN_MIN; m <= lastStart; m += SLOT_STEP) {
+    const h = Math.floor(m / 60) % 24;
+    const mm = m % 60;
+    slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
+  }
+  return slots;
+}
 
 function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
   const [worker, setWorker] = useState("");
-  const [datetime, setDatetime] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
   const tr = t[lang].form;
 
+  const selectedService = bookingServices[lang].find((s) => s.value === service);
+  const slots = buildSlots(selectedService?.duration ?? 0);
+
+  const handleServiceChange = (val: string) => {
+    setService(val);
+    const next = bookingServices[lang].find((s) => s.value === val);
+    const nextSlots = buildSlots(next?.duration ?? 0);
+    if (time && !nextSlots.includes(time)) setTime("");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const datetime = date && time ? `${date} ${time}` : "";
     const lines = [
       tr.greeting,
       `${tr.lName}: ${name}`,
@@ -168,6 +197,12 @@ function BookingForm({ lang }: { lang: Lang }) {
     window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
   };
 
+  const timePlaceholder = lang === "ar"
+    ? (service ? "اختر الوقت" : "اختر الخدمة أولاً")
+    : (service ? "Select time" : "Select a service first");
+
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
     <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit} aria-label={tr.title}>
       <h3 className="font-serif text-2xl">{tr.title}</h3>
@@ -175,15 +210,25 @@ function BookingForm({ lang }: { lang: Lang }) {
         <input aria-label={tr.name} value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
         <input aria-label={tr.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
       </div>
-      <select aria-label={tr.selectService} value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
+      <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
-        {bookingServices[lang].map((s) => <option key={s} value={s}>{s}</option>)}
+        {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
       </select>
       <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
         <option value="">{tr.selectWorker}</option>
         {team.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
       </select>
-      <input aria-label="Preferred date and time" type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
+        <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={!service} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
+          <option value="">{timePlaceholder}</option>
+          {slots.map((s) => {
+            const h = parseInt(s.slice(0, 2), 10);
+            const label = h >= 24 ? `${String(h - 24).padStart(2, "0")}:${s.slice(3)} (+1)` : s;
+            return <option key={s} value={s}>{label}</option>;
+          })}
+        </select>
+      </div>
       <textarea aria-label={tr.notes} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
 
       <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">{tr.submit}</button>
