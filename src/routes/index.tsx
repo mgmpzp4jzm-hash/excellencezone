@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages } from "lucide-react";
 import { useState } from "react";
 
