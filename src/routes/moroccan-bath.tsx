@@ -21,32 +21,32 @@ const benefits = [
   {
     icon: Droplets,
     en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." },
-    ar: { title: "تقشير عميق", desc: "يزيل خلايا الجلد الميتة المتراكمة لأسابيع في جلسة واحدة، ليكشف عن بشرة نضرة وصحية." },
+    ar: { title: "تقشير عميق", desc: "يشيل تراكم الجلد الميت من أسابيع بجلسة وحدة، ويطلّع بشرة جديدة وصحية." },
   },
   {
     icon: Sparkles,
     en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." },
-    ar: { title: "مسام أنقى", desc: "البخار والصابون الأسود يفتحان المسام، مما يساعد على منع الحبوب والشعر الناشب لبشرة أنعم." },
+    ar: { title: "مسام أنضف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب والشعر الناشب — بشرة أنعم." },
   },
   {
     icon: Sun,
     en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." },
-    ar: { title: "بشرة أكثر إشراقاً ونعومة", desc: "البشرة المتجددة تحسّن اللون والملمس وامتصاص المنتجات — لتعمل العناية بفعالية أكبر." },
+    ar: { title: "بشرة أنعم وأكثر إشراق", desc: "بشرة متجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." },
   },
   {
     icon: Heart,
     en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." },
-    ar: { title: "تحسين الدورة الدموية", desc: "الحرارة والتدليك ينشطان الدورة الدموية والتصريف اللمفاوي، مما يقلل الانتفاخ والتعب." },
+    ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." },
   },
   {
     icon: Wind,
     en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." },
-    ar: { title: "استرخاء وراحة من التوتر", desc: "الإيقاع الهادئ للطقوس يهدئ الجهاز العصبي ويذيب التوتر." },
+    ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادي في الجلسة يهدّي أعصابك ويفك التكتيف اللي عليك." },
   },
   {
     icon: ShieldCheck,
     en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." },
-    ar: { title: "نتائج عناية أفضل", desc: "البشرة المصقولة تجعل قص الشعر والعناية باللحية والروتين اليومي أكثر فعالية." },
+    ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." },
   },
 ];
 
@@ -54,27 +54,27 @@ const steps = [
   {
     num: "01",
     en: { title: "Warm Steam", desc: "You begin in a heated steam room. The humidity softens the skin, opens the pores, and prepares the body for deep cleansing." },
-    ar: { title: "البخار الدافئ", desc: "تبدأ في غرفة بخار دافئة. الرطوبة تليّن البشرة وتفتح المسام وتهيّئ الجسم للتنظيف العميق." },
+    ar: { title: "البخار الدافي", desc: "تبدأ في غرفة بخار دافية. الرطوبة تليّن البشرة وتفتح المسام وتجهّز جسمك للتنظيف العميق." },
   },
   {
     num: "02",
     en: { title: "Black Soap (Savon Beldi)", desc: "A dark, olive-based soap rich in vitamin E is massaged over the body and left to absorb. It loosens dead skin and conditions the surface." },
-    ar: { title: "الصابون الأسود (البلدي)", desc: "صابون داكن مصنوع من زيت الزيتون وغني بفيتامين E، يُدلَّك على الجسم ويُترك ليُمتص. يفكك الجلد الميت ويغذي البشرة." },
+    ar: { title: "الصابون البلدي", desc: "صابون داكن من زيت الزيتون وغني بفيتامين E، يُدلَّك على الجسم ويُترك يمتص. يفكّك الجلد الميت ويغذّي البشرة." },
   },
   {
     num: "03",
     en: { title: "Kessa Exfoliation", desc: "Using a coarse kessa glove, your therapist exfoliates the entire body in long, firm strokes. Dead skin lifts away in visible ribbons." },
-    ar: { title: "تقشير الكيس المغربي", desc: "باستخدام قفاز الكيس الخشن، يقوم المعالج بتقشير كامل الجسم بحركات طويلة وحازمة. يتساقط الجلد الميت بشكل واضح." },
+    ar: { title: "تقشير الكيسة", desc: "بكيسة خشنة، المعالج يقشّر كل جسمك بحركات طويلة وقوية، ويطلع الجلد الميت قدّامك." },
   },
   {
     num: "04",
     en: { title: "Rinse & Rebalance", desc: "A warm rinse removes every trace of soap and exfoliated skin, leaving you feeling remarkably clean." },
-    ar: { title: "الشطف وإعادة التوازن", desc: "شطف دافئ يزيل كل آثار الصابون والجلد المتقشر، ليتركك بإحساس نظافة استثنائي." },
+    ar: { title: "الشطف وإعادة التوازن", desc: "شطف دافي يشيل كل أثر للصابون والجلد المتقشّر، ويخليك تحس بنظافة ما جرّبتها قبل." },
   },
   {
     num: "05",
     en: { title: "Nourishing Mask & Oils", desc: "A clay or argan-based treatment is applied to hydrate and soothe the freshly polished skin." },
-    ar: { title: "قناع مغذٍ وزيوت", desc: "يتم تطبيق قناع من الطين أو زيت الأرغان لترطيب وتهدئة البشرة المصقولة حديثاً." },
+    ar: { title: "ماسك مغذّي وزيوت", desc: "نحط لك ماسك طين أو زيت أرغان عشان يرطّب ويهدّي بشرتك بعد التقشير." },
   },
 ];
 
@@ -110,33 +110,33 @@ const t = {
     toggle: "AR",
   },
   ar: {
-    back: "→ العودة إلى صالون منطقة الامتياز",
-    signature: "طقوس مميزة",
+    back: "→ ارجع لصالون منطقة الامتياز",
+    signature: "جلسة مميزة",
     heroTitle: "الحمام المغربي",
-    heroDesc: "طقوس عمرها قرون من البخار والصابون الأسود وتقشير الكيس — واحدة من أكثر التجارب تحولاً في صالون منطقة الامتياز.",
+    heroDesc: "طقس عمره قرون من البخار والصابون البلدي وتقشير الكيسة — من أكثر التجارب اللي تحس فيها بفرق واضح عندنا في صالون منطقة الامتياز.",
     duration: "٤٥–٦٠ دقيقة",
-    frequency: "يُنصح به كل ٢–٤ أسابيع",
+    frequency: "ينصح فيه كل ٢–٤ أسابيع",
     bookHammam: "احجز حمامك",
-    whyKicker: "لماذا يعمل",
-    benefitsTitle: "فوائد الحمام المغربي",
-    benefitsDesc: "أكثر من مجرد تنظيف — الحمام هو تجديد كامل للجسم يترك بشرتك أنعم وعقلك أهدأ وروتين العناية أكثر فعالية.",
+    whyKicker: "ليش يستاهل",
+    benefitsTitle: "فوايد الحمام المغربي",
+    benefitsDesc: "أكثر من مجرد استحمام — الحمام يجدّد جسمك كامل، بشرتك تطلع أنعم، بالك يرتاح، وروتين العناية يبيّن أحلى.",
     experienceKicker: "التجربة",
-    ritualTitle: "الطقوس خطوة بخطوة",
+    ritualTitle: "الجلسة خطوة بخطوة",
     visitKicker: "زيارتك",
-    expectTitle: "ماذا تتوقع",
-    expect1: "يُقدَّم الحمام المغربي في غرفة خاصة بمناخ مضبوط على يد معالجين مدربين. يُوفَّر لك سروال يُستخدم مرة واحدة ومناشف نظيفة — مع احترام كامل للخصوصية.",
-    expect2: "بعد العلاج، خذ بضع دقائق هادئة مع الماء أو الشاي قبل العودة إلى يومك. يشعر كثير من الضيوف بخفة وهدوء ونعومة ملحوظة لأيام بعدها.",
-    prepTitle: "كيف تستعد",
+    expectTitle: "إيش تتوقع",
+    expect1: "نسوي الحمام المغربي في غرفة خاصة بدرجة حرارة مظبوطة، وعلى يد معالجين مدرّبين. نوفر لك شورت يستخدم مرة وحدة ومناشف نضيفة — والخصوصية محفوظة كامل.",
+    expect2: "بعد الجلسة، خذ لك كم دقيقة هادية مع ماء أو شاي قبل ما ترجع لبرّا. كثير من الزباين يقولون إنهم يحسّون بخفّة وراحة ونعومة واضحة لأيام بعدها.",
+    prepTitle: "كيف تجهّز نفسك",
     prep: [
-      "تجنّب الحلاقة في نفس اليوم — التقشير ألطف على البشرة غير المحلوقة.",
-      "اشرب الماء جيداً قبل موعدك.",
-      "تجنّب المرطبات أو الزيوت الثقيلة في يوم الحمام.",
-      "احضر قبل ١٠ دقائق للاستقرار.",
+      "لا تحلق نفس اليوم — التقشير يطلع أحسن على بشرة ما انحلقت.",
+      "اشرب ماي كفاية قبل موعدك.",
+      "تجنّب الكريمات أو الزيوت الثقيلة في يوم الحمام.",
+      "تعال قبل ١٠ دقايق عشان تاخذ راحتك.",
     ],
-    ctaTitle: "هل أنت مستعد لتجربة الحمام؟",
-    ctaDesc: "احجز حمامك المغربي في صالون منطقة الامتياز واكتشف لماذا لا تزال هذه الطقوس القديمة من أكثر العلاجات طلباً.",
+    ctaTitle: "جاهز تجرّب الحمام؟",
+    ctaDesc: "احجز حمامك المغربي عندنا في صالون منطقة الامتياز، واكتشف ليش هالجلسة من أكثر الجلسات اللي يطلبها زباينّا.",
     bookSession: "احجز جلستك",
-    walkins: "نرحب بالزيارات بدون موعد · يُفضّل الحجز",
+    walkins: "نرحّب بدون موعد · يفضّل الحجز",
     toggle: "EN",
   },
 };
@@ -235,12 +235,14 @@ function MoroccanBathPage() {
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={() => setLang(lang === "en" ? "ar" : "en")}
-          className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 text-xs tracking-[0.25em] uppercase hover:opacity-90 transition"
+          className="inline-flex items-center gap-2 bg-background border border-border px-3 py-2 text-xs tracking-[0.2em] uppercase hover:border-primary transition"
           style={{ boxShadow: "var(--shadow-luxe)" }}
           aria-label="Toggle language"
         >
-          <Languages className="w-4 h-4" strokeWidth={1.5} />
-          {L.toggle}
+          <Languages className="w-4 h-4 text-primary" strokeWidth={1.5} />
+          <span className={lang === "ar" ? "text-primary" : "text-muted-foreground"}>ع</span>
+          <span className="text-muted-foreground/40">|</span>
+          <span className={lang === "en" ? "text-primary" : "text-muted-foreground"}>EN</span>
         </button>
       </div>
 

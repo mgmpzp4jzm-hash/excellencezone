@@ -65,12 +65,12 @@ const gallery = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 type Lang = "en" | "ar";
 
 const servicesData = [
-  { icon: Scissors, en: { title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصات دقيقة وتصفيف راقٍ على يد خبراء باستخدام أحدث الأدوات والتقنيات." } },
-  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام الصابون البلدي الأصيل والتقشير بالكيسة. تقشير عميق ومسام نظيفة واسترخاء تام.", link: "/moroccan-bath" } },
-  { icon: Waves, en: { title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج استرخائي", desc: "تقنيات متخصصة لتنشيط الدورة الدموية وتخفيف التوتر واستعادة الإشراق." } },
-  { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والقدمين", desc: "مانيكير وباديكير بعناية فائقة بصحة البشرة ولمستها النهائية." } },
-  { icon: Sparkles, en: { title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالبشرة", desc: "علاجات وجه مخصصة للحفاظ على بشرة منتعشة ومتوازنة ومشرقة." } },
-  { icon: Star, en: { title: "Signature Experience", desc: "Curated multi-service packages designed for the modern gentleman." }, ar: { title: "التجربة المميزة", desc: "باقات خدمات متعددة منسّقة بعناية للرجل العصري." } },
+  { icon: Scissors, en: { title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات." } },
+  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "جلسة استرخاء وتنظيف للجسم بالصابون البلدي الأصلي وتقشير الكيسة. تقشير عميق، مسام نضيفة، وراحة من جد.", link: "/moroccan-bath" } },
+  { icon: Waves, en: { title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج استرخاء", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك." } },
+  { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والرجلين", desc: "مانيكير وباديكير باهتمام بصحة البشرة ولمسة نهائية مرتبة." } },
+  { icon: Sparkles, en: { title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالبشرة", desc: "جلسات وجه مخصّصة لك، تخلي بشرتك منتعشة ومتوازنة ومشرقة." } },
+  { icon: Star, en: { title: "Signature Experience", desc: "Curated multi-service packages designed for the modern gentleman." }, ar: { title: "التجربة المميزة", desc: "باقات خدمات منتقاة بعناية للشاب العصري." } },
 ];
 
 const t = {
@@ -95,22 +95,22 @@ const t = {
   },
   ar: {
     dir: "rtl" as const,
-    nav: { services: "الخدمات", gallery: "المعرض", reviews: "التقييمات", about: "من نحن", contact: "اتصل بنا", book: "احجز" },
+    nav: { services: "الخدمات", gallery: "المعرض", reviews: "آراء الزباين", about: "عنّا", contact: "تواصل معنا", book: "احجز" },
     hero: {
-      tag: "العناية بالرجل · تميّز راسخ",
-      h1a: "حيث يُصاغ", h1b: "الرجل", h1c: "العصري.",
-      sub: "تجربة عناية فاخرة وشاملة للرجال — تتميّز بالحرفية والراحة وأجواء راقية.",
-      cta1: "احجز مقعدك", cta2: "استكشف الخدمات",
-      stat1: "مصفّف خبير", stat2: "تقييم الضيوف",
+      tag: "عناية للرجال · تميّز ما عليه كلام",
+      h1a: "هنا يطلع", h1b: "الرجال", h1c: "بأبهى طلّة.",
+      sub: "تجربة عناية فاخرة وكاملة للشباب — شغل نضيف، جلسة مريحة، وأجواء على الذوق.",
+      cta1: "احجز كرسيك", cta2: "شوف الخدمات",
+      stat1: "حلاقين محترفين", stat2: "تقييم الزباين",
     },
-    about: { tag: "الفلسفة", h: "ملاذٌ مصمَّم للرجل المميّز.", p: "في صالون إكسلنس زون نهتم بأدق التفاصيل — من الترحيب الأول إلى اللحظة الأخيرة أمام المرآة — لنقدم تجربة استثنائية تجمع بين الفخامة والراحة. معاييرنا لا تتزعزع، ورضاك هو المقياس." },
-    services: { tag: "القائمة", h: "خدماتنا المميزة", p: "كل خدمة تُقدَّم بأدوات دقيقة ومنتجات فاخرة وباهتمام لا يُستعجل تستحقه." },
-    gallery: { tag: "المكان", h: "داخل منطقة الامتياز" },
-    contact: { tag: "زرنا", h: "احجز لحظة تميّزك.", p: "الزيارات بدون موعد مرحّب بها. يُفضّل الحجز للتجربة الكاملة.", maps: "موقعنا على خرائط جوجل", hours: "السبت–الخميس · 10:00 — 02:00" },
-    form: { title: "اطلب موعداً", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "مرحباً، أرغب في حجز موعد في صالون إكسلنس زون.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
-    moroccanBath: { tag: "طقس مميز", h: "فوائد الحمام المغربي", p: "أكثر من مجرد تنظيف — الحمام المغربي هو تجديد كامل للجسم يترك بشرتك أنعم، وذهنك أكثر هدوءاً، وروتين العناية أكثر فعالية.", link: "استكشف الطقس كاملاً →" },
-    reviews: { tag: "كلمات الضيوف", h: "محبوبون من عملائنا", rating: "4.9 · 217 تقييم على جوجل" },
-    footer: { rights: "صالون إكسلنس زون", tagline: "بصُنع متقن · للعناية بالرجل" },
+    about: { tag: "فكرتنا", h: "مكان مخصوص للرجّال اللي يبي الأحسن.", p: "في صالون منطقة الامتياز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
+    services: { tag: "المنيو", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة من غير استعجال — تستاهل." },
+    gallery: { tag: "المكان", h: "من داخل منطقة الامتياز" },
+    contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00" },
+    form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة الامتياز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
+    moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
+    reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
+    footer: { rights: "صالون منطقة الامتياز", tagline: "بصنعة وذوق · للعناية بالرجال" },
   },
 };
 
@@ -180,12 +180,12 @@ const reviews = [
 ];
 
 const moroccanBathBenefits = [
-  { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يزيل أسابيع من تراكم الجلد الميت في جلسة واحدة، مكشفاً بشرة جديدة وصحية." } },
-  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نظيفة", desc: "البخار والصابون البلدي ينظفان المسام، مما يساعد على منع التهيجات والشعر النامي تحت الجلد." } },
-  { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أكثر إشراقاً ونعومة", desc: "البشرة المتجددة تحسّن اللون والملمس وامتصاص المنتجات — عنايتك اليومية تصبح أكثر فعالية." } },
-  { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تحسين الدورة الدموية", desc: "الحرارة والمساج ينشطان الدورة الدموية والتصريف اللمفاوي، مما يقلل الانتفاخ والإرهاق." } },
-  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "الاسترخاء وتخفيف التوتر", desc: "وتيرة الطقس البطيئة والحسية تهدئ الجهاز العصبي وتذيب التوتر." } },
-  { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أفضل", desc: "البشرة الملمّعة تجعل القصات، العناية باللحية، والعناية اليومية أكثر فعالية بشكل واضح." } },
+  { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يشيل تراكم الجلد الميت من أسابيع بجلسة وحدة، ويطلّع بشرة جديدة وصحية." } },
+  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نضيفة", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب والشعر الناشب — بشرة أنعم." } },
+  { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أنعم وأكثر إشراق", desc: "البشرة المتجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." } },
+  { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." } },
+  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادئ في الجلسة يهدّي الأعصاب ويفك التكتيف اللي عليك." } },
+  { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
@@ -238,9 +238,11 @@ function HomePage() {
             <a href="#contact" className="hover:text-primary transition">{L.nav.contact}</a>
           </nav>
           <div className="flex items-center gap-3">
-            <button onClick={toggle} aria-label="Toggle language" className="flex items-center gap-1.5 text-xs tracking-[0.25em] uppercase text-muted-foreground hover:text-primary transition">
+            <button onClick={toggle} aria-label="Toggle language" className="flex items-center gap-1.5 text-xs tracking-[0.2em] uppercase border border-border px-3 py-1.5 hover:border-primary hover:text-primary transition">
               <Languages className="w-4 h-4" strokeWidth={1.5} />
-              <span>{lang === "en" ? "AR" : "EN"}</span>
+              <span className={lang === "ar" ? "text-primary" : "text-muted-foreground"}>ع</span>
+              <span className="text-muted-foreground/40">|</span>
+              <span className={lang === "en" ? "text-primary" : "text-muted-foreground"}>EN</span>
             </button>
             <a href="#contact" className="text-xs tracking-[0.25em] uppercase border border-primary text-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition">{L.nav.book}</a>
           </div>
