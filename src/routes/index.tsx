@@ -3,16 +3,6 @@ import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagr
 import { useState } from "react";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
-import img1 from "@/assets/salon/IMG_0473_enhanced.jpg";
-import img2 from "@/assets/salon/IMG_0477_enhanced.jpg";
-import img3 from "@/assets/salon/IMG_0478_enhanced.jpg";
-import img4 from "@/assets/salon/IMG_0479_enhanced.jpg";
-import img5 from "@/assets/salon/IMG_0481_enhanced.jpg";
-import img6 from "@/assets/salon/IMG_0484_enhanced.jpg";
-import img7 from "@/assets/salon/IMG_0488_enhanced.jpg";
-import img8 from "@/assets/salon/IMG_0493_enhanced.jpg";
-import img9 from "@/assets/salon/IMG_0495_enhanced.jpg";
-import img10 from "@/assets/salon/IMG_0499_enhanced.jpg";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -60,7 +50,7 @@ export const Route = createFileRoute("/")({
 });
 
 
-const gallery = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+
 
 type Lang = "en" | "ar";
 
@@ -243,7 +233,6 @@ function HomePage() {
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#services" className="hover:text-primary transition">{L.nav.services}</a>
-            <a href="#gallery" className="hover:text-primary transition">{L.nav.gallery}</a>
             <a href="#reviews" className="hover:text-primary transition">{L.nav.reviews}</a>
             <a href="#about" className="hover:text-primary transition">{L.nav.about}</a>
             <a href="#contact" className="hover:text-primary transition">{L.nav.contact}</a>
@@ -331,33 +320,6 @@ function HomePage() {
           })}
         </div>
       </section>
-
-      {/* GALLERY */}
-      <section id="gallery" className="bg-card border-y border-border">
-        <div className="max-w-7xl mx-auto px-6 py-28">
-          <div className="mb-16">
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.gallery.tag}</p>
-            <h2 className="font-serif text-4xl md:text-5xl">{L.gallery.h}</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {gallery.map((src, i) => (
-              <div
-                key={src}
-                className={`relative overflow-hidden ${i % 5 === 0 ? "row-span-2 aspect-[3/4]" : "aspect-square"}`}
-              >
-                <img
-                  src={src}
-                  alt={`Excellence Zone Salon ${i + 1}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
 
       {/* TEAM */}
       <section id="team" className="max-w-7xl mx-auto px-6 py-28">
