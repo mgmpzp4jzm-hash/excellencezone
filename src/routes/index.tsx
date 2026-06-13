@@ -3,16 +3,6 @@ import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagr
 import { useState } from "react";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
-import img1 from "@/assets/salon/IMG_0473_enhanced.jpg";
-import img2 from "@/assets/salon/IMG_0477_enhanced.jpg";
-import img3 from "@/assets/salon/IMG_0478_enhanced.jpg";
-import img4 from "@/assets/salon/IMG_0479_enhanced.jpg";
-import img5 from "@/assets/salon/IMG_0481_enhanced.jpg";
-import img6 from "@/assets/salon/IMG_0484_enhanced.jpg";
-import img7 from "@/assets/salon/IMG_0488_enhanced.jpg";
-import img8 from "@/assets/salon/IMG_0493_enhanced.jpg";
-import img9 from "@/assets/salon/IMG_0495_enhanced.jpg";
-import img10 from "@/assets/salon/IMG_0499_enhanced.jpg";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
