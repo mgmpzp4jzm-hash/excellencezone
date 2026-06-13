@@ -317,25 +317,6 @@ function HomePage() {
       </section>
 
 
-      {/* CONTACT */}
-      <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
-        <div className="grid lg:grid-cols-2 gap-16">
-          <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.contact.tag}</p>
-            <h2 className="font-serif text-4xl md:text-5xl mb-8">{L.contact.h}</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-10">{L.contact.p}</p>
-            <ul className="space-y-6 text-sm">
-              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
-              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
-              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>{L.contact.hours}</span></li>
-              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span dir="ltr">@excellencezonesalon</span></li>
-            </ul>
-          </div>
-          <BookingForm lang={lang} />
-
-        </div>
-      </section>
-
       {/* MOROCCAN BATH BENEFITS */}
       <section className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 max-w-2xl">
@@ -356,6 +337,25 @@ function HomePage() {
           <Link to="/moroccan-bath" className="inline-block text-xs tracking-[0.25em] uppercase text-primary hover:underline">
             {L.moroccanBath.link}
           </Link>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.contact.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl mb-8">{L.contact.h}</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-10">{L.contact.p}</p>
+            <ul className="space-y-6 text-sm">
+              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
+              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
+              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>{L.contact.hours}</span></li>
+              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span dir="ltr">@excellencezonesalon</span></li>
+            </ul>
+          </div>
+          <BookingForm lang={lang} />
+
         </div>
       </section>
 
