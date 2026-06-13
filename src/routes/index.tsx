@@ -110,6 +110,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [worker, setWorker] = useState("");
   const [datetime, setDatetime] = useState("");
   const [notes, setNotes] = useState("");
   const tr = t[lang].form;
@@ -121,6 +122,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       `${tr.lName}: ${name}`,
       `${tr.lPhone}: ${phone}`,
       service ? `${tr.lService}: ${service}` : "",
+      worker ? `${tr.lWorker}: ${worker}` : "",
       datetime ? `${tr.lDate}: ${datetime}` : "",
       notes ? `${tr.lNotes}: ${notes}` : "",
     ].filter(Boolean);
@@ -138,6 +140,10 @@ function BookingForm({ lang }: { lang: Lang }) {
       <select aria-label={tr.selectService} value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
         {servicesData.map((s) => <option key={s.en.title} value={s[lang].title}>{s[lang].title}</option>)}
+      </select>
+      <select aria-label={tr.selectWorker} value={worker} onChange={(e) => setWorker(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none">
+        <option value="">{tr.selectWorker}</option>
+        {team.map((m) => <option key={m.name.en} value={m.name[lang]}>{m.name[lang]} — {m.role[lang]}</option>)}
       </select>
       <input aria-label="Preferred date and time" type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
       <textarea aria-label={tr.notes} rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
