@@ -238,9 +238,11 @@ function HomePage() {
             <a href="#contact" className="hover:text-primary transition">{L.nav.contact}</a>
           </nav>
           <div className="flex items-center gap-3">
-            <button onClick={toggle} aria-label="Toggle language" className="flex items-center gap-1.5 text-xs tracking-[0.25em] uppercase text-muted-foreground hover:text-primary transition">
+            <button onClick={toggle} aria-label="Toggle language" className="flex items-center gap-1.5 text-xs tracking-[0.2em] uppercase border border-border px-3 py-1.5 hover:border-primary hover:text-primary transition">
               <Languages className="w-4 h-4" strokeWidth={1.5} />
-              <span>{lang === "en" ? "AR" : "EN"}</span>
+              <span className={lang === "ar" ? "text-primary" : "text-muted-foreground"}>ع</span>
+              <span className="text-muted-foreground/40">|</span>
+              <span className={lang === "en" ? "text-primary" : "text-muted-foreground"}>EN</span>
             </button>
             <a href="#contact" className="text-xs tracking-[0.25em] uppercase border border-primary text-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition">{L.nav.book}</a>
           </div>
