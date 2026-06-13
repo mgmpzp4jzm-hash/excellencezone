@@ -114,7 +114,8 @@ const t = {
 const bookingServices: Record<Lang, string[]> = {
   en: [
     "Haircut & Styling",
-    "Beard Grooming & Shaving",
+    "Beard Trimming",
+    "Haircut & Beard",
     "Moroccan Bath — Regular",
     "Moroccan Bath — King",
     "Massage — 45 min",
@@ -125,7 +126,8 @@ const bookingServices: Record<Lang, string[]> = {
   ],
   ar: [
     "قص وتصفيف الشعر",
-    "العناية باللحية والحلاقة",
+    "تشذيب اللحية",
+    "قص الشعر واللحية",
     "الحمام المغربي — عادي",
     "الحمام المغربي — ملكي",
     "مساج — ٤٥ دقيقة",
