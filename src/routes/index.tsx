@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages } from "lucide-react";
 import { useState } from "react";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
@@ -20,31 +20,73 @@ export const Route = createFileRoute("/")({
 
 const gallery = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
 
-const services = [
-  { icon: Scissors, title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." },
-  { icon: Flower2, title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic, natural products." },
-  { icon: Waves, title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." },
-  { icon: Hand, title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." },
-  { icon: Sparkles, title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." },
-  { icon: Star, title: "Signature Experience", desc: "Curated multi-service packages designed for the modern gentleman." },
+type Lang = "en" | "ar";
+
+const servicesData = [
+  { icon: Scissors, en: { title: "Haircuts & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصات دقيقة وتصفيف راقٍ على يد خبراء باستخدام أحدث الأدوات والتقنيات." } },
+  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic, natural products." }, ar: { title: "الحمام المغربي", desc: "طقس استرخاء وتنظيف عميق للجسم باستخدام منتجات طبيعية أصيلة." } },
+  { icon: Waves, en: { title: "Relaxing Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج استرخائي", desc: "تقنيات متخصصة لتنشيط الدورة الدموية وتخفيف التوتر واستعادة الإشراق." } },
+  { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والقدمين", desc: "مانيكير وباديكير بعناية فائقة بصحة البشرة ولمستها النهائية." } },
+  { icon: Sparkles, en: { title: "Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالبشرة", desc: "علاجات وجه مخصصة للحفاظ على بشرة منتعشة ومتوازنة ومشرقة." } },
+  { icon: Star, en: { title: "Signature Experience", desc: "Curated multi-service packages designed for the modern gentleman." }, ar: { title: "التجربة المميزة", desc: "باقات خدمات متعددة منسّقة بعناية للرجل العصري." } },
 ];
 
-function BookingForm() {
+const t = {
+  en: {
+    dir: "ltr" as const,
+    nav: { services: "Services", gallery: "Gallery", reviews: "Reviews", about: "About", contact: "Contact", book: "Book" },
+    hero: {
+      tag: "Men's Grooming · Established Excellence",
+      h1a: "Where the modern", h1b: "gentleman", h1c: "is shaped.",
+      sub: "A luxurious, comprehensive men's grooming experience — defined by craft, comfort, and a sophisticated atmosphere.",
+      cta1: "Reserve your seat", cta2: "Explore services",
+      stat1: "Master Stylists", stat2: "Guest Rated",
+    },
+    about: { tag: "The Philosophy", h: "A sanctuary tailored for the discerning man.", p: "At Excellence Zone Salon we attend to every detail — from the first greeting to the final mirror reveal — ensuring an exceptional experience that combines luxury and comfort. Our standards never waver; your satisfaction is the measure." },
+    services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
+    gallery: { tag: "The Space", h: "Inside Excellence Zone" },
+    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00" },
+    form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lDate: "Date/Time", lNotes: "Notes" },
+    reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
+    footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
+  },
+  ar: {
+    dir: "rtl" as const,
+    nav: { services: "الخدمات", gallery: "المعرض", reviews: "التقييمات", about: "من نحن", contact: "اتصل بنا", book: "احجز" },
+    hero: {
+      tag: "العناية بالرجل · تميّز راسخ",
+      h1a: "حيث يُصاغ", h1b: "الرجل", h1c: "العصري.",
+      sub: "تجربة عناية فاخرة وشاملة للرجال — تتميّز بالحرفية والراحة وأجواء راقية.",
+      cta1: "احجز مقعدك", cta2: "استكشف الخدمات",
+      stat1: "مصفّف خبير", stat2: "تقييم الضيوف",
+    },
+    about: { tag: "الفلسفة", h: "ملاذٌ مصمَّم للرجل المميّز.", p: "في صالون إكسلنس زون نهتم بأدق التفاصيل — من الترحيب الأول إلى اللحظة الأخيرة أمام المرآة — لنقدم تجربة استثنائية تجمع بين الفخامة والراحة. معاييرنا لا تتزعزع، ورضاك هو المقياس." },
+    services: { tag: "القائمة", h: "خدماتنا المميزة", p: "كل خدمة تُقدَّم بأدوات دقيقة ومنتجات فاخرة وباهتمام لا يُستعجل تستحقه." },
+    gallery: { tag: "المكان", h: "داخل إكسلنس زون" },
+    contact: { tag: "زرنا", h: "احجز لحظة تميّزك.", p: "الزيارات بدون موعد مرحّب بها. يُفضّل الحجز للتجربة الكاملة.", maps: "موقعنا على خرائط جوجل", hours: "السبت–الخميس · 10:00 — 02:00" },
+    form: { title: "اطلب موعداً", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "مرحباً، أرغب في حجز موعد في صالون إكسلنس زون.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
+    reviews: { tag: "كلمات الضيوف", h: "محبوبون من عملائنا", rating: "4.9 · 217 تقييم على جوجل" },
+    footer: { rights: "صالون إكسلنس زون", tagline: "بصُنع متقن · للعناية بالرجل" },
+  },
+};
+
+function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
   const [datetime, setDatetime] = useState("");
   const [notes, setNotes] = useState("");
+  const tr = t[lang].form;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const lines = [
-      "Hello, I would like to book an appointment at Excellence Zone Salon.",
-      `Name: ${name}`,
-      `Phone: ${phone}`,
-      service ? `Service: ${service}` : "",
-      datetime ? `Date/Time: ${datetime}` : "",
-      notes ? `Notes: ${notes}` : "",
+      tr.greeting,
+      `${tr.lName}: ${name}`,
+      `${tr.lPhone}: ${phone}`,
+      service ? `${tr.lService}: ${service}` : "",
+      datetime ? `${tr.lDate}: ${datetime}` : "",
+      notes ? `${tr.lNotes}: ${notes}` : "",
     ].filter(Boolean);
     const text = encodeURIComponent(lines.join("\n"));
     window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
@@ -52,25 +94,53 @@ function BookingForm() {
 
   return (
     <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit}>
-      <h3 className="font-serif text-2xl">Request an Appointment</h3>
+      <h3 className="font-serif text-2xl">{tr.title}</h3>
       <div className="grid sm:grid-cols-2 gap-4">
-        <input value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Full name" required />
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Phone" required />
+        <input value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
+        <input value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
       </div>
       <select value={service} onChange={(e) => setService(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
-        <option value="">Select a service</option>
-        {services.map((s) => <option key={s.title} value={s.title}>{s.title}</option>)}
+        <option value="">{tr.selectService}</option>
+        {servicesData.map((s) => <option key={s.en.title} value={s[lang].title}>{s[lang].title}</option>)}
       </select>
       <input type="datetime-local" value={datetime} onChange={(e) => setDatetime(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
-      <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder="Notes (optional)" />
-      <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">Send Request</button>
+      <textarea rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.notes} />
+      <button type="submit" className="w-full bg-primary text-primary-foreground py-4 text-xs tracking-[0.3em] uppercase hover:opacity-90 transition">{tr.submit}</button>
     </form>
   );
 }
 
+const reviews = [
+  { name: "Ahmed", time: "10 months ago", text: "My experience was great at the salon. I got a hair cut and a beard trim. In addition to, face mask and hair mask. Sherif was a real friendly and professional guy. I really appreciate him and his work. Thank you sherif." },
+  { name: "Faisal Bakhsh", time: "3 months ago", text: "Soufiane did a really good job — very good haircut." },
+  { name: "Omar", time: "3 months ago", text: "Suffyan cut my hair perfectly. Will definitely go back again." },
+  { name: "Fahad Alalmai", time: "3 months ago", text: "Safwan the barber is soo good, he cut my hair good — I give him 5 stars." },
+  { name: "sultan alghamdi", time: "5 months ago", text: "It was an excellent experience. The staff is respectful and helpful. Sayed was my hairstylist and he was great." },
+  { name: "Abdulrahman Aljehani", time: "3 months ago", text: "Soufyan is really skillful and served us in an amazing manner — I really appreciate such a good treat!" },
+  { name: "Hamza Alzaini", time: "3 months ago", text: "Very nice and good. I would like to thank my barber Sufyan — he is the best!" },
+  { name: "Khalid Salman", time: "3 months ago", text: "Safwan is really good with cutting hair and I am one of his customers. He is very kind and helpful." },
+  { name: "Youssif Abdellatif", time: "3 months ago", text: "Really nice place. Soufiane cut my hair and as always it turned out very good. Highly recommend visiting." },
+  { name: "Rami Louai", time: "3 months ago", text: "Soufiane cut my hair and tbh I never felt more confident before — the place is really good. Highly recommended." },
+  { name: "Dawood", time: "3 months ago", text: "Amazing service and very happy with my haircut. Sufyan is a very skilled and professional barber. Would definitely go again and definitely recommend!" },
+  { name: "Mahmoud Alrifaiey", time: "4 months ago", text: "Recently visited this place and had a great experience. Special thanks to Sofyan — he's one of the best barbers, very professional, and always takes great care of his customers. Highly recommended!" },
+  { name: "Amjad bukary", time: "4 months ago", text: "Sofyan is the best barber in Saudi. Very clean and professional barber shop. Hundred percent would recommend." },
+  { name: "zumst y", time: "4 months ago", text: "Sofian is a really skilled barber who cares about his work and pays attention to the small details. You can tell he takes pride in what he does — highly recommend him." },
+  { name: "fofo", time: "3 months ago", text: "Excellent place. My barber is Sofian. He really knows what he is doing — an expert in his field, with nice and gentle hands." },
+  { name: "Jamal Abuzeid", time: "3 months ago", text: "Soufiane is a very good barber and has a good attitude." },
+  { name: "Abdullah Alhout", time: "10 months ago", text: "I went here twice and one time with my 2 kids. They were lovely with them. Very elegant place, clean and super amazing team working there. I really loved it and wish them all the best." },
+  { name: "Yazan Alrifaiey", time: "3 months ago", text: "Sufyan — best barber." },
+  { name: "R Perera", time: "6 months ago", text: "Great service 👏" },
+  { name: "F 92", time: "11 months ago", text: "Saif, not a mistake." },
+  { name: "Ammar Bawedan", time: "a year ago", text: "10/10 👏" },
+];
+
 function HomePage() {
+  const [lang, setLang] = useState<Lang>("en");
+  const L = t[lang];
+  const toggle = () => setLang(lang === "en" ? "ar" : "en");
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div dir={L.dir} className="min-h-screen bg-background text-foreground font-sans">
       {/* NAV */}
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -79,13 +149,19 @@ function HomePage() {
             <span className="text-foreground tracking-[0.3em] text-xs uppercase">Zone</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <a href="#services" className="hover:text-primary transition">Services</a>
-            <a href="#gallery" className="hover:text-primary transition">Gallery</a>
-            <a href="#reviews" className="hover:text-primary transition">Reviews</a>
-            <a href="#about" className="hover:text-primary transition">About</a>
-            <a href="#contact" className="hover:text-primary transition">Contact</a>
+            <a href="#services" className="hover:text-primary transition">{L.nav.services}</a>
+            <a href="#gallery" className="hover:text-primary transition">{L.nav.gallery}</a>
+            <a href="#reviews" className="hover:text-primary transition">{L.nav.reviews}</a>
+            <a href="#about" className="hover:text-primary transition">{L.nav.about}</a>
+            <a href="#contact" className="hover:text-primary transition">{L.nav.contact}</a>
           </nav>
-          <a href="#contact" className="text-xs tracking-[0.25em] uppercase border border-primary text-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition">Book</a>
+          <div className="flex items-center gap-3">
+            <button onClick={toggle} aria-label="Toggle language" className="flex items-center gap-1.5 text-xs tracking-[0.25em] uppercase text-muted-foreground hover:text-primary transition">
+              <Languages className="w-4 h-4" strokeWidth={1.5} />
+              <span>{lang === "en" ? "AR" : "EN"}</span>
+            </button>
+            <a href="#contact" className="text-xs tracking-[0.25em] uppercase border border-primary text-primary px-4 py-2 hover:bg-primary hover:text-primary-foreground transition">{L.nav.book}</a>
+          </div>
         </div>
       </header>
 
@@ -97,26 +173,24 @@ function HomePage() {
         </div>
         <div className="relative max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-12 gap-12 items-end w-full">
           <div className="lg:col-span-8">
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-6">Men's Grooming · Established Excellence</p>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-6">{L.hero.tag}</p>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight">
-              Where the modern <em className="not-italic" style={{ backgroundImage: "var(--gradient-gold)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>gentleman</em> is shaped.
+              {L.hero.h1a} <em className="not-italic" style={{ backgroundImage: "var(--gradient-gold)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>{L.hero.h1b}</em> {L.hero.h1c}
             </h1>
-            <p className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed">
-              A luxurious, comprehensive men's grooming experience — defined by craft, comfort, and a sophisticated atmosphere.
-            </p>
+            <p className="mt-8 max-w-xl text-lg text-muted-foreground leading-relaxed">{L.hero.sub}</p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#contact" className="bg-primary text-primary-foreground px-8 py-4 text-sm tracking-[0.25em] uppercase hover:opacity-90 transition" style={{ boxShadow: "var(--shadow-luxe)" }}>Reserve your seat</a>
-              <a href="#services" className="border border-border text-foreground px-8 py-4 text-sm tracking-[0.25em] uppercase hover:border-primary hover:text-primary transition">Explore services</a>
+              <a href="#contact" className="bg-primary text-primary-foreground px-8 py-4 text-sm tracking-[0.25em] uppercase hover:opacity-90 transition" style={{ boxShadow: "var(--shadow-luxe)" }}>{L.hero.cta1}</a>
+              <a href="#services" className="border border-border text-foreground px-8 py-4 text-sm tracking-[0.25em] uppercase hover:border-primary hover:text-primary transition">{L.hero.cta2}</a>
             </div>
           </div>
           <div className="lg:col-span-4 hidden lg:flex flex-col gap-6 text-sm">
-            <div className="border-l-2 border-primary pl-4">
+            <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
               <p className="text-3xl font-serif text-primary">10+</p>
-              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Master Stylists</p>
+              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat1}</p>
             </div>
-            <div className="border-l-2 border-primary pl-4">
+            <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
               <p className="text-3xl font-serif text-primary">4.9★</p>
-              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">Guest Rated</p>
+              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat2}</p>
             </div>
           </div>
         </div>
@@ -126,12 +200,10 @@ function HomePage() {
       <section id="about" className="border-y border-border bg-card">
         <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">The Philosophy</p>
-            <h2 className="font-serif text-4xl md:text-5xl leading-tight">A sanctuary tailored for the discerning man.</h2>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.about.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.about.h}</h2>
           </div>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            At Excellence Zone Salon we attend to every detail — from the first greeting to the final mirror reveal — ensuring an exceptional experience that combines luxury and comfort. Our standards never waver; your satisfaction is the measure.
-          </p>
+          <p className="text-muted-foreground text-lg leading-relaxed">{L.about.p}</p>
         </div>
       </section>
 
@@ -139,17 +211,17 @@ function HomePage() {
       <section id="services" className="max-w-7xl mx-auto px-6 py-28">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
           <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">The Menu</p>
-            <h2 className="font-serif text-4xl md:text-5xl">Signature Services</h2>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.services.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl">{L.services.h}</h2>
           </div>
-          <p className="max-w-md text-muted-foreground">Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve.</p>
+          <p className="max-w-md text-muted-foreground">{L.services.p}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {services.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-background p-10 group hover:bg-card transition-colors">
+          {servicesData.map(({ icon: Icon, ...s }) => (
+            <div key={s.en.title} className="bg-background p-10 group hover:bg-card transition-colors">
               <Icon className="w-8 h-8 text-primary mb-6" strokeWidth={1.2} />
-              <h3 className="font-serif text-2xl mb-3">{title}</h3>
-              <p className="text-muted-foreground leading-relaxed text-sm">{desc}</p>
+              <h3 className="font-serif text-2xl mb-3">{s[lang].title}</h3>
+              <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
             </div>
           ))}
         </div>
@@ -159,8 +231,8 @@ function HomePage() {
       <section id="gallery" className="bg-card border-y border-border">
         <div className="max-w-7xl mx-auto px-6 py-28">
           <div className="mb-16">
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">The Space</p>
-            <h2 className="font-serif text-4xl md:text-5xl">Inside Excellence Zone</h2>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.gallery.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl">{L.gallery.h}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {gallery.map((src, i) => (
@@ -185,17 +257,17 @@ function HomePage() {
       <section id="contact" className="max-w-7xl mx-auto px-6 py-28">
         <div className="grid lg:grid-cols-2 gap-16">
           <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">Visit Us</p>
-            <h2 className="font-serif text-4xl md:text-5xl mb-8">Book your moment of excellence.</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-10">Walk-ins welcome. Reservations recommended for the full signature experience.</p>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.contact.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl mb-8">{L.contact.h}</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-10">{L.contact.p}</p>
             <ul className="space-y-6 text-sm">
-              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">Find us on Google Maps</a></li>
-              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" className="hover:text-primary transition">+966 59 967 6709</a></li>
-              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>Sat–Thu · 10:00 — 02:00</span></li>
-              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>@excellencezonesalon</span></li>
+              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
+              <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
+              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>{L.contact.hours}</span></li>
+              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span dir="ltr">@excellencezonesalon</span></li>
             </ul>
           </div>
-          <BookingForm />
+          <BookingForm lang={lang} />
 
         </div>
       </section>
@@ -204,49 +276,27 @@ function HomePage() {
       <section id="reviews" className="max-w-7xl mx-auto px-6 py-28">
         <div className="mb-16 flex items-end justify-between flex-wrap gap-6">
           <div>
-            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">Guest Words</p>
-            <h2 className="font-serif text-4xl md:text-5xl">Loved by our clients</h2>
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.reviews.tag}</p>
+            <h2 className="font-serif text-4xl md:text-5xl">{L.reviews.h}</h2>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <div className="flex gap-1 text-primary">
               {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-4 h-4 fill-primary" strokeWidth={0} />)}
               <Star className="w-4 h-4 fill-primary opacity-40" strokeWidth={0} />
             </div>
-            <span className="tracking-widest uppercase text-xs">4.9 · 217 Google reviews</span>
+            <span className="tracking-widest uppercase text-xs">{L.reviews.rating}</span>
           </div>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {[
-            { name: "Ahmed", time: "10 months ago", text: "My experience was great at the salon. I got a hair cut and a beard trim. In addition to, face mask and hair mask. Sherif was a real friendly and professional guy. I really appreciate him and his work. Thank you sherif." },
-            { name: "Faisal Bakhsh", time: "3 months ago", text: "Soufiane did a really good job — very good haircut." },
-            { name: "Omar", time: "3 months ago", text: "Suffyan cut my hair perfectly. Will definitely go back again." },
-            { name: "Fahad Alalmai", time: "3 months ago", text: "Safwan the barber is soo good, he cut my hair good — I give him 5 stars." },
-            { name: "sultan alghamdi", time: "5 months ago", text: "It was an excellent experience. The staff is respectful and helpful. Sayed was my hairstylist and he was great." },
-            { name: "Abdulrahman Aljehani", time: "3 months ago", text: "Soufyan is really skillful and served us in an amazing manner — I really appreciate such a good treat!" },
-            { name: "Hamza Alzaini", time: "3 months ago", text: "Very nice and good. I would like to thank my barber Sufyan — he is the best!" },
-            { name: "Khalid Salman", time: "3 months ago", text: "Safwan is really good with cutting hair and I am one of his customers. He is very kind and helpful." },
-            { name: "Youssif Abdellatif", time: "3 months ago", text: "Really nice place. Soufiane cut my hair and as always it turned out very good. Highly recommend visiting." },
-            { name: "Rami Louai", time: "3 months ago", text: "Soufiane cut my hair and tbh I never felt more confident before — the place is really good. Highly recommended." },
-            { name: "Dawood", time: "3 months ago", text: "Amazing service and very happy with my haircut. Sufyan is a very skilled and professional barber. Would definitely go again and definitely recommend!" },
-            { name: "Mahmoud Alrifaiey", time: "4 months ago", text: "Recently visited this place and had a great experience. Special thanks to Sofyan — he's one of the best barbers, very professional, and always takes great care of his customers. Highly recommended!" },
-            { name: "Amjad bukary", time: "4 months ago", text: "Sofyan is the best barber in Saudi. Very clean and professional barber shop. Hundred percent would recommend." },
-            { name: "zumst y", time: "4 months ago", text: "Sofian is a really skilled barber who cares about his work and pays attention to the small details. You can tell he takes pride in what he does — highly recommend him." },
-            { name: "fofo", time: "3 months ago", text: "Excellent place. My barber is Sofian. He really knows what he is doing — an expert in his field, with nice and gentle hands." },
-            { name: "Jamal Abuzeid", time: "3 months ago", text: "Soufiane is a very good barber and has a good attitude." },
-            { name: "Abdullah Alhout", time: "10 months ago", text: "I went here twice and one time with my 2 kids. They were lovely with them. Very elegant place, clean and super amazing team working there. I really loved it and wish them all the best." },
-            { name: "Yazan Alrifaiey", time: "3 months ago", text: "Sufyan — best barber." },
-            { name: "R Perera", time: "6 months ago", text: "Great service 👏" },
-            { name: "F 92", time: "11 months ago", text: "Saif, not a mistake." },
-            { name: "Ammar Bawedan", time: "a year ago", text: "10/10 👏" },
-          ].map((r) => (
+          {reviews.map((r) => (
             <article key={r.name + r.text.slice(0, 20)} className="bg-background p-8 flex flex-col gap-4 hover:bg-card transition-colors">
               <div className="flex gap-1 text-primary">
                 {Array.from({ length: 4 }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-primary" strokeWidth={0} />)}
                 <Star className="w-3.5 h-3.5 fill-primary opacity-40" strokeWidth={0} />
               </div>
-              <p className="text-sm leading-relaxed text-foreground/90 flex-1">"{r.text}"</p>
+              <p className="text-sm leading-relaxed text-foreground/90 flex-1" dir="ltr">"{r.text}"</p>
               <div className="pt-4 border-t border-border">
-                <p className="font-serif text-base">{r.name}</p>
+                <p className="font-serif text-base" dir="ltr">{r.name}</p>
                 <p className="text-xs text-muted-foreground tracking-widest uppercase mt-1">{r.time}</p>
               </div>
             </article>
@@ -257,8 +307,8 @@ function HomePage() {
       {/* FOOTER */}
       <footer className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground tracking-widest uppercase">
-          <p>© {new Date().getFullYear()} Excellence Zone Salon</p>
-          <p>Crafted with care · Men's Grooming</p>
+          <p>© {new Date().getFullYear()} {L.footer.rights}</p>
+          <p>{L.footer.tagline}</p>
         </div>
       </footer>
     </div>
