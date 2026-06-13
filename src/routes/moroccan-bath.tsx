@@ -268,7 +268,7 @@ function MoroccanBathPage() {
 
       {/* What to Expect */}
       <section className="max-w-7xl mx-auto px-6 py-28">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-3xl mx-auto">
           <div>
             <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">
               Your Visit
