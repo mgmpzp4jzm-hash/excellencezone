@@ -147,6 +147,22 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
   ],
 };
 
+// Which workers (by English name) can perform each service (keyed by English service name)
+const serviceWorkers: Record<string, string[]> = {
+  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Perm — Long Lasting": ["Yassine"],
+  "Perm — Classic": ["Yassine"],
+  "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
+  "Moroccan Bath — King": ["Rasheed 🇲🇦"],
+  "Massage — Classic": ["Rasheed 🇲🇦"],
+  "Massage — King": ["Rasheed 🇲🇦"],
+  "Manicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Pedicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Facial & Skin Care": ["Rasheed 🇲🇦"],
+};
+
 // Shop hours: 10:00 → 02:00 next day (16 hours). Slots step by the service duration.
 const OPEN_MIN = 10 * 60;
 const CLOSE_MIN = OPEN_MIN + 16 * 60;
