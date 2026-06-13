@@ -311,16 +311,6 @@ function MoroccanBathPage() {
               </ul>
             </div>
           </div>
-          <div className="relative aspect-[4/5] overflow-hidden">
-            <img
-              src={bathImg}
-              alt="Moroccan Bath preparation and treatment at Excellence Zone Salon"
-              width={768}
-              height={960}
-              loading="lazy"
-              className="w-full h-full object-cover"
-            />
-          </div>
         </div>
       </section>
 
