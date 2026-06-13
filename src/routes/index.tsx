@@ -118,6 +118,8 @@ const bookingServices: Record<Lang, string[]> = {
     "Haircut & Styling",
     "Beard Trimming",
     "Haircut & Beard",
+    "Perm — Long Lasting",
+    "Perm — Regular",
     "Moroccan Bath — Regular",
     "Moroccan Bath — King",
     "Massage — Regular",
