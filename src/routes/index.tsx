@@ -87,6 +87,7 @@ const t = {
     about: { tag: "The Philosophy", h: "A sanctuary tailored for the discerning man.", p: "At Excellence Zone Salon we attend to every detail — from the first greeting to the final mirror reveal — ensuring an exceptional experience that combines luxury and comfort. Our standards never waver; your satisfaction is the measure." },
     services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
+    team: { tag: "The Team", h: "Meet Our Specialists", p: "A dedicated team of barbers and therapists, each with their own craft." },
     contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00" },
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
@@ -106,6 +107,7 @@ const t = {
     about: { tag: "فكرتنا", h: "مكان مخصوص للرجّال اللي يبي الأحسن.", p: "في صالون منطقة الامتياز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
     services: { tag: "المنيو", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة من غير استعجال — تستاهل." },
     gallery: { tag: "المكان", h: "من داخل منطقة الامتياز" },
+    team: { tag: "الفريق", h: "تعرّف على فريقنا", p: "فريق متخصص من الحلاقين والمعالجين، كل واحد محترف في شغله." },
     contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00" },
     form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة الامتياز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
     moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
@@ -186,6 +188,15 @@ const moroccanBathBenefits = [
   { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." } },
   { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادئ في الجلسة يهدّي الأعصاب ويفك التكتيف اللي عليك." } },
   { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." } },
+];
+
+const team = [
+  { name: { en: "Rachid", ar: "رشيد" }, role: { en: "Moroccan Bath · Manicure · Pedicure", ar: "الحمام المغربي · المانيكير · الباديكير" } },
+  { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Saber", ar: "صابر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
@@ -346,6 +357,27 @@ function HomePage() {
         </div>
       </section>
 
+
+
+      {/* TEAM */}
+      <section id="team" className="max-w-7xl mx-auto px-6 py-28">
+        <div className="mb-16 max-w-2xl">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4">{L.team.tag}</p>
+          <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.team.h}</h2>
+          <p className="mt-4 text-muted-foreground leading-relaxed">{L.team.p}</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          {team.map((m) => (
+            <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
+              <p className="text-primary/40 font-serif text-5xl leading-none mb-6">
+                {m.name[lang].charAt(0)}
+              </p>
+              <h3 className="font-serif text-2xl mb-2">{m.name[lang]}</h3>
+              <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* MOROCCAN BATH BENEFITS */}
       <MoroccanBathBenefits globalLang={lang} />
