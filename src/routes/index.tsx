@@ -194,8 +194,20 @@ function BookingForm({ lang }: { lang: Lang }) {
   const fetchTaken = useServerFn(getTakenBookings);
   const createBookingFn = useServerFn(createBooking);
 
-  const selectedService = bookingServices[lang].find((s) => s.value === service);
+  const serviceIdx = bookingServices[lang].findIndex((s) => s.value === service);
+  const selectedService = serviceIdx >= 0 ? bookingServices[lang][serviceIdx] : undefined;
+  const serviceEn = serviceIdx >= 0 ? bookingServices.en[serviceIdx].value : "";
+  const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
+  const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const slots = buildSlots(selectedService?.duration ?? 0);
+
+  // Clear worker if it's not allowed for the current service
+  useEffect(() => {
+    if (!service || !worker) return;
+    const isAllowed = availableTeam.some((m) => m.name[lang] === worker);
+    if (!isAllowed) setWorker("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service]);
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
