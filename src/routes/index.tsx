@@ -106,6 +106,31 @@ const t = {
   },
 };
 
+const bookingServices: Record<Lang, string[]> = {
+  en: [
+    "Haircut",
+    "Beard Care",
+    "Skin Care",
+    "Moroccan Bath — Regular",
+    "Moroccan Bath — King",
+    "Massage — 45 min",
+    "Massage — 1 hour",
+    "Manicure",
+    "Pedicure",
+  ],
+  ar: [
+    "قص شعر",
+    "العناية باللحية",
+    "العناية بالبشرة",
+    "الحمام المغربي — عادي",
+    "الحمام المغربي — ملكي",
+    "مساج — ٤٥ دقيقة",
+    "مساج — ساعة",
+    "مانيكير",
+    "باديكير",
+  ],
+};
+
 function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
