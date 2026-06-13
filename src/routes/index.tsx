@@ -57,7 +57,7 @@ type Lang = "en" | "ar";
 const servicesData = [
   { icon: Scissors, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques." }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات." } },
   { icon: Star, en: { title: "Beard Grooming & Shaving", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape." }, ar: { title: "العناية باللحية والحلاقة", desc: "تشذيب اللحية، حلاقة بالمنشفة الساخنة، وتفصيل على شكل وجهك." } },
-  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "جلسة استرخاء وتنظيف للجسم بالصابون البلدي الأصلي وتقشير الكيسة. تقشير عميق، مسام نضيفة، وراحة من جد.", link: "/moroccan-bath" } },
+  { icon: Flower2, en: { title: "Moroccan Bath", desc: "A deeply cleansing, relaxing body ritual using authentic black soap and kessa exfoliation. Deep exfoliation, clearer pores, and total relaxation — Moroccan bath in the hands of a Moroccan.", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي", desc: "جلسة استرخاء وتنظيف للجسم بالصابون البلدي الأصلي وتقشير الكيسة. تقشير عميق، مسام نضيفة، وراحة من جد — الحمام المغربي على يد مغربي أصيل.", link: "/moroccan-bath" } },
   { icon: Waves, en: { title: "Massage", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance." }, ar: { title: "مساج", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك." } },
   { icon: Hand, en: { title: "Hand & Foot Care", desc: "Manicures and pedicures with meticulous attention to skin health and finish." }, ar: { title: "العناية باليدين والرجلين", desc: "مانيكير وباديكير باهتمام بصحة البشرة ولمسة نهائية مرتبة." } },
   { icon: Sparkles, en: { title: "Facial & Skin Care", desc: "Tailored facial treatments to keep skin fresh, balanced, and radiant." }, ar: { title: "العناية بالوجه والبشرة", desc: "جلسات وجه مخصّصة لك، تخلي بشرتك منتعشة ومتوازنة ومشرقة." } },
@@ -187,7 +187,7 @@ const moroccanBathBenefits = [
 ];
 
 const team = [
-  { name: { en: "Rachid", ar: "رشيد" }, role: { en: "Moroccan Bath · Manicure · Pedicure", ar: "الحمام المغربي · المانيكير · الباديكير" } },
+  { name: { en: "Rachid", ar: "رشيد" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
   { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
