@@ -190,6 +190,15 @@ const moroccanBathBenefits = [
   { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." } },
 ];
 
+const team = [
+  { name: { en: "Rachid", ar: "رشيد" }, role: { en: "Moroccan Bath · Manicure · Pedicure", ar: "الحمام المغربي · المانيكير · الباديكير" } },
+  { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Saber", ar: "صابر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+];
+
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
   const B = t[globalLang].moroccanBath;
 
