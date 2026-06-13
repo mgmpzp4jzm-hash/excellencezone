@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { createBooking, getTakenBookings } from "@/lib/bookings.functions";
+import { toast } from "sonner";
 
 import heroImg from "@/assets/salon/hero-shower.jpg.asset.json";
 
