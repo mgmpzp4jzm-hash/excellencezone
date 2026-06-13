@@ -165,4 +165,10 @@
   [dir="rtl"] label {
     line-height: 1.8;
   }
+  /* Arabic letters must stay connected — disable letter-spacing and uppercase in RTL */
+  [dir="rtl"] * {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
 }
+
