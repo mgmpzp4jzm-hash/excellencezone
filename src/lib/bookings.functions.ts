@@ -58,4 +58,32 @@ export const createBooking = createServerFn({ method: "POST" })
     // Try each eligible worker until one accepts (exclusion constraint enforces no overlap)
     let lastErr: string | null = null;
     for (const worker of data.workers) {
-      const { error } = await supabaseAdmin.from
+      const { data: inserted, error } = await supabaseAdmin
+        .from("bookings")
+        .insert({
+          service: data.service,
+          worker,
+          start_at: start.toISOString(),
+          end_at: end.toISOString(),
+          customer_name: data.customerName,
+          customer_phone: data.customerPhone,
+          notes: data.notes ?? null,
+        })
+        .select("id, worker, start_at, end_at")
+        .single();
+      if (!error && inserted) {
+        return {
+          ok: true as const,
+          booking: {
+            id: inserted.id,
+            worker: inserted.worker,
+            startAt: inserted.start_at,
+            endAt: inserted.end_at,
+          },
+        };
+      }
+      lastErr = error?.message ?? "Unknown error";
+    }
+    return { ok: false as const, error: lastErr ?? "No worker available" };
+  });
+
