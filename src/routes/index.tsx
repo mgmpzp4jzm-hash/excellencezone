@@ -343,7 +343,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
         <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={timeDisabled} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
           <option value="">{timePlaceholder}</option>
-          {slots.map((s) => {
+          {visibleSlots.map((s) => {
             const h = parseInt(s.slice(0, 2), 10);
             const base = h >= 24 ? `${String(h - 24).padStart(2, "0")}:${s.slice(3)} (+1)` : s;
             const taken = isTaken(s);
