@@ -213,6 +213,13 @@ function BookingForm({ lang }: { lang: Lang }) {
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const workerNames = availableTeam.map((m) => m.name[lang]);
   const slots = buildSlots(selectedService?.duration ?? 0);
+  const isFridayDate = date ? isFriday(date) : false;
+  const visibleSlots = isFridayDate
+    ? slots.filter((s) => {
+        const [hh, mm] = s.split(":").map(Number);
+        return hh < 10 || hh * 60 + mm >= FRIDAY_CUTOFF_MIN;
+      })
+    : slots;
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
