@@ -184,6 +184,14 @@ function buildSlots(duration: number): string[] {
   return slots;
 }
 
+const FRIDAY_CUTOFF_MIN = 14 * 60 + 30; // 14:30
+
+function isFriday(dateStr: string): boolean {
+  if (!dateStr) return false;
+  const [Y, M, D] = dateStr.split("-").map(Number);
+  return new Date(Y, M - 1, D).getDay() === 5;
+}
+
 function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
