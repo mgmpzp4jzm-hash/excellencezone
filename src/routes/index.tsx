@@ -266,7 +266,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   // Clear time when it becomes invalid for new service/availability
   useEffect(() => {
     if (!time) return;
-    if (!slots.includes(time) || isTaken(time)) setTime("");
+    if (!visibleSlots.includes(time) || isTaken(time)) setTime("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [service, date, taken]);
 
