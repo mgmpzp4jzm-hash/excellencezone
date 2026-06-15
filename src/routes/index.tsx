@@ -293,7 +293,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         `${tr.lName}: ${name}`,
         `${tr.lPhone}: ${phone}`,
         `${tr.lService}: ${service}`,
-        `${tr.lWorker}: ${res.booking.worker}`,
+        `${tr.lWorker}: ${res.worker}`,
         `${tr.lDate}: ${datetime}`,
         notes ? `${tr.lNotes}: ${notes}` : "",
       ].filter(Boolean);
