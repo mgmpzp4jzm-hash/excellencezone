@@ -45,25 +45,19 @@ export const createBooking = createServerFn({ method: "POST" })
     }
 
     // Convert to Saudi time (UTC+3)
-    const SAUDI_OFFSET_MS = 3 * 60 * 60 * 1000;
-    const saudiTime = new Date(start.getTime() + SAUDI_OFFSET_MS);
+    const saudiTime = new Date(start.getTime() + 3 * 60 * 60 * 1000);
     const day = saudiTime.getUTCDay();
     const totalMinutes = saudiTime.getUTCHours() * 60 + saudiTime.getUTCMinutes();
 
-    // Business hours in Saudi time:
-    // Friday: 14:30 – 02:00 (Saturday)
-    // All other days: 10:00 – 02:00 (next day)
-    const isFriday = day === 5;
-    const windowStart = isFriday ? 14 * 60 + 30 : 10 * 60;
+    // Friday: 14:30 – 02:00 (Saturday). All other days: 10:00 – 02:00 (next day)
+    const windowStart = day === 5 ? 14 * 60 + 30 : 10 * 60;
     const isEarlyMorning = totalMinutes < 2 * 60;
-    const outsideHours = !isEarlyMorning && totalMinutes < windowStart;
-    if (outsideHours) {
+    if (!isEarlyMorning && totalMinutes < windowStart) {
       return { ok: false as const, error: "OUTSIDE_HOURS" };
     }
 
     const end = new Date(start.getTime() + data.durationMin * 60_000);
 
-    // Try each eligible worker until one accepts (exclusion constraint enforces no overlap)
     let lastErr: string | null = null;
     for (const worker of data.workers) {
       const { error } = await supabaseAdmin.from("bookings").insert({
