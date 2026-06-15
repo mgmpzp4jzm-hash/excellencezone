@@ -39,6 +39,25 @@ export const createBooking = createServerFn({ method: "POST" })
     if (isNaN(start.getTime())) {
       return { ok: false as const, error: "Invalid start time" };
     }
+
+    // Business hours restriction:
+    // Friday: 14:30 – 02:00 (Saturday)
+    // All other days: 10:00 – 02:00 (next day)
+    const day = start.getDay();
+    const totalMinutes = start.getHours() * 60 + start.getMinutes();
+    const isFriday = day === 5;
+    const windowStart = isFriday ? 14 * 60 + 30 : 10 * 60; // 14:30 on Friday, 10:00 otherwise
+    const windowEnd = 2 * 60; // 02:00 — applies to the "next day" early morning slots
+
+    // Early morning slots (00:00–02:00) are the tail end of the previous day's window
+    const isEarlyMorning = totalMinutes < windowEnd;
+    const isTooEarly = !isEarlyMorning && totalMinutes < windowStart;
+    const isTooLate = !isEarlyMorning && totalMinutes >= 24 * 60; // never hits but guards intent
+
+    if (isTooEarly || isTooLate) {
+      return { ok: false as const, error: "OUTSIDE_HOURS" };
+    }
+
     const end = new Date(start.getTime() + data.durationMin * 60_000);
 
     // Try each eligible worker until one accepts (exclusion constraint enforces no overlap)
