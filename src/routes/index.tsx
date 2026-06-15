@@ -184,6 +184,14 @@ function buildSlots(duration: number): string[] {
   return slots;
 }
 
+const FRIDAY_CUTOFF_MIN = 14 * 60 + 30; // 14:30
+
+function isFriday(dateStr: string): boolean {
+  if (!dateStr) return false;
+  const [Y, M, D] = dateStr.split("-").map(Number);
+  return new Date(Y, M - 1, D).getDay() === 5;
+}
+
 function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -205,6 +213,13 @@ function BookingForm({ lang }: { lang: Lang }) {
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const workerNames = availableTeam.map((m) => m.name[lang]);
   const slots = buildSlots(selectedService?.duration ?? 0);
+  const isFridayDate = date ? isFriday(date) : false;
+  const visibleSlots = isFridayDate
+    ? slots.filter((s) => {
+        const [hh, mm] = s.split(":").map(Number);
+        return hh < 10 || hh * 60 + mm >= FRIDAY_CUTOFF_MIN;
+      })
+    : slots;
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
@@ -251,7 +266,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   // Clear time when it becomes invalid for new service/availability
   useEffect(() => {
     if (!time) return;
-    if (!slots.includes(time) || isTaken(time)) setTime("");
+    if (!visibleSlots.includes(time) || isTaken(time)) setTime("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [service, date, taken]);
 
@@ -328,7 +343,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
         <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={timeDisabled} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
           <option value="">{timePlaceholder}</option>
-          {slots.map((s) => {
+          {visibleSlots.map((s) => {
             const h = parseInt(s.slice(0, 2), 10);
             const base = h >= 24 ? `${String(h - 24).padStart(2, "0")}:${s.slice(3)} (+1)` : s;
             const taken = isTaken(s);
