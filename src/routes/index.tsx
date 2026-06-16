@@ -66,12 +66,13 @@ const servicesData: Array<{
   { icon: Scissors, price: 45, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques.", duration: "40 min" }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات.", duration: "٤٠ دقيقة" } },
   { icon: Star, price: 35, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية، حلاقة بالمنشفة الساخنة، وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
   { icon: Scissors, price: 65, en: { title: "Haircut & Beard", desc: "The full grooming package — a fresh cut paired with a sharp beard shape-up and shave.", duration: "1 hour" }, ar: { title: "قص الشعر واللحية", desc: "الباقة الكاملة — قصّة شعر نظيفة مع تشذيب اللحية وحلاقة مرتبة.", duration: "ساعة" } },
+  { icon: Sparkles, en: { title: "Braids", desc: "Stylish braiding tailored to your hair length and look — clean, neat, and long-lasting.", duration: "1 hour" }, ar: { title: "ضفاير", desc: "ضفاير مرتبة على ذوقك، تناسب طول شعرك وستايلك — نضيفة وتدوم.", duration: "ساعة" } },
   { icon: Sparkles, price: 350, en: { title: "Perm — Long Lasting", desc: "A long-lasting perm treatment that gives your hair lasting texture and shape.", duration: "75 min" }, ar: { title: "كيرلي دائم", desc: "جلسة كيرلي تدوم طويلاً، تمنح الشعر ملمساً وشكلاً يبقى معاك.", duration: "٧٥ دقيقة" } },
   { icon: Sparkles, price: 100, en: { title: "Perm — Classic", desc: "A classic perm treatment to add volume and soft waves to your hair.", duration: "25 min" }, ar: { title: "كيرلي كلاسيك", desc: "كيرلي كلاسيكي يضيف كثافة وموجات ناعمة للشعر.", duration: "٢٥ دقيقة" } },
-  { icon: Flower2, en: { title: "Moroccan Bath — Classic", desc: "A deeply cleansing body ritual using authentic black soap and kessa exfoliation.", duration: "35 min", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — كلاسيك", desc: "جلسة تنظيف عميق للجسم بالصابون البلدي الأصلي وتقشير الكيسة.", duration: "٣٥ دقيقة", link: "/moroccan-bath" } },
-  { icon: Flower2, en: { title: "Moroccan Bath — King", desc: "The full royal Hammam experience — extended exfoliation, relaxation, and care.", duration: "1 hour", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — ملكي", desc: "تجربة الحمام الملكي الكاملة — تقشير ممتد، استرخاء، وعناية فاخرة.", duration: "ساعة", link: "/moroccan-bath" } },
-  { icon: Waves, en: { title: "Massage — Classic", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance.", duration: "40 min" }, ar: { title: "مساج — كلاسيك", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك.", duration: "٤٠ دقيقة" } },
-  { icon: Waves, en: { title: "Massage — King", desc: "An extended, deeply restorative massage session for full-body relaxation and renewal.", duration: "1 hour" }, ar: { title: "مساج — ملكي", desc: "جلسة مساج ممتدة وعميقة للاسترخاء الكامل وتجديد حيوية الجسم.", duration: "ساعة" } },
+  { icon: Flower2, price: 150, en: { title: "Moroccan Bath — Classic", desc: "A deeply cleansing body ritual using authentic black soap and kessa exfoliation.", duration: "35 min", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — كلاسيك", desc: "جلسة تنظيف عميق للجسم بالصابون البلدي الأصلي وتقشير الكيسة.", duration: "٣٥ دقيقة", link: "/moroccan-bath" } },
+  { icon: Flower2, price: 250, en: { title: "Moroccan Bath — King", desc: "The full royal Hammam experience — extended exfoliation, relaxation, and care.", duration: "1 hour", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — ملكي", desc: "تجربة الحمام الملكي الكاملة — تقشير ممتد، استرخاء، وعناية فاخرة.", duration: "ساعة", link: "/moroccan-bath" } },
+  { icon: Waves, price: 150, en: { title: "Massage — Classic", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance.", duration: "40 min" }, ar: { title: "مساج — كلاسيك", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك.", duration: "٤٠ دقيقة" } },
+  { icon: Waves, price: 180, en: { title: "Massage — King", desc: "An extended, deeply restorative massage session for full-body relaxation and renewal.", duration: "1 hour" }, ar: { title: "مساج — ملكي", desc: "جلسة مساج ممتدة وعميقة للاسترخاء الكامل وتجديد حيوية الجسم.", duration: "ساعة" } },
   { icon: Hand, en: { title: "Manicure", desc: "Meticulous hand care with attention to nail health, cuticles, and a clean finish.", duration: "30 min" }, ar: { title: "مانيكير", desc: "عناية دقيقة باليدين — صحة الأظافر، الجلد الزائد، ولمسة نهائية نضيفة.", duration: "٣٠ دقيقة" } },
   { icon: Hand, en: { title: "Pedicure", desc: "Thorough foot care including exfoliation, nail grooming, and skin health.", duration: "30 min" }, ar: { title: "باديكير", desc: "عناية شاملة بالقدمين — تقشير، ترتيب الأظافر، وصحة البشرة.", duration: "٣٠ دقيقة" } },
   { icon: Hand, en: { title: "Manicure & Pedicure", desc: "Complete hand and foot care in one session — nails, skin, and a polished finish.", duration: "1 hour" }, ar: { title: "مانيكير وباديكير", desc: "عناية كاملة باليدين والقدمين في جلسة واحدة — أظافر، بشرة، ولمعة نهائية.", duration: "ساعة" } },
@@ -126,6 +127,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "Haircut & Styling", duration: 40 },
     { value: "Beard Trimming", duration: 30 },
     { value: "Haircut & Beard", duration: 60 },
+    { value: "Braids", duration: 60 },
     { value: "Perm — Long Lasting", duration: 75 },
     { value: "Perm — Classic", duration: 25 },
     { value: "Moroccan Bath — Classic", duration: 35 },
@@ -140,6 +142,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "قص وتصفيف الشعر", duration: 40 },
     { value: "تشذيب اللحية", duration: 30 },
     { value: "قص الشعر واللحية", duration: 60 },
+    { value: "ضفاير", duration: 60 },
     { value: "كيرلي دائم", duration: 75 },
     { value: "كيرلي كلاسيك", duration: 25 },
     { value: "الحمام المغربي — كلاسيك", duration: 35 },
@@ -154,17 +157,18 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
   "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
   "Moroccan Bath — King": ["Rasheed 🇲🇦"],
   "Massage — Classic": ["Rasheed 🇲🇦"],
   "Massage — King": ["Rasheed 🇲🇦"],
-  "Manicure": ["Rasheed 🇲🇦", "Yassine"],
-  "Pedicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Manicure": ["Rasheed 🇲🇦"],
+  "Pedicure": ["Rasheed 🇲🇦"],
   "Facial & Skin Care": ["Rasheed 🇲🇦"],
 };
 
@@ -396,8 +400,7 @@ const team = [
   { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
-  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist · Perm · Manicure · Pedicure", ar: "حلاق ومصفّف · كيرلي · مانيكير · باديكير" } },
-  { name: { en: "Saber", ar: "صابر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
