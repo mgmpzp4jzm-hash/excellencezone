@@ -400,8 +400,7 @@ const team = [
   { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
-  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist · Perm · Manicure · Pedicure", ar: "حلاق ومصفّف · كيرلي · مانيكير · باديكير" } },
-  { name: { en: "Saber", ar: "صابر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
+  { name: { en: "Yassine", ar: "ياسين" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
