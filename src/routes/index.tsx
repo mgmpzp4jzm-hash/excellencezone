@@ -364,6 +364,10 @@ function BookingForm({ lang }: { lang: Lang }) {
         <option value="">{tr.selectService}</option>
         {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
       </select>
+      <select aria-label={tr.selectWorker} value={preferredWorker} onChange={(e) => setPreferredWorker(e.target.value)} disabled={!service || workerNames.length === 0} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50">
+        <option value="">{lang === "ar" ? "أي شخص متاح" : "Any available"}</option>
+        {workerNames.map((n) => <option key={n} value={n}>{n}</option>)}
+      </select>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
         <select aria-label="Time" value={time} onChange={(e) => setTime(e.target.value)} disabled={timeDisabled} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50" required>
