@@ -531,6 +531,20 @@ function HomePage() {
         </div>
       </section>
 
+      {/* LOYALTY OFFER */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="border border-primary/30 bg-card p-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+          <div className="shrink-0 w-14 h-14 rounded-full border border-primary/40 flex items-center justify-center">
+            <Gift className="w-7 h-7 text-primary" strokeWidth={1.2} />
+          </div>
+          <div className="flex-1">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-2">{L.offer.tag}</p>
+            <h3 className="font-serif text-2xl md:text-3xl mb-2">{L.offer.title}</h3>
+            <p className="text-muted-foreground leading-relaxed max-w-2xl">{L.offer.desc}</p>
+          </div>
+        </div>
+      </section>
+
       {/* SERVICES */}
       <section id="services" className="max-w-7xl mx-auto px-6 py-28">
         <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
