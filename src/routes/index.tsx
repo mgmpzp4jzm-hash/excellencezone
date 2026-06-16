@@ -103,6 +103,7 @@ const t = {
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred barber / worker", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Barber/Worker", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
+    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes Haircut, Beard Trimming & Haircut & Beard." },
     footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
   },
   ar: {
