@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck, Gift } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createBooking, getTakenBookings } from "@/lib/bookings.functions";
@@ -103,6 +103,7 @@ const t = {
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred barber / worker", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Barber/Worker", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
+    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes Haircut, Beard Trimming & Haircut & Beard." },
     footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
   },
   ar: {
@@ -123,6 +124,7 @@ const t = {
     form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", selectWorker: "الحلاق / العامل المفضل", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة الامتياز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lWorker: "الحلاق/العامل", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
     moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
     reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
+    offer: { tag: "مكافأة الولاء", title: "الزيارة الخامسة علينا", desc: "احجز نفس الخدمة 4 مرات والخامسة مجاناً — باستثناء قص الشعر وتشذيب اللحية وقص الشعر واللحية." },
     footer: { rights: "صالون منطقة الامتياز", tagline: "بصنعة وذوق · للعناية بالرجال" },
   },
 };
@@ -526,6 +528,20 @@ function HomePage() {
             <h2 className="font-serif text-4xl md:text-5xl leading-tight">{L.about.h}</h2>
           </div>
           <p className="text-muted-foreground text-lg leading-relaxed">{L.about.p}</p>
+        </div>
+      </section>
+
+      {/* LOYALTY OFFER */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="border border-primary/30 bg-card p-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+          <div className="shrink-0 w-14 h-14 rounded-full border border-primary/40 flex items-center justify-center">
+            <Gift className="w-7 h-7 text-primary" strokeWidth={1.2} />
+          </div>
+          <div className="flex-1">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-2">{L.offer.tag}</p>
+            <h3 className="font-serif text-2xl md:text-3xl mb-2">{L.offer.title}</h3>
+            <p className="text-muted-foreground leading-relaxed max-w-2xl">{L.offer.desc}</p>
+          </div>
         </div>
       </section>
 
