@@ -205,6 +205,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [preferredWorker, setPreferredWorker] = useState(""); // "" = Any available
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
@@ -221,6 +222,10 @@ function BookingForm({ lang }: { lang: Lang }) {
   const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const workerNames = availableTeam.map((m) => m.name[lang]);
+  // Workers to query/insert against, with the preferred worker first (server falls back to others if taken).
+  const orderedWorkerNames = preferredWorker
+    ? [preferredWorker, ...workerNames.filter((n) => n !== preferredWorker)]
+    : workerNames;
   const slots = buildSlots(selectedService?.duration ?? 0);
   const isFridayDate = date ? isFriday(date) : false;
   const visibleSlots = isFridayDate
