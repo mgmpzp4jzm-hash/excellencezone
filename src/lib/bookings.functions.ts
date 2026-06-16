@@ -108,6 +108,15 @@ export const createBooking = createServerFn({ method: "POST" })
 
     const end = new Date(start.getTime() + data.durationMin * 60_000);
 
+    const EXCLUDED_FROM_LOYALTY = new Set<string>([
+      "Haircut & Styling",
+      "Beard Trimming",
+      "Haircut & Beard",
+      "قص وتصفيف الشعر",
+      "تشذيب اللحية",
+      "قص الشعر واللحية",
+    ]);
+
     let lastErr: string | null = null;
     for (const worker of data.workers) {
       const { error } = await supabaseAdmin.from("bookings").insert({
@@ -119,7 +128,20 @@ export const createBooking = createServerFn({ method: "POST" })
         customer_phone: data.customerPhone,
         notes: data.notes ?? null,
       });
-      if (!error) return { ok: true as const, worker };
+      if (!error) {
+        let isFree = false;
+        if (!EXCLUDED_FROM_LOYALTY.has(data.service)) {
+          const { count } = await supabaseAdmin
+            .from("bookings")
+            .select("id", { count: "exact", head: true })
+            .eq("customer_phone", data.customerPhone)
+            .eq("service", data.service);
+          if (count && count > 0 && count % 5 === 0) {
+            isFree = true;
+          }
+        }
+        return { ok: true as const, worker, isFree };
+      }
       if (error.code === "23P01" || /overlap|exclude/i.test(error.message)) {
         lastErr = "SLOT_TAKEN";
         continue;
