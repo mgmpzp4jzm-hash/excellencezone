@@ -330,7 +330,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         tr.greeting,
         `${tr.lName}: ${name}`,
         `${tr.lPhone}: ${phone}`,
-        `${tr.lService}: ${service}`,
+        `${tr.lService}: ${service}${res.isFree ? " — FREE 🎁 (5th booking)" : ""}`,
         `${tr.lWorker}: ${res.worker}`,
         `${tr.lDate}: ${datetime}`,
         notes ? `${tr.lNotes}: ${notes}` : "",
