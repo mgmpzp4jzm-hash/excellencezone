@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Instagram, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createBooking, getTakenBookings } from "@/lib/bookings.functions";
@@ -39,13 +39,18 @@ export const Route = createFileRoute("/")({
               opens: "10:00",
               closes: "02:00",
             },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Friday"],
+              opens: "14:30",
+              closes: "02:00",
+            },
           ],
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue: "4.9",
             reviewCount: "217",
           },
-          sameAs: ["https://www.instagram.com/excellencezonesalon"],
         }),
       },
     ],
@@ -94,7 +99,7 @@ const t = {
     services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
     team: { tag: "The Team", h: "Meet Our Specialists", p: "A dedicated team of barbers and therapists, each with their own craft." },
-    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00" },
+    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00", hoursFri: "Fri · 14:30 — 02:00" },
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred barber / worker", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Barber/Worker", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
@@ -114,7 +119,7 @@ const t = {
     services: { tag: "قائمة الخدمات", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة من غير استعجال — تستاهل." },
     gallery: { tag: "المكان", h: "من داخل منطقة الامتياز" },
     team: { tag: "الفريق", h: "تعرّف على فريقنا", p: "فريق متخصص من الحلاقين والمعالجين، كل واحد محترف في شغله." },
-    contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00" },
+    contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00", hoursFri: "الجمعة · 14:30 — 02:00" },
     form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", selectWorker: "الحلاق / العامل المفضل", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة الامتياز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lWorker: "الحلاق/العامل", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
     moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
     reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
@@ -200,6 +205,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState("");
+  const [preferredWorker, setPreferredWorker] = useState(""); // "" = Any available
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [notes, setNotes] = useState("");
@@ -216,6 +222,10 @@ function BookingForm({ lang }: { lang: Lang }) {
   const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   const workerNames = availableTeam.map((m) => m.name[lang]);
+  // Workers to query/insert against, with the preferred worker first (server falls back to others if taken).
+  const orderedWorkerNames = preferredWorker
+    ? [preferredWorker, ...workerNames.filter((n) => n !== preferredWorker)]
+    : workerNames;
   const slots = buildSlots(selectedService?.duration ?? 0);
   const isFridayDate = date ? isFriday(date) : false;
   const visibleSlots = isFridayDate
@@ -243,6 +253,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const be = new Date(b.endAt).getTime();
       if (t.start < be && t.end > bs) busy.add(b.worker);
     }
+    // Fallback is allowed: the slot is "taken" only when every eligible worker is busy.
     return busy.size >= workerNames.length;
   };
 
@@ -272,7 +283,15 @@ function BookingForm({ lang }: { lang: Lang }) {
     if (!time) return;
     if (!visibleSlots.includes(time) || isTaken(time)) setTime("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service, date, taken]);
+  }, [service, date, taken, preferredWorker]);
+
+  // Reset preferred worker if it isn't valid for the newly selected service
+  useEffect(() => {
+    if (preferredWorker && !workerNames.includes(preferredWorker)) {
+      setPreferredWorker("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service]);
 
   const handleServiceChange = (val: string) => {
     setService(val);
@@ -280,7 +299,7 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!service || !date || !time || !selectedService || workerNames.length === 0) return;
+    if (!service || !date || !time || !selectedService || orderedWorkerNames.length === 0) return;
     const t = slotTimes(time);
     if (!t) return;
     setSubmitting(true);
@@ -288,7 +307,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const res = await createBookingFn({
         data: {
           service,
-          workers: workerNames,
+          workers: orderedWorkerNames,
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
@@ -324,6 +343,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     }
   };
 
+
   const timePlaceholder = lang === "ar"
     ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
     : (!service ? "Select a service first" : !date ? "Select a date first" : "Select time");
@@ -342,6 +362,10 @@ function BookingForm({ lang }: { lang: Lang }) {
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
         {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
+      </select>
+      <select aria-label={tr.selectWorker} value={preferredWorker} onChange={(e) => setPreferredWorker(e.target.value)} disabled={!service || workerNames.length === 0} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50">
+        <option value="">{lang === "ar" ? "أي شخص متاح" : "Any available"}</option>
+        {workerNames.map((n) => <option key={n} value={n}>{n}</option>)}
       </select>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required />
@@ -574,8 +598,8 @@ function HomePage() {
             <ul className="space-y-6 text-sm">
               <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
               <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
-              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>{L.contact.hours}</span></li>
-              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span dir="ltr">@excellencezonesalon</span></li>
+              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><div><div>{L.contact.hours}</div><div>{L.contact.hoursFri}</div></div></li>
+
             </ul>
           </div>
           <BookingForm lang={lang} />
