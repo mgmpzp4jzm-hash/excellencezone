@@ -253,6 +253,8 @@ function BookingForm({ lang }: { lang: Lang }) {
       const be = new Date(b.endAt).getTime();
       if (t.start < be && t.end > bs) busy.add(b.worker);
     }
+    // If a specific worker is preferred, the slot is taken only when that worker is busy.
+    if (preferredWorker) return busy.has(preferredWorker);
     return busy.size >= workerNames.length;
   };
 
@@ -282,7 +284,15 @@ function BookingForm({ lang }: { lang: Lang }) {
     if (!time) return;
     if (!visibleSlots.includes(time) || isTaken(time)) setTime("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [service, date, taken]);
+  }, [service, date, taken, preferredWorker]);
+
+  // Reset preferred worker if it isn't valid for the newly selected service
+  useEffect(() => {
+    if (preferredWorker && !workerNames.includes(preferredWorker)) {
+      setPreferredWorker("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [service]);
 
   const handleServiceChange = (val: string) => {
     setService(val);
@@ -290,7 +300,7 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!service || !date || !time || !selectedService || workerNames.length === 0) return;
+    if (!service || !date || !time || !selectedService || orderedWorkerNames.length === 0) return;
     const t = slotTimes(time);
     if (!t) return;
     setSubmitting(true);
@@ -298,7 +308,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const res = await createBookingFn({
         data: {
           service,
-          workers: workerNames,
+          workers: orderedWorkerNames,
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
@@ -333,6 +343,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       setSubmitting(false);
     }
   };
+
 
   const timePlaceholder = lang === "ar"
     ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
