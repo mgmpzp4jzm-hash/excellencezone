@@ -253,8 +253,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const be = new Date(b.endAt).getTime();
       if (t.start < be && t.end > bs) busy.add(b.worker);
     }
-    // If a specific worker is preferred, the slot is taken only when that worker is busy.
-    if (preferredWorker) return busy.has(preferredWorker);
+    // Fallback is allowed: the slot is "taken" only when every eligible worker is busy.
     return busy.size >= workerNames.length;
   };
 
