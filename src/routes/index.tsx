@@ -579,8 +579,8 @@ function HomePage() {
             <ul className="space-y-6 text-sm">
               <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
               <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
-              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span>{L.contact.hours}</span></li>
-              <li className="flex items-start gap-4"><Instagram className="w-5 h-5 text-primary shrink-0 mt-0.5" /><span dir="ltr">@excellencezonesalon</span></li>
+              <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><div><div>{L.contact.hours}</div><div>{L.contact.hoursFri}</div></div></li>
+
             </ul>
           </div>
           <BookingForm lang={lang} />
