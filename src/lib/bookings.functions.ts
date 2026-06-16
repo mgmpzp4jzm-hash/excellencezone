@@ -1,9 +1,56 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed 🇲🇦"] as const;
+
+const ALLOWED_SERVICES_EN = [
+  "Haircut & Styling",
+  "Beard Trimming",
+  "Haircut & Beard",
+  "Braids",
+  "Perm — Long Lasting",
+  "Perm — Classic",
+  "Moroccan Bath — Classic",
+  "Moroccan Bath — King",
+  "Massage — Classic",
+  "Massage — King",
+  "Manicure",
+  "Pedicure",
+  "Facial & Skin Care",
+] as const;
+
+const ALLOWED_SERVICES_AR = [
+  "قص وتصفيف الشعر",
+  "تشذيب اللحية",
+  "قص الشعر واللحية",
+  "ضفاير",
+  "كيرلي دائم",
+  "كيرلي كلاسيك",
+  "الحمام المغربي — كلاسيك",
+  "الحمام المغربي — ملكي",
+  "مساج — كلاسيك",
+  "مساج — ملكي",
+  "مانيكير",
+  "باديكير",
+  "العناية بالوجه والبشرة",
+] as const;
+
+const ALLOWED_SERVICES = new Set<string>([...ALLOWED_SERVICES_EN, ...ALLOWED_SERVICES_AR]);
+const ALLOWED_WORKERS_SET = new Set<string>(ALLOWED_WORKERS);
+
+const workerSchema = z
+  .string()
+  .min(1)
+  .max(120)
+  .refine((v) => ALLOWED_WORKERS_SET.has(v), { message: "Invalid worker" });
+
 const createSchema = z.object({
-  service: z.string().min(1).max(120),
-  workers: z.array(z.string().min(1).max(120)).min(1).max(20),
+  service: z
+    .string()
+    .min(1)
+    .max(120)
+    .refine((v) => ALLOWED_SERVICES.has(v), { message: "Invalid service" }),
+  workers: z.array(workerSchema).min(1).max(20),
   startAt: z.string().min(1),
   durationMin: z
     .number()
@@ -16,7 +63,7 @@ const createSchema = z.object({
 });
 
 const takenSchema = z.object({
-  workers: z.array(z.string().min(1).max(120)).min(1).max(20),
+  workers: z.array(workerSchema).min(1).max(20),
   dayStart: z.string().min(1),
   dayEnd: z.string().min(1),
 });
@@ -31,7 +78,10 @@ export const getTakenBookings = createServerFn({ method: "POST" })
       .in("worker", data.workers)
       .gte("start_at", data.dayStart)
       .lt("start_at", data.dayEnd);
-    if (error) throw new Error(error.message);
+    if (error) {
+      console.error("getTakenBookings failed", error);
+      throw new Error("Unable to load availability. Please try again.");
+    }
     return (rows ?? []).map((r) => ({ worker: r.worker, startAt: r.start_at, endAt: r.end_at }));
   });
 
@@ -74,7 +124,8 @@ export const createBooking = createServerFn({ method: "POST" })
         lastErr = "SLOT_TAKEN";
         continue;
       }
-      return { ok: false as const, error: error.message };
+      console.error("createBooking insert failed", error);
+      return { ok: false as const, error: "Booking failed. Please try again." };
     }
     return { ok: false as const, error: lastErr ?? "SLOT_TAKEN" };
   });
