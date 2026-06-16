@@ -127,6 +127,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "Haircut & Styling", duration: 40 },
     { value: "Beard Trimming", duration: 30 },
     { value: "Haircut & Beard", duration: 60 },
+    { value: "Braids", duration: 60 },
     { value: "Perm — Long Lasting", duration: 75 },
     { value: "Perm — Classic", duration: 25 },
     { value: "Moroccan Bath — Classic", duration: 35 },
@@ -141,6 +142,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "قص وتصفيف الشعر", duration: 40 },
     { value: "تشذيب اللحية", duration: 30 },
     { value: "قص الشعر واللحية", duration: 60 },
+    { value: "ضفاير", duration: 60 },
     { value: "كيرلي دائم", duration: 75 },
     { value: "كيرلي كلاسيك", duration: 25 },
     { value: "الحمام المغربي — كلاسيك", duration: 35 },
@@ -155,17 +157,18 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
   "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
   "Moroccan Bath — King": ["Rasheed 🇲🇦"],
   "Massage — Classic": ["Rasheed 🇲🇦"],
   "Massage — King": ["Rasheed 🇲🇦"],
-  "Manicure": ["Rasheed 🇲🇦", "Yassine"],
-  "Pedicure": ["Rasheed 🇲🇦", "Yassine"],
+  "Manicure": ["Rasheed 🇲🇦"],
+  "Pedicure": ["Rasheed 🇲🇦"],
   "Facial & Skin Care": ["Rasheed 🇲🇦"],
 };
 
