@@ -99,7 +99,7 @@ const t = {
     services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
     team: { tag: "The Team", h: "Meet Our Specialists", p: "A dedicated team of barbers and therapists, each with their own craft." },
-    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00" },
+    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00", hoursFri: "Fri · 14:30 — 02:00" },
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred barber / worker", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Barber/Worker", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
