@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck } from "lucide-react";
+import { Scissors, Sparkles, Hand, Flower2, Waves, Clock, MapPin, Phone, Star, Languages, Droplets, Sun, Heart, Wind, ShieldCheck, Gift } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createBooking, getTakenBookings } from "@/lib/bookings.functions";
