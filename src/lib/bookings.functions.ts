@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed 🇲🇦"] as const;
+const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed"] as const;
 
 const ALLOWED_SERVICES_EN = [
   "Haircut & Styling",
