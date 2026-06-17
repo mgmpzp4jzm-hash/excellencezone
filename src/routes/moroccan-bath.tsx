@@ -26,7 +26,7 @@ const benefits = [
   {
     icon: Sparkles,
     en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." },
-    ar: { title: "مسام أنضف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب والشعر الناشب — بشرة أنعم." },
+    ar: { title: "مسام أنضف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب — بشرة أنعم." },
   },
   {
     icon: Sun,
@@ -34,14 +34,9 @@ const benefits = [
     ar: { title: "بشرة أنعم وأكثر إشراق", desc: "بشرة متجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." },
   },
   {
-    icon: Heart,
-    en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." },
-    ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." },
-  },
-  {
     icon: Wind,
     en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." },
-    ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادي في الجلسة يهدّي أعصابك ويفك التكتيف اللي عليك." },
+    ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادي في الجلسة يهدّي أعصابك ويريّحك من ضغط اليوم." },
   },
   {
     icon: ShieldCheck,
