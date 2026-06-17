@@ -26,7 +26,7 @@ const benefits = [
   {
     icon: Sparkles,
     en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." },
-    ar: { title: "مسام أنضف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب والشعر الناشب — بشرة أنعم." },
+    ar: { title: "مسام أنضف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب — بشرة أنعم." },
   },
   {
     icon: Sun,
@@ -34,14 +34,9 @@ const benefits = [
     ar: { title: "بشرة أنعم وأكثر إشراق", desc: "بشرة متجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." },
   },
   {
-    icon: Heart,
-    en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." },
-    ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." },
-  },
-  {
     icon: Wind,
     en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." },
-    ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادي في الجلسة يهدّي أعصابك ويفك التكتيف اللي عليك." },
+    ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادي في الجلسة يهدّي أعصابك ويريّحك من ضغط اليوم." },
   },
   {
     icon: ShieldCheck,
@@ -110,10 +105,10 @@ const t = {
     toggle: "AR",
   },
   ar: {
-    back: "→ ارجع لصالون منطقة الامتياز",
+    back: "→ ارجع لصالون منطقة التميز",
     signature: "جلسة مميزة",
     heroTitle: "الحمام المغربي",
-    heroDesc: "طقس عمره قرون من البخار والصابون البلدي وتقشير الكيسة — من أكثر التجارب اللي تحس فيها بفرق واضح عندنا في صالون منطقة الامتياز.",
+    heroDesc: "طقس عمره قرون من البخار والصابون البلدي وتقشير الكيسة — من أكثر التجارب اللي تحس فيها بفرق واضح عندنا في صالون منطقة التميز.",
     duration: "٤٥–٦٠ دقيقة",
     frequency: "ينصح فيه كل ٢–٤ أسابيع",
     bookHammam: "احجز حمامك",
@@ -134,7 +129,7 @@ const t = {
       "تعال قبل ١٠ دقايق عشان تاخذ راحتك.",
     ],
     ctaTitle: "جاهز تجرّب الحمام؟",
-    ctaDesc: "احجز حمامك المغربي عندنا في صالون منطقة الامتياز، واكتشف ليش هالجلسة من أكثر الجلسات اللي يطلبها زباينّا.",
+    ctaDesc: "احجز حمامك المغربي عندنا في صالون منطقة التميز، واكتشف ليش هالجلسة من أكثر الجلسات اللي يطلبها زباينّا.",
     bookSession: "احجز جلستك",
     walkins: "نرحّب بدون موعد · يفضّل الحجز",
     toggle: "EN",

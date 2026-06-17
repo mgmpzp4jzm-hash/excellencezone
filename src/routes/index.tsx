@@ -70,14 +70,14 @@ const servicesData: Array<{
   ar: { title: string; desc: string; duration: string; link?: string };
 }> = [
   { icon: Scissors, price: 30, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques.", duration: "40 min" }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات.", duration: "٤٠ دقيقة" } },
-  { icon: Star, price: 25, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية، حلاقة بالمنشفة الساخنة، وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
+  { icon: Star, price: 25, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
   { icon: Scissors, price: 55, en: { title: "Haircut & Beard", desc: "The full grooming package — a fresh cut paired with a sharp beard shape-up and shave.", duration: "1 hour" }, ar: { title: "قص الشعر واللحية", desc: "الباقة الكاملة — قصّة شعر نظيفة مع تشذيب اللحية وحلاقة مرتبة.", duration: "ساعة" } },
   { icon: Sparkles, priceLabel: { en: "220–330 SAR", ar: "٢٢٠–٣٣٠ ر.س" }, en: { title: "Braids", desc: "Stylish braiding tailored to your hair length and look — clean, neat, and long-lasting.", duration: "1 hour" }, ar: { title: "ضفاير", desc: "ضفاير مرتبة على ذوقك، تناسب طول شعرك وستايلك — نضيفة وتدوم.", duration: "ساعة" } },
   { icon: Sparkles, priceLabel: { en: "200–310 SAR", ar: "٢٠٠–٣١٠ ر.س" }, en: { title: "Perm — Long Lasting", desc: "A long-lasting perm treatment that gives your hair lasting texture and shape.", duration: "75 min" }, ar: { title: "كيرلي دائم", desc: "جلسة كيرلي تدوم طويلاً، تمنح الشعر ملمساً وشكلاً يبقى معاك.", duration: "٧٥ دقيقة" } },
   { icon: Sparkles, price: 100, en: { title: "Perm — Classic", desc: "A classic perm treatment to add volume and soft waves to your hair.", duration: "25 min" }, ar: { title: "كيرلي كلاسيك", desc: "كيرلي كلاسيكي يضيف كثافة وموجات ناعمة للشعر.", duration: "٢٥ دقيقة" } },
   { icon: Flower2, price: 150, en: { title: "Moroccan Bath — Classic", desc: "A deeply cleansing body ritual using authentic black soap and kessa exfoliation.", duration: "35 min", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — كلاسيك", desc: "جلسة تنظيف عميق للجسم بالصابون البلدي الأصلي وتقشير الكيسة.", duration: "٣٥ دقيقة", link: "/moroccan-bath" } },
-  { icon: Flower2, price: 250, en: { title: "Moroccan Bath — King", desc: "The full royal Hammam experience — extended exfoliation, relaxation, and care.", duration: "1 hour", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — ملكي", desc: "تجربة الحمام الملكي الكاملة — تقشير ممتد، استرخاء، وعناية فاخرة.", duration: "ساعة", link: "/moroccan-bath" } },
-  { icon: Waves, price: 150, en: { title: "Massage — Classic", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance.", duration: "40 min" }, ar: { title: "مساج — كلاسيك", desc: "تقنيات متخصصة تنشّط الدورة الدموية، تفك التكتيف، وترجّع نشاطك.", duration: "٤٠ دقيقة" } },
+  { icon: Flower2, price: 250, en: { title: "Moroccan Bath — King", desc: "The full royal Hammam experience — extended exfoliation, relaxation, and care.", duration: "1 hour", link: "/moroccan-bath" }, ar: { title: "الحمام المغربي — ملكي", desc: "تجربة الحمام الملكي الكاملة — استرخاء وعناية بطريقة ملكية.", duration: "ساعة", link: "/moroccan-bath" } },
+  { icon: Waves, price: 150, en: { title: "Massage — Classic", desc: "Specialized techniques to stimulate circulation, relieve tension, and restore radiance.", duration: "40 min" }, ar: { title: "مساج — كلاسيك", desc: "تقنيات متخصصة تنشّط الدورة الدموية وترجّع نشاطك.", duration: "٤٠ دقيقة" } },
   { icon: Waves, price: 180, en: { title: "Massage — King", desc: "An extended, deeply restorative massage session for full-body relaxation and renewal.", duration: "1 hour" }, ar: { title: "مساج — ملكي", desc: "جلسة مساج ممتدة وعميقة للاسترخاء الكامل وتجديد حيوية الجسم.", duration: "ساعة" } },
   { icon: Hand, priceLabel: { en: "70–90 SAR", ar: "٧٠–٩٠ ر.س" }, en: { title: "Manicure", desc: "Meticulous hand care with attention to nail health, cuticles, and a clean finish.", duration: "30 min" }, ar: { title: "مانيكير", desc: "عناية دقيقة باليدين — صحة الأظافر، الجلد الزائد، ولمسة نهائية نضيفة.", duration: "٣٠ دقيقة" } },
   { icon: Hand, price: 100, en: { title: "Pedicure", desc: "Thorough foot care including exfoliation, nail grooming, and skin health.", duration: "30 min" }, ar: { title: "باديكير", desc: "عناية شاملة بالقدمين — تقشير، ترتيب الأظافر، وصحة البشرة.", duration: "٣٠ دقيقة" } },
@@ -88,11 +88,11 @@ const servicesData: Array<{
 // Phone numbers for booking notifications
 const OWNER_BOOKING_PHONE = "966560666769";
 const WORKER_PHONES: Record<string, string> = {
-  "Rasheed 🇲🇦": "966599900585",
+  "Rasheed": "966599900585",
   "Yassine": "966541572696",
   "Sayed": "966559504681",
   "Hamza": "966504278509",
-  // "Soufyan": pending — number to be added
+  "Soufyan": "966548542534",
 };
 
 const t = {
@@ -114,7 +114,7 @@ const t = {
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred specialist", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Specialist", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
-    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes Haircut, Beard Trimming & Haircut & Beard." },
+    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes all hair services." },
     footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
   },
   ar: {
@@ -127,16 +127,16 @@ const t = {
       cta1: "احجز كرسيك", cta2: "شوف الخدمات",
       stat1: "حلاقين محترفين", stat2: "تقييم الزباين",
     },
-    about: { tag: "فكرتنا", h: "مكان مخصوص لكل ضيف يبغى الأحسن.", p: "في صالون منطقة الامتياز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
+    about: { tag: "فكرتنا", h: "مكان مخصوص لكل ضيف يبغى الأحسن.", p: "في صالون منطقة التميز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
     services: { tag: "قائمة الخدمات", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة من غير استعجال — تستاهل." },
-    gallery: { tag: "المكان", h: "من داخل منطقة الامتياز" },
+    gallery: { tag: "المكان", h: "من داخل منطقة التميز" },
     team: { tag: "الفريق", h: "تعرّف على فريقنا", p: "فريق متخصص من الحلاقين والمعالجين، كل واحد محترف في شغله." },
     contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00", hoursFri: "الجمعة · 14:30 — 02:00" },
-    form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", selectWorker: "المختص المفضل", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة الامتياز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lWorker: "المختص", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
+    form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", selectWorker: "المختص المفضل", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "هلا، أبي أحجز موعد في صالون منطقة التميز.", lName: "الاسم", lPhone: "الجوال", lService: "الخدمة", lWorker: "المختص", lDate: "التاريخ/الوقت", lNotes: "ملاحظات" },
     moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
     reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
-    offer: { tag: "مكافأة الولاء", title: "الزيارة الخامسة علينا", desc: "احجز نفس الخدمة 4 مرات والخامسة مجاناً — باستثناء قص الشعر وتشذيب اللحية وقص الشعر واللحية." },
-    footer: { rights: "صالون منطقة الامتياز", tagline: "بصنعة وذوق · للعناية بالرجال" },
+    offer: { tag: "مكافأة الولاء", title: "الزيارة الخامسة علينا", desc: "احجز نفس الخدمة 4 مرات والخامسة مجاناً — باستثناء جميع خدمات الشعر." },
+    footer: { rights: "صالون منطقة التميز", tagline: "بصنعة وذوق · للعناية بالرجال" },
   },
 };
 
@@ -181,13 +181,13 @@ const serviceWorkers: Record<string, string[]> = {
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
-  "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
-  "Moroccan Bath — King": ["Rasheed 🇲🇦"],
-  "Massage — Classic": ["Rasheed 🇲🇦"],
-  "Massage — King": ["Rasheed 🇲🇦"],
-  "Manicure": ["Rasheed 🇲🇦"],
-  "Pedicure": ["Rasheed 🇲🇦"],
-  "Facial & Skin Care": ["Rasheed 🇲🇦"],
+  "Moroccan Bath — Classic": ["Rasheed"],
+  "Moroccan Bath — King": ["Rasheed"],
+  "Massage — Classic": ["Rasheed"],
+  "Massage — King": ["Rasheed"],
+  "Manicure": ["Rasheed"],
+  "Pedicure": ["Rasheed"],
+  "Facial & Skin Care": ["Rasheed"],
 };
 
 // Shop hours: 10:00 → 02:00 next day (16 hours). Slots step by the service duration.
@@ -432,15 +432,14 @@ const reviews = [
 
 const moroccanBathBenefits = [
   { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يشيل تراكم الجلد الميت من أسابيع بجلسة وحدة، ويطلّع بشرة جديدة وصحية." } },
-  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نضيفة", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب والشعر الناشب — بشرة أنعم." } },
+  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نضيفة", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب — بشرة أنعم." } },
   { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أنعم وأكثر إشراق", desc: "البشرة المتجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." } },
-  { icon: Heart, en: { title: "Improved Circulation", desc: "Heat and massage stimulate blood flow and lymphatic drainage, reducing puffiness and fatigue." }, ar: { title: "تنشيط الدورة الدموية", desc: "الحرارة والمساج ينشّطون الدورة الدموية ويقللون الانتفاخ والتعب." } },
-  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادئ في الجلسة يهدّي الأعصاب ويفك التكتيف اللي عليك." } },
+  { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادئ في الجلسة يهدّي الأعصاب ويريّحك من ضغط اليوم." } },
   { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." } },
 ];
 
 const team = [
-  { name: { en: "Rasheed 🇲🇦", ar: "رشيد 🇲🇦" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
+  { name: { en: "Rasheed", ar: "رشيد" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
   { name: { en: "Hamza", ar: "حمزة" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
@@ -526,10 +525,6 @@ function HomePage() {
             </div>
           </div>
           <div className="lg:col-span-4 hidden lg:flex flex-col gap-6 text-sm">
-            <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
-              <p className="text-3xl font-serif text-primary">10+</p>
-              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat1}</p>
-            </div>
             <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
               <p className="text-3xl font-serif text-primary">4.9★</p>
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat2}</p>

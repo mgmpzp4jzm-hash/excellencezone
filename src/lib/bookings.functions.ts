@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed 🇲🇦"] as const;
+const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed"] as const;
 
 const ALLOWED_SERVICES_EN = [
   "Haircut & Styling",
@@ -109,12 +109,19 @@ export const createBooking = createServerFn({ method: "POST" })
     const end = new Date(start.getTime() + data.durationMin * 60_000);
 
     const EXCLUDED_FROM_LOYALTY = new Set<string>([
+      // All hair services are excluded from the 5th-free loyalty reward
       "Haircut & Styling",
       "Beard Trimming",
       "Haircut & Beard",
+      "Braids",
+      "Perm — Long Lasting",
+      "Perm — Classic",
       "قص وتصفيف الشعر",
       "تشذيب اللحية",
       "قص الشعر واللحية",
+      "ضفاير",
+      "كيرلي دائم",
+      "كيرلي كلاسيك",
     ]);
 
     let lastErr: string | null = null;
