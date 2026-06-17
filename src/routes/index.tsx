@@ -577,7 +577,9 @@ function HomePage() {
                 <p className="text-muted-foreground leading-relaxed text-sm">{s[lang].desc}</p>
                 <div className="mt-4 flex items-center gap-3 text-xs tracking-widest uppercase text-primary/80">
                   <span className="inline-flex items-center gap-2"><Clock className="w-3.5 h-3.5" strokeWidth={1.5} />{s[lang].duration}</span>
-                  {s.price != null && (
+                  {s.priceLabel ? (
+                    <span className="text-primary">{s.priceLabel[lang]}</span>
+                  ) : s.price != null && (
                     <span className="text-primary">{lang === "ar" ? `${s.price} ر.س` : `${s.price} SAR`}</span>
                   )}
                 </div>
