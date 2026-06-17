@@ -349,7 +349,14 @@ function BookingForm({ lang }: { lang: Lang }) {
         notes ? `${tr.lNotes}: ${notes}` : "",
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
-      window.open(`https://wa.me/966599676709?text=${text}`, "_blank");
+      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
+      const specialistPhone = res.worker ? WORKER_PHONES[res.worker] : undefined;
+      if (specialistPhone) {
+        // Slight delay so the second tab isn't blocked by popup heuristics
+        setTimeout(() => {
+          window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
+        }, 400);
+      }
       toast.success(lang === "ar" ? "تم الحجز بنجاح" : "Booking confirmed");
     } finally {
       setSubmitting(false);
