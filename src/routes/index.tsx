@@ -181,13 +181,13 @@ const serviceWorkers: Record<string, string[]> = {
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
-  "Moroccan Bath — Classic": ["Rasheed 🇲🇦"],
-  "Moroccan Bath — King": ["Rasheed 🇲🇦"],
-  "Massage — Classic": ["Rasheed 🇲🇦"],
-  "Massage — King": ["Rasheed 🇲🇦"],
-  "Manicure": ["Rasheed 🇲🇦"],
-  "Pedicure": ["Rasheed 🇲🇦"],
-  "Facial & Skin Care": ["Rasheed 🇲🇦"],
+  "Moroccan Bath — Classic": ["Rasheed"],
+  "Moroccan Bath — King": ["Rasheed"],
+  "Massage — Classic": ["Rasheed"],
+  "Massage — King": ["Rasheed"],
+  "Manicure": ["Rasheed"],
+  "Pedicure": ["Rasheed"],
+  "Facial & Skin Care": ["Rasheed"],
 };
 
 // Shop hours: 10:00 → 02:00 next day (16 hours). Slots step by the service duration.
