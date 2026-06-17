@@ -527,10 +527,6 @@ function HomePage() {
           </div>
           <div className="lg:col-span-4 hidden lg:flex flex-col gap-6 text-sm">
             <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
-              <p className="text-3xl font-serif text-primary">10+</p>
-              <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat1}</p>
-            </div>
-            <div className={`${L.dir === "rtl" ? "border-r-2 pr-4" : "border-l-2 pl-4"} border-primary`}>
               <p className="text-3xl font-serif text-primary">4.9★</p>
               <p className="text-muted-foreground tracking-widest text-xs uppercase mt-1">{L.hero.stat2}</p>
             </div>
