@@ -465,7 +465,7 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
   const timeDisabled = !service || !date;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = saudiTodayISO();
 
   return (
     <form className="bg-card border border-border p-10 space-y-6" onSubmit={handleSubmit} aria-label={tr.title}>
