@@ -62,6 +62,8 @@ export const Route = createFileRoute("/")({
 
 type Lang = "en" | "ar";
 
+const toArDigits = (s: string | number) => String(s).replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[+d]);
+
 const servicesData: Array<{
   icon: any;
   price?: number;
@@ -72,6 +74,7 @@ const servicesData: Array<{
   { icon: Scissors, price: 30, en: { title: "Haircut & Styling", desc: "Precision cuts and refined styling shaped by expert barbers using the latest tools and techniques.", duration: "40 min" }, ar: { title: "قص وتصفيف الشعر", desc: "قصّات مظبوطة وتصفيف على الذوق على يد حلاقين خبرة، بأحدث الأدوات.", duration: "٤٠ دقيقة" } },
   { icon: Star, price: 25, en: { title: "Beard Trimming", desc: "Sharp line-ups, hot-towel shaves, and beard sculpting tailored to your face shape.", duration: "30 min" }, ar: { title: "تشذيب اللحية", desc: "تشذيب اللحية وتفصيل على شكل وجهك.", duration: "٣٠ دقيقة" } },
   { icon: Scissors, price: 55, en: { title: "Haircut & Beard", desc: "The full grooming package — a fresh cut paired with a sharp beard shape-up and shave.", duration: "1 hour" }, ar: { title: "قص الشعر واللحية", desc: "الباقة الكاملة — قصّة شعر نظيفة مع تشذيب اللحية وحلاقة مرتبة.", duration: "ساعة" } },
+  { icon: Sparkles, price: 100, en: { title: "Haircut, Beard & Facial Care", desc: "Full grooming session — haircut, beard shaping, and a refreshing facial & skin care treatment.", duration: "90 min" }, ar: { title: "قص وتشذيب وعناية بالبشرة", desc: "جلسة عناية كاملة — قصّة شعر، تشذيب لحية، وجلسة عناية بالوجه والبشرة.", duration: "٩٠ دقيقة" } },
   { icon: Sparkles, priceLabel: { en: "220–330 SAR", ar: "٢٢٠–٣٣٠ ر.س" }, en: { title: "Braids", desc: "Stylish braiding tailored to your hair length and look — clean, neat, and long-lasting.", duration: "1 hour" }, ar: { title: "ضفاير", desc: "ضفاير مرتبة على ذوقك، تناسب طول شعرك وستايلك — نضيفة وتدوم.", duration: "ساعة" } },
   { icon: Sparkles, priceLabel: { en: "200–310 SAR", ar: "٢٠٠–٣١٠ ر.س" }, en: { title: "Perm — Long Lasting", desc: "A long-lasting perm treatment that gives your hair lasting texture and shape.", duration: "75 min" }, ar: { title: "كيرلي دائم", desc: "جلسة كيرلي تدوم طويلاً، تمنح الشعر ملمساً وشكلاً يبقى معاك.", duration: "٧٥ دقيقة" } },
   { icon: Sparkles, price: 100, en: { title: "Perm — Classic", desc: "A classic perm treatment to add volume and soft waves to your hair.", duration: "25 min" }, ar: { title: "كيرلي كلاسيك", desc: "كيرلي كلاسيكي يضيف كثافة وموجات ناعمة للشعر.", duration: "٢٥ دقيقة" } },
@@ -128,7 +131,7 @@ const t = {
       cta1: "احجز كرسيك", cta2: "شوف الخدمات",
       stat1: "حلاقين محترفين", stat2: "تقييم الزباين",
     },
-    about: { tag: "فكرتنا", h: "مكان مخصوص لكل ضيف يبغى الأحسن.", p: "في صالون منطقة التميز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
+    about: { tag: "فكرتنا", h: "مكان مخصص لكل ضيف يبغى الأحسن.", p: "في صالون منطقة التميز نهتم بأدق التفاصيل — من أول ما تطّل علينا لين تشوف نفسك بالمراية — عشان نطلّعك بتجربة مرتبة تجمع الفخامة والراحة. مستوانا ثابت، وراحتك هي الأهم عندنا." },
     services: { tag: "قائمة الخدمات", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة تستاهلها من غير استعجال." },
     gallery: { tag: "المكان", h: "من داخل منطقة التميز" },
     team: { tag: "الفريق", h: "تعرّف على فريقنا", p: "فريق متخصص من الحلاقين والمعالجين، كل واحد محترف في شغله." },
@@ -137,7 +140,7 @@ const t = {
     moroccanBath: { tag: "طقس مميز", h: "فوايد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
     reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
     offer: { tag: "مكافأة الولاء", title: "الزيارة الخامسة علينا", desc: "احجز نفس الخدمة 4 مرات والخامسة مجاناً — باستثناء جميع خدمات الشعر واللحية." },
-    footer: { rights: "صالون منطقة التميز", tagline: "بصنعة وذوق · للعناية بالرجال" },
+    footer: { rights: "منطقة التميز", tagline: "بصنعة وذوق · للعناية بالرجال" },
   },
 };
 
@@ -146,6 +149,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "Haircut & Styling", duration: 40 },
     { value: "Beard Trimming", duration: 30 },
     { value: "Haircut & Beard", duration: 60 },
+    { value: "Haircut, Beard & Facial Care", duration: 90 },
     { value: "Braids", duration: 60 },
     { value: "Perm — Long Lasting", duration: 75 },
     { value: "Perm — Classic", duration: 25 },
@@ -161,6 +165,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "قص وتصفيف الشعر", duration: 40 },
     { value: "تشذيب اللحية", duration: 30 },
     { value: "قص الشعر واللحية", duration: 60 },
+    { value: "قص وتشذيب وعناية بالبشرة", duration: 90 },
     { value: "ضفاير", duration: 60 },
     { value: "كيرلي دائم", duration: 75 },
     { value: "كيرلي كلاسيك", duration: 25 },
@@ -179,6 +184,7 @@ const serviceWorkers: Record<string, string[]> = {
   "Haircut & Styling": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Beard Trimming": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Haircut & Beard": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Haircut, Beard & Facial Care": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
@@ -454,7 +460,7 @@ const reviews = [
 
 const moroccanBathBenefits = [
   { icon: Droplets, en: { title: "Deep Exfoliation", desc: "Removes weeks of built-up dead skin in a single session, revealing fresh, healthy skin beneath." }, ar: { title: "تقشير عميق", desc: "يشيل تراكم الجلد الميت من أسابيع بجلسة وحدة، ويطلّع بشرة جديدة وصحية." } },
-  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام نضيفة", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب — بشرة أنعم." } },
+  { icon: Sparkles, en: { title: "Clearer Pores", desc: "Steam and black soap unclog pores, helping prevent breakouts and ingrown hairs for smoother skin." }, ar: { title: "مسام أنظف", desc: "البخار والصابون البلدي يفتحون المسام، ويساعدون يمنعون الحبوب — بشرة أنعم." } },
   { icon: Sun, en: { title: "Brighter, Softer Skin", desc: "Fresh skin improves tone, texture, and product absorption — your skincare works better afterward." }, ar: { title: "بشرة أنعم وأكثر إشراق", desc: "البشرة المتجدّدة تحسّن اللون والملمس وامتصاص المنتجات — كل عناية بعدها تبيّن أحلى." } },
   { icon: Wind, en: { title: "Relaxation & Stress Relief", desc: "The slow, sensory pacing of the ritual quiets the nervous system and melts away tension." }, ar: { title: "استرخاء وراحة من الضغط", desc: "الجو الهادئ في الجلسة يهدّي الأعصاب ويريّحك من ضغط اليوم." } },
   { icon: ShieldCheck, en: { title: "Better Grooming Results", desc: "Polished skin makes haircuts, beard care, and daily skincare visibly more effective." }, ar: { title: "نتائج عناية أحسن", desc: "البشرة النضيفة تخلي القصّة والعناية باللحية والروتين اليومي يبيّنون أحلى." } },
@@ -509,8 +515,14 @@ function HomePage() {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2">
-            <span className="text-primary tracking-[0.3em] text-xs uppercase">Excellence</span>
-            <span className="text-foreground tracking-[0.3em] text-xs uppercase">Zone</span>
+            {lang === "ar" ? (
+              <span className="text-primary tracking-[0.3em] text-xs uppercase">منطقة التميز</span>
+            ) : (
+              <>
+                <span className="text-primary tracking-[0.3em] text-xs uppercase">Excellence</span>
+                <span className="text-foreground tracking-[0.3em] text-xs uppercase">Zone</span>
+              </>
+            )}
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#services" className="hover:text-primary transition">{L.nav.services}</a>
@@ -606,7 +618,7 @@ function HomePage() {
                   {s.priceLabel ? (
                     <span className="text-primary">{s.priceLabel[lang]}</span>
                   ) : s.price != null && (
-                    <span className="text-primary">{lang === "ar" ? `${s.price} ر.س` : `${s.price} SAR`}</span>
+                    <span className="text-primary">{lang === "ar" ? `${toArDigits(s.price)} ر.س` : `${s.price} SAR`}</span>
                   )}
                 </div>
                 {link && (
@@ -630,10 +642,7 @@ function HomePage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
           {team.map((m) => (
             <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
-              <p className="text-primary/40 font-serif text-5xl leading-none mb-6">
-                {m.name[lang].charAt(0)}
-              </p>
-              <h3 className="font-serif text-2xl mb-2">{m.name[lang]} <span className="text-muted-foreground text-base">({m.nationality[lang]})</span></h3>
+              <h3 className="font-serif text-2xl mb-2">{m.name[lang]} <span className="text-base">({m.nationality[lang]})</span></h3>
               <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
             </div>
           ))}
