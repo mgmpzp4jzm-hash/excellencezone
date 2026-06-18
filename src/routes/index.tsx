@@ -511,8 +511,14 @@ function HomePage() {
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2">
-            <span className="text-primary tracking-[0.3em] text-xs uppercase">Excellence</span>
-            <span className="text-foreground tracking-[0.3em] text-xs uppercase">Zone</span>
+            {lang === "ar" ? (
+              <span className="text-primary tracking-[0.3em] text-xs uppercase">منطقة التميز</span>
+            ) : (
+              <>
+                <span className="text-primary tracking-[0.3em] text-xs uppercase">Excellence</span>
+                <span className="text-foreground tracking-[0.3em] text-xs uppercase">Zone</span>
+              </>
+            )}
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
             <a href="#services" className="hover:text-primary transition">{L.nav.services}</a>
