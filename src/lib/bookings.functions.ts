@@ -151,6 +151,10 @@ export const createBooking = createServerFn({ method: "POST" })
 
     let lastErr: string | null = null;
     for (const worker of data.workers) {
+      if (!workerCovers(worker)) {
+        lastErr = "OUTSIDE_HOURS";
+        continue;
+      }
       // Defensive pre-check: does this worker already have an overlapping booking?
       const { data: overlapping, error: overlapErr } = await supabaseAdmin
         .from("bookings")
