@@ -86,13 +86,13 @@ const servicesData: Array<{
 ];
 
 // Phone numbers for booking notifications
-const OWNER_BOOKING_PHONE = "966560666769";
+const OWNER_BOOKING_PHONE = "966599676709";
 const WORKER_PHONES: Record<string, string> = {
-  "Rasheed": "966599900585",
+  "Rasheed": "966538660714",
+  "Ali": "966538660714",
   "Yassine": "966541572696",
   "Sayed": "966559504681",
   "Hamza": "966504278509",
-  "Soufyan": "966548542534",
   "Saber": "966573567941",
 };
 
@@ -176,16 +176,16 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Beard Trimming": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
   "Moroccan Bath — Classic": ["Rasheed"],
   "Moroccan Bath — King": ["Rasheed"],
-  "Massage — Classic": ["Rasheed"],
-  "Massage — King": ["Rasheed"],
+  "Massage — Classic": ["Ali", "Rasheed"],
+  "Massage — King": ["Ali", "Rasheed"],
   "Manicure": ["Rasheed"],
   "Pedicure": ["Rasheed"],
   "Facial & Skin Care": ["Rasheed"],
@@ -340,7 +340,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         return;
       }
       // Always send the WhatsApp message in Arabic, regardless of the UI language.
-      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين", Saber: "صابر" };
+      const workerAr: Record<string, string> = { Rasheed: "رشيد", Ali: "علي", Hamza: "حمزة", Sayed: "سيد", Yassine: "ياسين", Saber: "صابر" };
       const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
       const [Y, M, D] = date.split("-").map(Number);
       const [hh, mm] = time.split(":").map(Number);
@@ -463,9 +463,9 @@ const moroccanBathBenefits = [
 
 const team = [
   { name: { en: "Rasheed", ar: "رشيد" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
+  { name: { en: "Ali", ar: "علي" }, nationality: { en: "Indonesia", ar: "إندونيسيا" }, role: { en: "Masseuse — Indonesian", ar: "أخصائي مساج — إندونيسي" } },
   { name: { en: "Hamza", ar: "حمزة" }, nationality: { en: "Tunisia", ar: "تونس" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
-  { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
   { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
 ];
