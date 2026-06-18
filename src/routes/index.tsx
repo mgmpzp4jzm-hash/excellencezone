@@ -463,9 +463,9 @@ const moroccanBathBenefits = [
 
 const team = [
   { name: { en: "Rasheed", ar: "رشيد" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
+  { name: { en: "Ali", ar: "علي" }, nationality: { en: "Indonesia", ar: "إندونيسيا" }, role: { en: "Masseuse — Indonesian", ar: "أخصائي مساج — إندونيسي" } },
   { name: { en: "Hamza", ar: "حمزة" }, nationality: { en: "Tunisia", ar: "تونس" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
-  { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
   { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
 ];
