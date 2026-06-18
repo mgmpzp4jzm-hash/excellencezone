@@ -1,12 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const ALLOWED_WORKERS = ["Hamza", "Sayed", "Soufyan", "Yassine", "Rasheed"] as const;
+const ALLOWED_WORKERS = ["Hamza", "Sayed", "Yassine", "Rasheed", "Ali", "Saber"] as const;
 
 const ALLOWED_SERVICES_EN = [
   "Haircut & Styling",
   "Beard Trimming",
   "Haircut & Beard",
+  "Haircut, Beard & Facial Care",
   "Braids",
   "Perm — Long Lasting",
   "Perm — Classic",
@@ -23,6 +24,7 @@ const ALLOWED_SERVICES_AR = [
   "قص وتصفيف الشعر",
   "تشذيب اللحية",
   "قص الشعر واللحية",
+  "قص وتشذيب وعناية بالبشرة",
   "ضفاير",
   "كيرلي دائم",
   "كيرلي كلاسيك",
