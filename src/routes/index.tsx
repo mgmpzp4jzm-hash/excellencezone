@@ -467,6 +467,7 @@ const team = [
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
+  { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Saudi Arabia", ar: "السعودية" }, role: { en: "Barber — Haircuts", ar: "حلاق — قص شعر" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
