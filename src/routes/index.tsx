@@ -62,6 +62,8 @@ export const Route = createFileRoute("/")({
 
 type Lang = "en" | "ar";
 
+const toArDigits = (s: string | number) => String(s).replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[+d]);
+
 const servicesData: Array<{
   icon: any;
   price?: number;
