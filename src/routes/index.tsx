@@ -696,7 +696,10 @@ function HomePage() {
       <footer className="border-t border-border">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground tracking-widest uppercase">
           <p>© {new Date().getFullYear()} {L.footer.rights}</p>
-          <p>{L.footer.tagline}</p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy" className="hover:text-primary transition">{lang === "ar" ? "الخصوصية" : "Privacy"}</Link>
+            <p>{L.footer.tagline}</p>
+          </div>
         </div>
       </footer>
     </div>

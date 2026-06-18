@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MoroccanBathRouteImport } from './routes/moroccan-bath'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogWhatIsAMoroccanBathHammamRouteImport } from './routes/blog.what-is-a-moroccan-bath-hammam'
@@ -17,6 +18,11 @@ import { Route as BlogWhatIsAMoroccanBathHammamRouteImport } from './routes/blog
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoroccanBathRoute = MoroccanBathRouteImport.update({
@@ -39,12 +45,14 @@ const BlogWhatIsAMoroccanBathHammamRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/moroccan-bath': typeof MoroccanBathRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/moroccan-bath': typeof MoroccanBathRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
@@ -52,6 +60,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/moroccan-bath': typeof MoroccanBathRoute
+  '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/blog/what-is-a-moroccan-bath-hammam': typeof BlogWhatIsAMoroccanBathHammamRoute
 }
@@ -60,18 +69,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/moroccan-bath'
+    | '/privacy'
     | '/sitemap.xml'
     | '/blog/what-is-a-moroccan-bath-hammam'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/moroccan-bath'
+    | '/privacy'
     | '/sitemap.xml'
     | '/blog/what-is-a-moroccan-bath-hammam'
   id:
     | '__root__'
     | '/'
     | '/moroccan-bath'
+    | '/privacy'
     | '/sitemap.xml'
     | '/blog/what-is-a-moroccan-bath-hammam'
   fileRoutesById: FileRoutesById
@@ -79,6 +91,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MoroccanBathRoute: typeof MoroccanBathRoute
+  PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BlogWhatIsAMoroccanBathHammamRoute: typeof BlogWhatIsAMoroccanBathHammamRoute
 }
@@ -90,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/moroccan-bath': {
@@ -119,19 +139,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MoroccanBathRoute: MoroccanBathRoute,
+  PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   BlogWhatIsAMoroccanBathHammamRoute: BlogWhatIsAMoroccanBathHammamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
