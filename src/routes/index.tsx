@@ -236,10 +236,28 @@ function buildSlots(duration: number): string[] {
   return slots;
 }
 
+// Saudi Arabia is UTC+3, no DST. All booking date/time inputs are interpreted
+// as Saudi local time so client and server agree regardless of the visitor's
+// browser timezone.
+const SAUDI_OFFSET_MIN = 3 * 60;
+
+// Build a UTC Date representing the given Saudi-local Y-M-D hh:mm.
+function saudiLocalToUTC(Y: number, M: number, D: number, hh: number, mm: number): Date {
+  return new Date(Date.UTC(Y, M - 1, D, hh, mm) - SAUDI_OFFSET_MIN * 60_000);
+}
+
+// Today's date in Saudi local time, formatted YYYY-MM-DD.
+function saudiTodayISO(): string {
+  const now = new Date();
+  const saudi = new Date(now.getTime() + SAUDI_OFFSET_MIN * 60_000);
+  return saudi.toISOString().slice(0, 10);
+}
+
 function isFriday(dateStr: string): boolean {
   if (!dateStr) return false;
   const [Y, M, D] = dateStr.split("-").map(Number);
-  return new Date(Y, M - 1, D).getDay() === 5;
+  // Use UTC weekday to avoid being shifted by the browser's local timezone.
+  return new Date(Date.UTC(Y, M - 1, D)).getUTCDay() === 5;
 }
 
 function BookingForm({ lang }: { lang: Lang }) {
