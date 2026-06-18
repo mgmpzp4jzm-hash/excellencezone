@@ -201,6 +201,29 @@ const serviceWorkers: Record<string, string[]> = {
 const OPEN_MIN = 10 * 60;
 const CLOSE_MIN = OPEN_MIN + 16 * 60;
 
+// Per-worker working hours (minutes from local midnight; end may exceed 24*60).
+// Closed Fridays for all workers.
+const WORKER_HOURS: Record<string, { start: number; end: number }> = {
+  Hamza:   { start: 10 * 60,      end: 21 * 60 + 30 },
+  Sayed:   { start: 13 * 60,      end: 24 * 60 },
+  Saber:   { start: 15 * 60,      end: 26 * 60 },
+  Rasheed: { start: 14 * 60,      end: 24 * 60 },
+  Ali:     { start: 14 * 60,      end: 24 * 60 },
+  Yassine: { start: 15 * 60,      end: 26 * 60 },
+};
+
+function slotStartMin(slotHHMM: string): number {
+  const [h, m] = slotHHMM.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number): boolean {
+  const wh = WORKER_HOURS[workerEn];
+  if (!wh) return false;
+  const s = slotStartMin(slotHHMM);
+  return s >= wh.start && s + duration <= wh.end;
+}
+
 function buildSlots(duration: number): string[] {
   if (!duration) return [];
   const slots: string[] = [];
@@ -212,8 +235,6 @@ function buildSlots(duration: number): string[] {
   }
   return slots;
 }
-
-const FRIDAY_CUTOFF_MIN = 14 * 60 + 30; // 14:30
 
 function isFriday(dateStr: string): boolean {
   if (!dateStr) return false;
