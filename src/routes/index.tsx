@@ -184,6 +184,7 @@ const serviceWorkers: Record<string, string[]> = {
   "Haircut & Styling": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Beard Trimming": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Haircut & Beard": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Haircut, Beard & Facial Care": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
