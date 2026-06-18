@@ -608,7 +608,7 @@ function HomePage() {
                   {s.priceLabel ? (
                     <span className="text-primary">{s.priceLabel[lang]}</span>
                   ) : s.price != null && (
-                    <span className="text-primary">{lang === "ar" ? `${s.price} ر.س` : `${s.price} SAR`}</span>
+                    <span className="text-primary">{lang === "ar" ? `${toArDigits(s.price)} ر.س` : `${s.price} SAR`}</span>
                   )}
                 </div>
                 {link && (
