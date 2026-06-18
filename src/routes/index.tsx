@@ -177,8 +177,8 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
   "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
@@ -467,7 +467,7 @@ const team = [
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
-  { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Saudi Arabia", ar: "السعودية" }, role: { en: "Barber — Haircuts", ar: "حلاق — قص شعر" } },
+  { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
