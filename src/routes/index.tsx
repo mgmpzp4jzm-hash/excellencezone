@@ -315,7 +315,8 @@ function BookingForm({ lang }: { lang: Lang }) {
     if (!date || !selectedService) return null;
     const [hh, mm] = slotHHMM.split(":").map(Number);
     const [Y, M, D] = date.split("-").map(Number);
-    const start = new Date(Y, M - 1, D, hh, mm).getTime();
+    // Interpret slot as Saudi local time so the UTC instant matches the server's check.
+    const start = saudiLocalToUTC(Y, M, D, hh, mm).getTime();
     const end = start + selectedService.duration * 60_000;
     return { start, end };
   };
