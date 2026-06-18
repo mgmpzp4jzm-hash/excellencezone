@@ -176,9 +176,9 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Beard Trimming": ["Hamza", "Sayed", "Yassine", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Yassine", "Saber"],
   "Braids": ["Yassine"],
   "Perm — Long Lasting": ["Yassine"],
   "Perm — Classic": ["Yassine"],
