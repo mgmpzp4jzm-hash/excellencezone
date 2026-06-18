@@ -93,6 +93,7 @@ const WORKER_PHONES: Record<string, string> = {
   "Sayed": "966559504681",
   "Hamza": "966504278509",
   "Soufyan": "966548542534",
+  "Saber": "966573567941",
 };
 
 const t = {
@@ -175,7 +176,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Soufyan", "Yassine", "Saber"],
   "Beard Trimming": ["Hamza", "Sayed", "Soufyan", "Yassine"],
   "Haircut & Beard": ["Hamza", "Sayed", "Soufyan", "Yassine"],
   "Braids": ["Yassine"],
@@ -339,7 +340,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         return;
       }
       // Always send the WhatsApp message in Arabic, regardless of the UI language.
-      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين" };
+      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين", Saber: "صابر" };
       const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
       const [Y, M, D] = date.split("-").map(Number);
       const [hh, mm] = time.split(":").map(Number);
@@ -466,6 +467,7 @@ const team = [
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
+  { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Saudi Arabia", ar: "السعودية" }, role: { en: "Barber — Haircuts", ar: "حلاق — قص شعر" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
