@@ -86,13 +86,13 @@ const servicesData: Array<{
 ];
 
 // Phone numbers for booking notifications
-const OWNER_BOOKING_PHONE = "966560666769";
+const OWNER_BOOKING_PHONE = "966599676709";
 const WORKER_PHONES: Record<string, string> = {
-  "Rasheed": "966599900585",
+  "Rasheed": "966538660714",
+  "Ali": "966538660714",
   "Yassine": "966541572696",
   "Sayed": "966559504681",
   "Hamza": "966504278509",
-  "Soufyan": "966548542534",
   "Saber": "966573567941",
 };
 
