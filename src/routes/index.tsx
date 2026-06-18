@@ -437,8 +437,8 @@ function BookingForm({ lang }: { lang: Lang }) {
 
 
   const timePlaceholder = lang === "ar"
-    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
-    : (!service ? "Select a service first" : !date ? "Select a date first" : "Select time");
+    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : isFridayDate ? "الصالون مغلق يوم الجمعة" : visibleSlots.length === 0 ? "لا يوجد مختص متاح في هذا اليوم" : "اختر الوقت")
+    : (!service ? "Select a service first" : !date ? "Select a date first" : isFridayDate ? "Closed on Fridays" : visibleSlots.length === 0 ? "No specialist available this day" : "Select time");
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
   const timeDisabled = !service || !date;
