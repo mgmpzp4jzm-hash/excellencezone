@@ -93,6 +93,7 @@ const WORKER_PHONES: Record<string, string> = {
   "Sayed": "966559504681",
   "Hamza": "966504278509",
   "Soufyan": "966548542534",
+  "Saber": "966573567941",
 };
 
 const t = {
