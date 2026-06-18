@@ -384,6 +384,9 @@ function BookingForm({ lang }: { lang: Lang }) {
           toast.error(lang === "ar" ? "هذا الوقت محجوز، اختر وقت ثاني" : "That time was just booked. Please pick another slot.");
           await refreshTaken(workerNames, date);
           setTime("");
+        } else if (res.error === "OUTSIDE_HOURS") {
+          toast.error(lang === "ar" ? "هذا الوقت خارج دوام المختص، اختر وقتاً آخر" : "That time is outside the specialist's working hours. Please pick another slot.");
+          setTime("");
         } else {
           toast.error(res.error);
         }
