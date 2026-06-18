@@ -343,18 +343,31 @@ function BookingForm({ lang }: { lang: Lang }) {
       const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
       const [Y, M, D] = date.split("-").map(Number);
       const [hh, mm] = time.split(":").map(Number);
-      const period = hh >= 12 && hh < 24 ? "مساءً" : "صباحاً";
+      const periodAr = hh >= 12 && hh < 24 ? "مساءً" : "صباحاً";
+      const periodEn = hh >= 12 && hh < 24 ? "PM" : "AM";
       const h12 = hh % 12 === 0 ? 12 : hh % 12;
-      const datetimeAr = `${String(D).padStart(2, "0")}-${String(M).padStart(2, "0")}-${Y} الساعة ${h12}:${String(mm).padStart(2, "0")} ${period}`;
+      const datetimeAr = `${String(D).padStart(2, "0")}-${String(M).padStart(2, "0")}-${Y} الساعة ${h12}:${String(mm).padStart(2, "0")} ${periodAr}`;
+      const datetimeEn = `${String(D).padStart(2, "0")}-${String(M).padStart(2, "0")}-${Y} at ${h12}:${String(mm).padStart(2, "0")} ${periodEn}`;
+      const freeAr = res.isFree ? " — مجاناً 🎁 (الحجز الخامس)" : "";
+      const freeEn = res.isFree ? " — Free 🎁 (5th booking)" : "";
       const lines = [
+        "--- Arabic / العربية ---",
         "أرغب بحجز موعد في صالون منطقة التميز.",
-        "",
         `الاسم: ${name}`,
         `رقم الجوال: ${phone}`,
-        `الخدمة: ${serviceAr}${res.isFree ? " — مجاناً 🎁 (الحجز الخامس)" : ""}`,
+        `الخدمة: ${serviceAr}${freeAr}`,
         `الأخصائي: ${res.worker ? (workerAr[res.worker] ?? res.worker) : ""}`,
         `التاريخ والوقت: ${datetimeAr}`,
         notes ? `ملاحظات: ${notes}` : "",
+        "",
+        "--- English / الإنجليزية ---",
+        "I would like to book an appointment at Excellence Zone Salon.",
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Service: ${service}${freeEn}`,
+        `Specialist: ${res.worker ?? ""}`,
+        `Date & Time: ${datetimeEn}`,
+        notes ? `Notes: ${notes}` : "",
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
       window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
