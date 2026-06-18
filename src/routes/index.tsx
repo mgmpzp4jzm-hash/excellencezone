@@ -610,7 +610,7 @@ function HomePage() {
               <p className="text-primary/40 font-serif text-5xl leading-none mb-6">
                 {m.name[lang].charAt(0)}
               </p>
-              <h3 className="font-serif text-2xl mb-2">{m.name[lang]}</h3>
+              <h3 className="font-serif text-2xl mb-2">{m.name[lang]} <span className="text-muted-foreground text-base">({m.nationality[lang]})</span></h3>
               <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
             </div>
           ))}
