@@ -201,6 +201,29 @@ const serviceWorkers: Record<string, string[]> = {
 const OPEN_MIN = 10 * 60;
 const CLOSE_MIN = OPEN_MIN + 16 * 60;
 
+// Per-worker working hours (minutes from local midnight; end may exceed 24*60).
+// Closed Fridays for all workers.
+const WORKER_HOURS: Record<string, { start: number; end: number }> = {
+  Hamza:   { start: 10 * 60,      end: 21 * 60 + 30 },
+  Sayed:   { start: 13 * 60,      end: 24 * 60 },
+  Saber:   { start: 15 * 60,      end: 26 * 60 },
+  Rasheed: { start: 14 * 60,      end: 24 * 60 },
+  Ali:     { start: 14 * 60,      end: 24 * 60 },
+  Yassine: { start: 15 * 60,      end: 26 * 60 },
+};
+
+function slotStartMin(slotHHMM: string): number {
+  const [h, m] = slotHHMM.split(":").map(Number);
+  return h * 60 + m;
+}
+
+function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number): boolean {
+  const wh = WORKER_HOURS[workerEn];
+  if (!wh) return false;
+  const s = slotStartMin(slotHHMM);
+  return s >= wh.start && s + duration <= wh.end;
+}
+
 function buildSlots(duration: number): string[] {
   if (!duration) return [];
   const slots: string[] = [];
@@ -212,8 +235,6 @@ function buildSlots(duration: number): string[] {
   }
   return slots;
 }
-
-const FRIDAY_CUTOFF_MIN = 14 * 60 + 30; // 14:30
 
 function isFriday(dateStr: string): boolean {
   if (!dateStr) return false;
@@ -241,19 +262,36 @@ function BookingForm({ lang }: { lang: Lang }) {
   const serviceEn = serviceIdx >= 0 ? bookingServices.en[serviceIdx].value : "";
   const allowedWorkersEn = serviceEn ? serviceWorkers[serviceEn] ?? [] : [];
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
+  // Map localized worker name → English name (for hours lookup and server payload).
+  const nameToEn: Record<string, string> = {};
+  for (const m of availableTeam) nameToEn[m.name[lang]] = m.name.en;
   const workerNames = availableTeam.map((m) => m.name[lang]);
-  // Workers to query/insert against, with the preferred worker first (server falls back to others if taken).
-  const orderedWorkerNames = preferredWorker
-    ? [preferredWorker, ...workerNames.filter((n) => n !== preferredWorker)]
-    : workerNames;
-  const slots = buildSlots(selectedService?.duration ?? 0);
+  const duration = selectedService?.duration ?? 0;
+  const slots = buildSlots(duration);
   const isFridayDate = date ? isFriday(date) : false;
+
+  // A worker can work this slot if their hours cover [start, start+duration].
+  const workersCoveringSlot = (slotHHMM: string): string[] =>
+    workerNames.filter((n) => {
+      const en = nameToEn[n];
+      return en ? workerCoversSlot(en, slotHHMM, duration) : false;
+    });
+
+  // Hide slots when no eligible worker is on duty (and the entire day on Fridays).
   const visibleSlots = isFridayDate
-    ? slots.filter((s) => {
-        const [hh, mm] = s.split(":").map(Number);
-        return hh < 10 || hh * 60 + mm >= FRIDAY_CUTOFF_MIN;
-      })
-    : slots;
+    ? []
+    : slots.filter((s) => workersCoveringSlot(s).length > 0);
+
+  // Workers to query/insert against. With "Any available" we restrict to workers
+  // actually on duty for the chosen slot. With a preferred worker we send only them.
+  const orderedWorkerNames = (() => {
+    if (!time) return preferredWorker ? [preferredWorker] : workerNames;
+    const covering = workersCoveringSlot(time);
+    if (preferredWorker) {
+      return covering.includes(preferredWorker) ? [preferredWorker] : [];
+    }
+    return covering;
+  })();
 
   const slotTimes = (slotHHMM: string) => {
     if (!date || !selectedService) return null;
@@ -266,15 +304,21 @@ function BookingForm({ lang }: { lang: Lang }) {
 
   const isTaken = (slotHHMM: string) => {
     const t = slotTimes(slotHHMM);
-    if (!t || workerNames.length === 0) return false;
+    if (!t) return false;
+    const covering = workersCoveringSlot(slotHHMM);
+    if (covering.length === 0) return true;
+    // A worker is "available" if on-duty AND has no overlapping booking.
     const busy = new Set<string>();
     for (const b of taken) {
       const bs = new Date(b.startAt).getTime();
       const be = new Date(b.endAt).getTime();
       if (t.start < be && t.end > bs) busy.add(b.worker);
     }
-    // Fallback is allowed: the slot is "taken" only when every eligible worker is busy.
-    return busy.size >= workerNames.length;
+    // If a specific worker is preferred, the slot is taken when THEY are busy/off-duty.
+    if (preferredWorker) {
+      return !covering.includes(preferredWorker) || busy.has(preferredWorker);
+    }
+    return covering.every((n) => busy.has(n));
   };
 
   const refreshTaken = async (workers: string[], d: string) => {
@@ -340,6 +384,9 @@ function BookingForm({ lang }: { lang: Lang }) {
           toast.error(lang === "ar" ? "هذا الوقت محجوز، اختر وقت ثاني" : "That time was just booked. Please pick another slot.");
           await refreshTaken(workerNames, date);
           setTime("");
+        } else if (res.error === "OUTSIDE_HOURS") {
+          toast.error(lang === "ar" ? "هذا الوقت خارج دوام المختص، اختر وقتاً آخر" : "That time is outside the specialist's working hours. Please pick another slot.");
+          setTime("");
         } else {
           toast.error(res.error);
         }
@@ -393,8 +440,8 @@ function BookingForm({ lang }: { lang: Lang }) {
 
 
   const timePlaceholder = lang === "ar"
-    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : "اختر الوقت")
-    : (!service ? "Select a service first" : !date ? "Select a date first" : "Select time");
+    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : isFridayDate ? "الصالون مغلق يوم الجمعة" : visibleSlots.length === 0 ? "لا يوجد مختص متاح في هذا اليوم" : "اختر الوقت")
+    : (!service ? "Select a service first" : !date ? "Select a date first" : isFridayDate ? "Closed on Fridays" : visibleSlots.length === 0 ? "No specialist available this day" : "Select time");
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
   const timeDisabled = !service || !date;
