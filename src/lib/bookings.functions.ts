@@ -126,6 +126,23 @@ export const createBooking = createServerFn({ method: "POST" })
 
     let lastErr: string | null = null;
     for (const worker of data.workers) {
+      // Defensive pre-check: does this worker already have an overlapping booking?
+      const { data: overlapping, error: overlapErr } = await supabaseAdmin
+        .from("bookings")
+        .select("id")
+        .eq("worker", worker)
+        .lt("start_at", end.toISOString())
+        .gt("end_at", start.toISOString())
+        .limit(1);
+      if (overlapErr) {
+        console.error("createBooking overlap check failed", overlapErr);
+        return { ok: false as const, error: "Booking failed. Please try again." };
+      }
+      if (overlapping && overlapping.length > 0) {
+        lastErr = "SLOT_TAKEN";
+        continue;
+      }
+
       const { error } = await supabaseAdmin.from("bookings").insert({
         service: data.service,
         worker,
