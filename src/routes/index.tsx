@@ -346,8 +346,9 @@ function BookingForm({ lang }: { lang: Lang }) {
       return;
     }
     const [Y, M, D] = d.split("-").map(Number);
-    const dayStart = new Date(Y, M - 1, D).toISOString();
-    const dayEnd = new Date(Y, M - 1, D + 2).toISOString();
+    // Query a window in Saudi-local terms so it matches what the server stores.
+    const dayStart = saudiLocalToUTC(Y, M, D, 0, 0).toISOString();
+    const dayEnd = saudiLocalToUTC(Y, M, D + 2, 0, 0).toISOString();
     try {
       const rows = await fetchTaken({ data: { workers, dayStart, dayEnd } });
       setTaken(rows);
