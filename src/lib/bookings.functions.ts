@@ -112,14 +112,24 @@ export const createBooking = createServerFn({ method: "POST" })
     const day = saudiTime.getUTCDay();
     const totalMinutes = saudiTime.getUTCHours() * 60 + saudiTime.getUTCMinutes();
 
-    // Friday: 14:30 – 02:00 (Saturday). All other days: 10:00 – 02:00 (next day)
-    const windowStart = day === 5 ? 14 * 60 + 30 : 10 * 60;
-    const isEarlyMorning = totalMinutes < 2 * 60;
-    if (!isEarlyMorning && totalMinutes < windowStart) {
+    // The salon is closed on Fridays.
+    const isEarlyMorning = totalMinutes < 2 * 60; // 00:00–02:00 counts as the prior day's session
+    const effectiveDay = isEarlyMorning ? (day + 6) % 7 : day;
+    if (effectiveDay === 5) {
       return { ok: false as const, error: "OUTSIDE_HOURS" };
     }
 
     const end = new Date(start.getTime() + data.durationMin * 60_000);
+
+    // Per-worker hours: convert booking start/end to minutes-from-session-start.
+    // For early-morning bookings (00:00–02:00), shift by +24h so they fall within the prior day's window.
+    const startMinFromMidnight = totalMinutes + (isEarlyMorning ? 24 * 60 : 0);
+    const endMinFromMidnight = startMinFromMidnight + data.durationMin;
+    const workerCovers = (worker: string) => {
+      const wh = WORKER_HOURS[worker];
+      if (!wh) return false;
+      return startMinFromMidnight >= wh.start && endMinFromMidnight <= wh.end;
+    };
 
     const EXCLUDED_FROM_LOYALTY = new Set<string>([
       // All hair services are excluded from the 5th-free loyalty reward
