@@ -340,7 +340,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         return;
       }
       // Always send the WhatsApp message in Arabic, regardless of the UI language.
-      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين" };
+      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين", Saber: "صابر" };
       const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
       const [Y, M, D] = date.split("-").map(Number);
       const [hh, mm] = time.split(":").map(Number);
