@@ -165,6 +165,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "قص وتصفيف الشعر", duration: 40 },
     { value: "تشذيب اللحية", duration: 30 },
     { value: "قص الشعر واللحية", duration: 60 },
+    { value: "قص وتشذيب وعناية بالبشرة", duration: 90 },
     { value: "ضفاير", duration: 60 },
     { value: "كيرلي دائم", duration: 75 },
     { value: "كيرلي كلاسيك", duration: 25 },
