@@ -338,15 +338,23 @@ function BookingForm({ lang }: { lang: Lang }) {
         }
         return;
       }
-      const datetime = `${date} ${time}`;
+      // Always send the WhatsApp message in Arabic, regardless of the UI language.
+      const workerAr: Record<string, string> = { Rasheed: "رشيد", Hamza: "حمزة", Sayed: "سيد", Soufyan: "سفيان", Yassine: "ياسين" };
+      const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
+      const [Y, M, D] = date.split("-").map(Number);
+      const [hh, mm] = time.split(":").map(Number);
+      const period = hh >= 12 && hh < 24 ? "مساءً" : "صباحاً";
+      const h12 = hh % 12 === 0 ? 12 : hh % 12;
+      const datetimeAr = `${String(D).padStart(2, "0")}-${String(M).padStart(2, "0")}-${Y} الساعة ${h12}:${String(mm).padStart(2, "0")} ${period}`;
       const lines = [
-        tr.greeting,
-        `${tr.lName}: ${name}`,
-        `${tr.lPhone}: ${phone}`,
-        `${tr.lService}: ${service}${res.isFree ? " — FREE 🎁 (5th booking)" : ""}`,
-        `${tr.lWorker}: ${res.worker}`,
-        `${tr.lDate}: ${datetime}`,
-        notes ? `${tr.lNotes}: ${notes}` : "",
+        "أرغب بحجز موعد في صالون منطقة التميز.",
+        "",
+        `الاسم: ${name}`,
+        `رقم الجوال: ${phone}`,
+        `الخدمة: ${serviceAr}${res.isFree ? " — مجاناً 🎁 (الحجز الخامس)" : ""}`,
+        `الأخصائي: ${res.worker ? (workerAr[res.worker] ?? res.worker) : ""}`,
+        `التاريخ والوقت: ${datetimeAr}`,
+        notes ? `ملاحظات: ${notes}` : "",
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
       window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
