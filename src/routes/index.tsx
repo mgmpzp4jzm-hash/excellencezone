@@ -149,6 +149,7 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "Haircut & Styling", duration: 40 },
     { value: "Beard Trimming", duration: 30 },
     { value: "Haircut & Beard", duration: 60 },
+    { value: "Haircut, Beard & Facial Care", duration: 90 },
     { value: "Braids", duration: 60 },
     { value: "Perm — Long Lasting", duration: 75 },
     { value: "Perm — Classic", duration: 25 },
