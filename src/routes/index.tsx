@@ -336,7 +336,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     for (const b of taken) {
       const bs = new Date(b.startAt).getTime();
       const be = new Date(b.endAt).getTime();
-      if (t.start < be && t.end > bs) busy.add(b.worker);
+      if (t.start < be && t.end > bs) busy.add(enToName[b.worker] ?? b.worker);
     }
     // If a specific worker is preferred, the slot is taken when THEY are busy/off-duty.
     if (preferredWorker) {
