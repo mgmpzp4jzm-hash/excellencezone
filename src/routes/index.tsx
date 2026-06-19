@@ -439,7 +439,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         "--- Arabic / العربية ---",
         "أرغب بحجز موعد في صالون منطقة التميز.",
         `الاسم: ${name}`,
-        `رقم الجوال: ${phone}`,
+        `رقم الجوال: ${fullPhone}`,
         `الخدمة: ${serviceAr}${freeAr}`,
         `الأخصائي: ${res.worker ? (workerAr[res.worker] ?? res.worker) : ""}`,
         `التاريخ والوقت: ${datetimeAr}`,
