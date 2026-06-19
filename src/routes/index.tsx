@@ -282,8 +282,13 @@ function BookingForm({ lang }: { lang: Lang }) {
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   // Map localized worker name → English name (for hours lookup and server payload).
   const nameToEn: Record<string, string> = {};
-  for (const m of availableTeam) nameToEn[m.name[lang]] = m.name.en;
+  const enToName: Record<string, string> = {};
+  for (const m of availableTeam) {
+    nameToEn[m.name[lang]] = m.name.en;
+    enToName[m.name.en] = m.name[lang];
+  }
   const workerNames = availableTeam.map((m) => m.name[lang]);
+  const toEnList = (names: string[]) => names.map((n) => nameToEn[n] ?? n);
   const duration = selectedService?.duration ?? 0;
   const slots = buildSlots(duration);
   const isFridayDate = date ? isFriday(date) : false;
@@ -331,7 +336,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     for (const b of taken) {
       const bs = new Date(b.startAt).getTime();
       const be = new Date(b.endAt).getTime();
-      if (t.start < be && t.end > bs) busy.add(b.worker);
+      if (t.start < be && t.end > bs) busy.add(enToName[b.worker] ?? b.worker);
     }
     // If a specific worker is preferred, the slot is taken when THEY are busy/off-duty.
     if (preferredWorker) {
@@ -350,7 +355,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     const dayStart = saudiLocalToUTC(Y, M, D, 0, 0).toISOString();
     const dayEnd = saudiLocalToUTC(Y, M, D + 2, 0, 0).toISOString();
     try {
-      const rows = await fetchTaken({ data: { workers, dayStart, dayEnd } });
+      const rows = await fetchTaken({ data: { workers: toEnList(workers), dayStart, dayEnd } });
       setTaken(rows);
     } catch {
       setTaken([]);
@@ -391,7 +396,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const res = await createBookingFn({
         data: {
           service,
-          workers: orderedWorkerNames,
+          workers: toEnList(orderedWorkerNames),
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
@@ -452,7 +457,7 @@ function BookingForm({ lang }: { lang: Lang }) {
           window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
         }, 400);
       }
-      toast.success(lang === "ar" ? "تم الحجز بنجاح" : "Booking confirmed");
+      toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
     }
