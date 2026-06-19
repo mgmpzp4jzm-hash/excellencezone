@@ -389,6 +389,12 @@ function BookingForm({ lang }: { lang: Lang }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!service || !date || !time || !selectedService || orderedWorkerNames.length === 0) return;
+    const localPhone = phone.replace(/\D/g, "").replace(/^0+/, "").replace(/^966/, "");
+    if (localPhone.length < 8) {
+      toast.error(lang === "ar" ? "رقم الجوال غير صحيح" : "Please enter a valid phone number");
+      return;
+    }
+    const fullPhone = `+966${localPhone}`;
     const t = slotTimes(time);
     if (!t) return;
     setSubmitting(true);
@@ -400,7 +406,7 @@ function BookingForm({ lang }: { lang: Lang }) {
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
-          customerPhone: phone,
+          customerPhone: fullPhone,
           notes: notes || null,
         },
       });
