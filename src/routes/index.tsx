@@ -448,7 +448,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         "--- English / الإنجليزية ---",
         "I would like to book an appointment at Excellence Zone Salon.",
         `Name: ${name}`,
-        `Phone: ${phone}`,
+        `Phone: ${fullPhone}`,
         `Service: ${service}${freeEn}`,
         `Specialist: ${res.worker ?? ""}`,
         `Date & Time: ${datetimeEn}`,
