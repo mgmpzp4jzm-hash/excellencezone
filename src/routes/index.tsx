@@ -282,8 +282,13 @@ function BookingForm({ lang }: { lang: Lang }) {
   const availableTeam = serviceEn ? team.filter((m) => allowedWorkersEn.includes(m.name.en)) : team;
   // Map localized worker name → English name (for hours lookup and server payload).
   const nameToEn: Record<string, string> = {};
-  for (const m of availableTeam) nameToEn[m.name[lang]] = m.name.en;
+  const enToName: Record<string, string> = {};
+  for (const m of availableTeam) {
+    nameToEn[m.name[lang]] = m.name.en;
+    enToName[m.name.en] = m.name[lang];
+  }
   const workerNames = availableTeam.map((m) => m.name[lang]);
+  const toEnList = (names: string[]) => names.map((n) => nameToEn[n] ?? n);
   const duration = selectedService?.duration ?? 0;
   const slots = buildSlots(duration);
   const isFridayDate = date ? isFriday(date) : false;
