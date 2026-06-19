@@ -355,7 +355,7 @@ function BookingForm({ lang }: { lang: Lang }) {
     const dayStart = saudiLocalToUTC(Y, M, D, 0, 0).toISOString();
     const dayEnd = saudiLocalToUTC(Y, M, D + 2, 0, 0).toISOString();
     try {
-      const rows = await fetchTaken({ data: { workers, dayStart, dayEnd } });
+      const rows = await fetchTaken({ data: { workers: toEnList(workers), dayStart, dayEnd } });
       setTaken(rows);
     } catch {
       setTaken([]);
