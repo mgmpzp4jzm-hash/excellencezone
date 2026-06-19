@@ -457,7 +457,7 @@ function BookingForm({ lang }: { lang: Lang }) {
           window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
         }, 400);
       }
-      toast.success(lang === "ar" ? "تم الحجز بنجاح" : "Booking confirmed");
+      toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
     }
