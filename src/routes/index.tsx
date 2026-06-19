@@ -389,6 +389,12 @@ function BookingForm({ lang }: { lang: Lang }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!service || !date || !time || !selectedService || orderedWorkerNames.length === 0) return;
+    const localPhone = phone.replace(/\D/g, "").replace(/^0+/, "").replace(/^966/, "");
+    if (localPhone.length < 8) {
+      toast.error(lang === "ar" ? "رقم الجوال غير صحيح" : "Please enter a valid phone number");
+      return;
+    }
+    const fullPhone = `+966${localPhone}`;
     const t = slotTimes(time);
     if (!t) return;
     setSubmitting(true);
@@ -400,7 +406,7 @@ function BookingForm({ lang }: { lang: Lang }) {
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
-          customerPhone: phone,
+          customerPhone: fullPhone,
           notes: notes || null,
         },
       });
@@ -433,7 +439,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         "--- Arabic / العربية ---",
         "أرغب بحجز موعد في صالون منطقة التميز.",
         `الاسم: ${name}`,
-        `رقم الجوال: ${phone}`,
+        `رقم الجوال: ${fullPhone}`,
         `الخدمة: ${serviceAr}${freeAr}`,
         `الأخصائي: ${res.worker ? (workerAr[res.worker] ?? res.worker) : ""}`,
         `التاريخ والوقت: ${datetimeAr}`,
@@ -442,7 +448,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         "--- English / الإنجليزية ---",
         "I would like to book an appointment at Excellence Zone Salon.",
         `Name: ${name}`,
-        `Phone: ${phone}`,
+        `Phone: ${fullPhone}`,
         `Service: ${service}${freeEn}`,
         `Specialist: ${res.worker ?? ""}`,
         `Date & Time: ${datetimeEn}`,
@@ -477,7 +483,25 @@ function BookingForm({ lang }: { lang: Lang }) {
       <h3 className="font-serif text-2xl">{tr.title}</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label={tr.name} value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
-        <input aria-label={tr.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
+        <div className="flex items-stretch bg-background border border-border focus-within:border-primary" dir="ltr">
+          <span className="px-3 flex items-center text-sm text-muted-foreground border-r border-border select-none">+966</span>
+          <input
+            aria-label={tr.phone}
+            value={phone}
+            onChange={(e) => {
+              let v = e.target.value.replace(/\D/g, "");
+              if (v.startsWith("966")) v = v.slice(3);
+              if (v.startsWith("0")) v = v.replace(/^0+/, "");
+              setPhone(v.slice(0, 9));
+            }}
+            inputMode="numeric"
+            type="tel"
+            maxLength={9}
+            className="flex-1 bg-transparent px-4 py-3 text-sm outline-none"
+            placeholder={lang === "ar" ? "5XXXXXXXX" : "5XXXXXXXX"}
+            required
+          />
+        </div>
       </div>
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
