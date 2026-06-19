@@ -396,7 +396,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       const res = await createBookingFn({
         data: {
           service,
-          workers: orderedWorkerNames,
+          workers: toEnList(orderedWorkerNames),
           startAt: new Date(t.start).toISOString(),
           durationMin: selectedService.duration,
           customerName: name,
