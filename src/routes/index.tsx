@@ -477,7 +477,25 @@ function BookingForm({ lang }: { lang: Lang }) {
       <h3 className="font-serif text-2xl">{tr.title}</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         <input aria-label={tr.name} value={name} onChange={(e) => setName(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.name} required />
-        <input aria-label={tr.phone} value={phone} onChange={(e) => setPhone(e.target.value)} className="bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" placeholder={tr.phone} required />
+        <div className="flex items-stretch bg-background border border-border focus-within:border-primary" dir="ltr">
+          <span className="px-3 flex items-center text-sm text-muted-foreground border-r border-border select-none">+966</span>
+          <input
+            aria-label={tr.phone}
+            value={phone}
+            onChange={(e) => {
+              let v = e.target.value.replace(/\D/g, "");
+              if (v.startsWith("966")) v = v.slice(3);
+              if (v.startsWith("0")) v = v.replace(/^0+/, "");
+              setPhone(v.slice(0, 9));
+            }}
+            inputMode="numeric"
+            type="tel"
+            maxLength={9}
+            className="flex-1 bg-transparent px-4 py-3 text-sm outline-none"
+            placeholder={lang === "ar" ? "5XXXXXXXX" : "5XXXXXXXX"}
+            required
+          />
+        </div>
       </div>
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
