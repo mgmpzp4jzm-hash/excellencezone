@@ -114,7 +114,7 @@ const t = {
     services: { tag: "The Menu", h: "Signature Services", p: "Each treatment is delivered with precision instruments, premium products, and the unhurried attention you deserve." },
     gallery: { tag: "The Space", h: "Inside Excellence Zone" },
     team: { tag: "The Team", h: "Meet Our Specialists", p: "A dedicated team of barbers and therapists, each with their own craft." },
-    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 — 02:00", hoursFri: "Fri · 14:30 — 02:00" },
+    contact: { tag: "Visit Us", h: "Book your moment of excellence.", p: "Walk-ins welcome. Reservations recommended for the full signature experience.", maps: "Find us on Google Maps", hours: "Sat–Thu · 10:00 AM — 02:00 AM", hoursFri: "Fri · 02:30 PM — 02:00 AM" },
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred specialist", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Specialist", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
@@ -135,7 +135,7 @@ const t = {
     services: { tag: "قائمة الخدمات", h: "خدماتنا المميزة", p: "كل خدمة نقدّمها بأدوات دقيقة ومنتجات فاخرة، وبراحة تستاهلها من غير استعجال." },
     gallery: { tag: "المكان", h: "من داخل منطقة التميز" },
     team: { tag: "الفريق", h: "تعرّف على فريقنا", p: "فريق متخصص من الحلاقين والمعالجين، كل واحد محترف في شغله." },
-    contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 — 02:00", hoursFri: "الجمعة · 14:30 — 02:00" },
+    contact: { tag: "زورونا", h: "احجز لك لحظة تميّز.", p: "تقدر تجي من غير موعد، بس يفضّل تحجز عشان تاخذ راحتك الكاملة.", maps: "موقعنا على قوقل ماب", hours: "السبت–الخميس · 10:00 صباحاً — 02:00 صباحاً", hoursFri: "الجمعة · 02:30 مساءً — 02:00 صباحاً" },
     form: { title: "اطلب موعد", name: "الاسم الكامل", phone: "رقم الجوال", selectService: "اختر الخدمة", selectWorker: "المختص المفضل", notes: "ملاحظات (اختياري)", submit: "إرسال الطلب", greeting: "السلام عليكم ورحمة الله وبركاته،\nأرغب في حجز موعد لدى صالون منطقة التميّز.", lName: "الاسم", lPhone: "رقم الجوال", lService: "الخدمة المطلوبة", lWorker: "المختص المفضّل", lDate: "التاريخ والوقت", lNotes: "ملاحظات إضافية" },
     moroccanBath: { tag: "طقس مميز", h: "فوائد الحمام المغربي", p: "أكثر من مجرد استحمام — الحمام المغربي يجدّد جسمك من راسك لرجلك، بشرتك تطلع أنعم، بالك يرتاح، وكل عناية بعدها تبيّن أحلى.", link: "شوف الطقس كامل ←" },
     reviews: { tag: "كلام الزباين", h: "زباينّا يحبّونا", rating: "4.9 · 217 تقييم على قوقل" },
@@ -538,8 +538,6 @@ const reviews = [
   { name: { en: "Al-Tayeb Abdelwahab Al-Ghamdi", ar: "الطيب عبدالوهاب الغامدي" }, time: { en: "1 month ago", ar: "قبل شهر" }, text: { en: "Mashallah, tabarakallah — the service and treatment are very respectable, and the massage is wonderful. It was an amazing experience and one that must be repeated 🤍🫶🏻", ar: "ماشاء الله تبارك الله الخدمه والتعامل شي محترم والمساج جدا جميل كانت تجربة رائعه ولازم تتكرر 🤍🫶🏻" } },
   { name: { en: "Lord Kh", ar: "Lord Kh" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "I thank brother Rasheed — his manner is very classy and his work is clean and tidy.", ar: "اشكر الاخ رشيد اسلوبه راقي جدًا وشغله نظيف ومرتب" } },
   { name: { en: "Faisal Marghalani", ar: "فيصل مرغلاني" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "The best salon in Jeddah. Rasheed for the Moroccan bath and Sayed the barber are excellent — I highly recommend them 👍🏼", ar: "افضل صالون في جدة. الحمام المغربي رشيد والحلاق سيد ممتازييين جداً، اوصي بيهم وبقوة 👍🏼" } },
-  { name: { en: "Amer Alharbi", ar: "عامر الحربي" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "Thanks to Khalil for the legendary service. Everything is excellent and the haircut is professional to the highest level.", ar: "شكراً لخليل على الخدمة الأسطورية. كل شي ممتاز والحلاقة احترافية لاعلى درجة." } },
-  { name: { en: "os", ar: "os" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "Great experience with Khalil 👌 his work is professional and precise, attentive to the smallest details, and he understands modern styles and tailors them to your face. On top of that, his manners are excellent and his treatment is very classy. The place is clean and well organized. Honestly, one of the best barbers I've tried — highly recommended 👍", ar: "تجربة ممتازة مع خليل 👌 شغله احترافي ودقيق ويهتم بأدق التفاصيل، وفاهم بالستايلات الحديثة ويضبطها على حسب وجهك. بالإضافة إلى أخلاقه العالية وتعامل راقي جداً. المكان نظيف والتنظيم ممتاز. بصراحة من أفضل الحلاقين اللي جربتهم وأنصح فيه بقوة 👍" } },
   { name: { en: "Marwan Almazrui", ar: "مروان المزروعي" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "The salon is clean and tidy and their services are varied. The staff are friendly. I got my haircut with brother Hamza — light-handed and his work is beautiful. Allah give you wellness.", ar: "الصالون نظيف ومرتب وخدماتهم متنوعه، الموظفين لطيفين فالتعامل قصيت عند الاخ حمزه يده خفيفه وشغله جميل، يعطيكم العافيه" } },
   { name: { en: "Nabeel Masrahi", ar: "نبيل مصرحي" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "Wonderful place and a professional team. Thanks to brother Rasheed for the distinguished service.", ar: "مكان رائع و طاقم محترف، وشكرا للأخ رشيد على الخدمة المميزة" } },
   { name: { en: "Faisal Masrahi", ar: "فيصل مصرحي" }, time: { en: "2 months ago", ar: "قبل شهرين" }, text: { en: "Thanks to Rasheed and Mohammed — the best Moroccan bath and massage.", ar: "شكرا لرشيد ومحمد، افضل حمام مغربي ومساج" } },
@@ -567,7 +565,7 @@ const moroccanBathBenefits = [
 
 const team = [
   { name: { en: "Rasheed", ar: "رشيد" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Moroccan Bath · Manicure · Pedicure — Moroccan", ar: "الحمام المغربي · المانيكير · الباديكير — مغربي أصيل" } },
-  { name: { en: "Ali", ar: "علي" }, nationality: { en: "Indonesia", ar: "إندونيسيا" }, role: { en: "Masseuse — Indonesian", ar: "أخصائي مساج — إندونيسي" } },
+  { name: { en: "Ali", ar: "علي" }, nationality: { en: "Indonesia", ar: "إندونيسيا" }, role: { en: "Masseuse", ar: "أخصائي مساج" } },
   { name: { en: "Hamza", ar: "حمزة" }, nationality: { en: "Tunisia", ar: "تونس" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
@@ -758,7 +756,7 @@ function HomePage() {
             <h2 className="font-serif text-4xl md:text-5xl mb-8">{L.contact.h}</h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-10">{L.contact.p}</p>
             <ul className="space-y-6 text-sm">
-              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/HSnRzyGAuKgQNWkNA" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
+              <li className="flex items-start gap-4"><MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="https://maps.app.goo.gl/kmwYKQGPDSXYTtyy8" target="_blank" rel="noreferrer" className="hover:text-primary transition">{L.contact.maps}</a></li>
               <li className="flex items-start gap-4"><Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" /><a href="tel:+966599676709" dir="ltr" className="hover:text-primary transition">+966 59 967 6709</a></li>
               <li className="flex items-start gap-4"><Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" /><div><div>{L.contact.hours}</div><div>{L.contact.hoursFri}</div></div></li>
 
