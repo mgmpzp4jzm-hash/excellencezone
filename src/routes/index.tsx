@@ -738,7 +738,7 @@ function HomePage() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
           {team.map((m) => (
             <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
-              <h3 className="font-serif text-2xl mb-2">{m.name[lang]} <span className="text-base">({m.nationality[lang]})</span></h3>
+              <h3 className="font-serif text-2xl mb-2 text-primary">{m.name[lang]} <span className="text-base text-primary">({m.nationality[lang]})</span></h3>
               <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
             </div>
           ))}
