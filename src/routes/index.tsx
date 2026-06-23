@@ -93,7 +93,7 @@ const OWNER_BOOKING_PHONE = "966599676709";
 const WORKER_PHONES: Record<string, string> = {
   "Rasheed": "966538660714",
   "Ali": "966538660714",
-  "Yassine": "966541572696",
+  
   "Sayed": "966559504681",
   "Hamza": "966504278509",
   "Saber": "966573567941",
@@ -118,7 +118,7 @@ const t = {
     form: { title: "Request an Appointment", name: "Full name", phone: "Phone", selectService: "Select a service", selectWorker: "Preferred specialist", notes: "Notes (optional)", submit: "Send Request", greeting: "Hello, I would like to book an appointment at Excellence Zone Salon.", lName: "Name", lPhone: "Phone", lService: "Service", lWorker: "Specialist", lDate: "Date/Time", lNotes: "Notes" },
     moroccanBath: { tag: "Signature Ritual", h: "Benefits of a Moroccan Bath", p: "More than a cleanse — the Hammam is a full-body renewal that leaves your skin smoother, your mind calmer, and your grooming routine more effective.", link: "Explore the full ritual →" },
     reviews: { tag: "Guest Words", h: "Loved by our clients", rating: "4.9 · 217 Google reviews" },
-    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes all hair services." },
+    offer: { tag: "Loyalty Reward", title: "Your 5th visit is on us", desc: "Book the same service 4 times and the 5th is free — excludes all hair & beard services." },
     footer: { rights: "Excellence Zone Salon", tagline: "Crafted with care · Men's Grooming" },
   },
   ar: {
@@ -181,13 +181,13 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
 
 // Which workers (by English name) can perform each service (keyed by English service name)
 const serviceWorkers: Record<string, string[]> = {
-  "Haircut & Styling": ["Hamza", "Sayed", "Yassine", "Saber"],
-  "Beard Trimming": ["Hamza", "Sayed", "Yassine", "Saber"],
-  "Haircut & Beard": ["Hamza", "Sayed", "Yassine", "Saber"],
-  "Haircut, Beard & Facial Care": ["Hamza", "Sayed", "Yassine", "Saber"],
-  "Braids": ["Yassine"],
-  "Perm — Long Lasting": ["Yassine"],
-  "Perm — Classic": ["Yassine"],
+  "Haircut & Styling": ["Hamza", "Sayed", "Saber"],
+  "Beard Trimming": ["Hamza", "Sayed", "Saber"],
+  "Haircut & Beard": ["Hamza", "Sayed", "Saber"],
+  "Haircut, Beard & Facial Care": ["Hamza", "Sayed", "Saber"],
+  "Braids": ["Hamza", "Sayed", "Saber"],
+  "Perm — Long Lasting": ["Hamza", "Sayed", "Saber"],
+  "Perm — Classic": ["Hamza", "Sayed", "Saber"],
   "Moroccan Bath — Classic": ["Rasheed"],
   "Moroccan Bath — King": ["Rasheed"],
   "Massage — Classic": ["Ali", "Rasheed"],
@@ -209,7 +209,7 @@ const WORKER_HOURS: Record<string, { start: number; end: number }> = {
   Saber:   { start: 15 * 60,      end: 26 * 60 },
   Rasheed: { start: 14 * 60,      end: 24 * 60 },
   Ali:     { start: 14 * 60,      end: 24 * 60 },
-  Yassine: { start: 15 * 60,      end: 26 * 60 },
+  
 };
 
 function slotStartMin(slotHHMM: string): number {
@@ -424,7 +424,7 @@ function BookingForm({ lang }: { lang: Lang }) {
         return;
       }
       // Always send the WhatsApp message in Arabic, regardless of the UI language.
-      const workerAr: Record<string, string> = { Rasheed: "رشيد", Ali: "علي", Hamza: "حمزة", Sayed: "سيد", Yassine: "ياسين", Saber: "صابر" };
+      const workerAr: Record<string, string> = { Rasheed: "رشيد", Ali: "علي", Hamza: "حمزة", Sayed: "سيد", Saber: "صابر" };
       const serviceAr = serviceIdx >= 0 ? bookingServices.ar[serviceIdx].value : service;
       const [Y, M, D] = date.split("-").map(Number);
       const [hh, mm] = time.split(":").map(Number);
@@ -568,7 +568,7 @@ const team = [
   { name: { en: "Ali", ar: "علي" }, nationality: { en: "Indonesia", ar: "إندونيسيا" }, role: { en: "Masseuse", ar: "أخصائي مساج" } },
   { name: { en: "Hamza", ar: "حمزة" }, nationality: { en: "Tunisia", ar: "تونس" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
-  { name: { en: "Yassine", ar: "ياسين" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist · Perm · Braids", ar: "حلاق ومصفّف · كيرلي · ضفاير" } },
+  
   { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
 ];
 

@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const ALLOWED_WORKERS = ["Hamza", "Sayed", "Yassine", "Rasheed", "Ali", "Saber"] as const;
+const ALLOWED_WORKERS = ["Hamza", "Sayed", "Rasheed", "Ali", "Saber"] as const;
 
 // Per-worker working hours (Saudi local time), in minutes from local midnight.
 // `end` may exceed 24*60 to represent past-midnight close. Closed on Fridays.
@@ -11,7 +11,7 @@ const WORKER_HOURS: Record<string, { start: number; end: number }> = {
   Saber:   { start: 15 * 60,      end: 26 * 60 },
   Rasheed: { start: 14 * 60,      end: 24 * 60 },
   Ali:     { start: 14 * 60,      end: 24 * 60 },
-  Yassine: { start: 15 * 60,      end: 26 * 60 },
+  
 };
 
 const ALLOWED_SERVICES_EN = [
