@@ -580,6 +580,7 @@ const team = [
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   
   { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
+  { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" }, note: { en: "Contact privately for booking", ar: "تواصل خاص للحجز" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
@@ -750,6 +751,9 @@ function HomePage() {
             <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
               <h3 className="font-serif text-2xl mb-2 text-primary">{m.name[lang]} <span className="text-base text-primary">({m.nationality[lang]})</span></h3>
               <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
+              {"note" in m && m.note ? (
+                <p className="mt-2 text-primary text-xs tracking-wide italic">{m.note[lang]}</p>
+              ) : null}
             </div>
           ))}
         </div>
