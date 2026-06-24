@@ -217,12 +217,13 @@ function slotStartMin(slotHHMM: string): number {
   return h * 60 + m;
 }
 
+const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
 function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
   const s = slotStartMin(slotHHMM);
-  // On Fridays every worker is on duty from opening to closing.
+  // On Fridays every worker is on duty from Friday opening to closing.
   if (friday) {
     if (!(workerEn in WORKER_HOURS)) return false;
-    return s >= OPEN_MIN && s + duration <= CLOSE_MIN;
+    return s >= FRIDAY_OPEN && s + duration <= CLOSE_MIN;
   }
   const wh = WORKER_HOURS[workerEn];
   if (!wh) return false;
