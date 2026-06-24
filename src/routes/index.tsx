@@ -217,11 +217,30 @@ function slotStartMin(slotHHMM: string): number {
   return h * 60 + m;
 }
 
-function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number): boolean {
+function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
+  const s = slotStartMin(slotHHMM);
+  // On Fridays every worker is on duty from opening to closing.
+  if (friday) {
+    if (!(workerEn in WORKER_HOURS)) return false;
+    return s >= OPEN_MIN && s + duration <= CLOSE_MIN;
+  }
   const wh = WORKER_HOURS[workerEn];
   if (!wh) return false;
-  const s = slotStartMin(slotHHMM);
   return s >= wh.start && s + duration <= wh.end;
+}
+
+// "Now" in Saudi local time, expressed as minutes from midnight on `dateStr`.
+// Returns null when `dateStr` is in the future (no past-filtering needed).
+function saudiNowMinutesForDate(dateStr: string): number | null {
+  if (!dateStr) return null;
+  const today = saudiTodayISO();
+  if (dateStr !== today) {
+    // If dateStr is before today, everything is past; if after, nothing is past.
+    return dateStr < today ? Number.POSITIVE_INFINITY : null;
+  }
+  const now = new Date();
+  const saudi = new Date(now.getTime() + SAUDI_OFFSET_MIN * 60_000);
+  return saudi.getUTCHours() * 60 + saudi.getUTCMinutes();
 }
 
 function buildSlots(duration: number): string[] {
