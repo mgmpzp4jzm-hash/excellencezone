@@ -337,10 +337,15 @@ function BookingForm({ lang }: { lang: Lang }) {
   const isPastSlot = (slotHHMM: string) =>
     nowMin !== null && slotAbsMin(slotHHMM) <= nowMin;
 
-  // Hide slots when no eligible worker is on duty, or the slot is in the past.
-  const visibleSlots = slots.filter(
-    (s) => !isPastSlot(s) && workersCoveringSlot(s).length > 0,
-  );
+  // Hide slots when no eligible worker is on duty, when the preferred worker is
+  // off-duty for that slot, or the slot is in the past.
+  const visibleSlots = slots.filter((s) => {
+    if (isPastSlot(s)) return false;
+    const covering = workersCoveringSlot(s);
+    if (covering.length === 0) return false;
+    if (preferredWorker && !covering.includes(preferredWorker)) return false;
+    return true;
+  });
 
   // Workers to query/insert against. With "Any available" we restrict to workers
   // actually on duty for the chosen slot. With a preferred worker we send only them.
