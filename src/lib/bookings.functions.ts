@@ -112,10 +112,12 @@ export const createBooking = createServerFn({ method: "POST" })
     const day = saudiTime.getUTCDay();
     const totalMinutes = saudiTime.getUTCHours() * 60 + saudiTime.getUTCMinutes();
 
-    // The salon is closed on Fridays.
+    // Friday: all workers are on duty for the full open-to-close window (handled below).
     const isEarlyMorning = totalMinutes < 2 * 60; // 00:00–02:00 counts as the prior day's session
     const effectiveDay = isEarlyMorning ? (day + 6) % 7 : day;
-    if (effectiveDay === 5) {
+
+    // Reject bookings whose start time is already in the past.
+    if (start.getTime() <= Date.now()) {
       return { ok: false as const, error: "OUTSIDE_HOURS" };
     }
 
@@ -125,9 +127,15 @@ export const createBooking = createServerFn({ method: "POST" })
     // For early-morning bookings (00:00–02:00), shift by +24h so they fall within the prior day's window.
     const startMinFromMidnight = totalMinutes + (isEarlyMorning ? 24 * 60 : 0);
     const endMinFromMidnight = startMinFromMidnight + data.durationMin;
+    // On Fridays every worker is on duty for the full open-to-close window.
+    const FRIDAY_OPEN = 10 * 60;
+    const FRIDAY_CLOSE = 10 * 60 + 16 * 60; // 02:00 next day
     const workerCovers = (worker: string) => {
+      if (!(worker in WORKER_HOURS)) return false;
+      if (effectiveDay === 5) {
+        return startMinFromMidnight >= FRIDAY_OPEN && endMinFromMidnight <= FRIDAY_CLOSE;
+      }
       const wh = WORKER_HOURS[worker];
-      if (!wh) return false;
       return startMinFromMidnight >= wh.start && endMinFromMidnight <= wh.end;
     };
 

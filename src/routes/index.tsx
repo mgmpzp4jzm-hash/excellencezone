@@ -217,11 +217,30 @@ function slotStartMin(slotHHMM: string): number {
   return h * 60 + m;
 }
 
-function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number): boolean {
+function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
+  const s = slotStartMin(slotHHMM);
+  // On Fridays every worker is on duty from opening to closing.
+  if (friday) {
+    if (!(workerEn in WORKER_HOURS)) return false;
+    return s >= OPEN_MIN && s + duration <= CLOSE_MIN;
+  }
   const wh = WORKER_HOURS[workerEn];
   if (!wh) return false;
-  const s = slotStartMin(slotHHMM);
   return s >= wh.start && s + duration <= wh.end;
+}
+
+// "Now" in Saudi local time, expressed as minutes from midnight on `dateStr`.
+// Returns null when `dateStr` is in the future (no past-filtering needed).
+function saudiNowMinutesForDate(dateStr: string): number | null {
+  if (!dateStr) return null;
+  const today = saudiTodayISO();
+  if (dateStr !== today) {
+    // If dateStr is before today, everything is past; if after, nothing is past.
+    return dateStr < today ? Number.POSITIVE_INFINITY : null;
+  }
+  const now = new Date();
+  const saudi = new Date(now.getTime() + SAUDI_OFFSET_MIN * 60_000);
+  return saudi.getUTCHours() * 60 + saudi.getUTCMinutes();
 }
 
 function buildSlots(duration: number): string[] {
@@ -297,13 +316,18 @@ function BookingForm({ lang }: { lang: Lang }) {
   const workersCoveringSlot = (slotHHMM: string): string[] =>
     workerNames.filter((n) => {
       const en = nameToEn[n];
-      return en ? workerCoversSlot(en, slotHHMM, duration) : false;
+      return en ? workerCoversSlot(en, slotHHMM, duration, isFridayDate) : false;
     });
 
-  // Hide slots when no eligible worker is on duty (and the entire day on Fridays).
-  const visibleSlots = isFridayDate
-    ? []
-    : slots.filter((s) => workersCoveringSlot(s).length > 0);
+  // Block slots whose start time has already passed in Saudi local time.
+  const nowMin = saudiNowMinutesForDate(date);
+  const isPastSlot = (slotHHMM: string) =>
+    nowMin !== null && slotStartMin(slotHHMM) <= nowMin;
+
+  // Hide slots when no eligible worker is on duty, or the slot is in the past.
+  const visibleSlots = slots.filter(
+    (s) => !isPastSlot(s) && workersCoveringSlot(s).length > 0,
+  );
 
   // Workers to query/insert against. With "Any available" we restrict to workers
   // actually on duty for the chosen slot. With a preferred worker we send only them.
@@ -327,6 +351,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   };
 
   const isTaken = (slotHHMM: string) => {
+    if (isPastSlot(slotHHMM)) return true;
     const t = slotTimes(slotHHMM);
     if (!t) return false;
     const covering = workersCoveringSlot(slotHHMM);
@@ -455,14 +480,14 @@ function BookingForm({ lang }: { lang: Lang }) {
         notes ? `Notes: ${notes}` : "",
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
-      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       const specialistPhone = res.worker ? WORKER_PHONES[res.worker] : undefined;
+      // Open the specialist's WhatsApp first (during the user gesture so it isn't
+      // blocked) and the owner's WhatsApp in a short fallback chain. Both numbers
+      // always receive the booking message.
       if (specialistPhone) {
-        // Slight delay so the second tab isn't blocked by popup heuristics
-        setTimeout(() => {
-          window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
-        }, 400);
+        window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
       }
+      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
@@ -471,8 +496,8 @@ function BookingForm({ lang }: { lang: Lang }) {
 
 
   const timePlaceholder = lang === "ar"
-    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : isFridayDate ? "الصالون مغلق يوم الجمعة" : visibleSlots.length === 0 ? "لا يوجد مختص متاح في هذا اليوم" : "اختر الوقت")
-    : (!service ? "Select a service first" : !date ? "Select a date first" : isFridayDate ? "Closed on Fridays" : visibleSlots.length === 0 ? "No specialist available this day" : "Select time");
+    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : visibleSlots.length === 0 ? "لا يوجد وقت متاح في هذا اليوم" : "اختر الوقت")
+    : (!service ? "Select a service first" : !date ? "Select a date first" : visibleSlots.length === 0 ? "No times available this day" : "Select time");
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
   const timeDisabled = !service || !date;
