@@ -144,15 +144,15 @@ const t = {
   },
 };
 
-const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
+const bookingServices: Record<Lang, { value: string; duration: number; comingSoon?: boolean }[]> = {
   en: [
     { value: "Haircut & Styling", duration: 40 },
     { value: "Beard Trimming", duration: 30 },
     { value: "Haircut & Beard", duration: 60 },
     { value: "Haircut, Beard & Facial Care", duration: 90 },
-    { value: "Braids", duration: 60 },
-    { value: "Perm — Long Lasting", duration: 75 },
-    { value: "Perm — Classic", duration: 25 },
+    { value: "Braids", duration: 60, comingSoon: true },
+    { value: "Perm — Long Lasting", duration: 75, comingSoon: true },
+    { value: "Perm — Classic", duration: 25, comingSoon: true },
     { value: "Moroccan Bath — Classic", duration: 35 },
     { value: "Moroccan Bath — King", duration: 60 },
     { value: "Massage — Classic", duration: 40 },
@@ -166,9 +166,9 @@ const bookingServices: Record<Lang, { value: string; duration: number }[]> = {
     { value: "تشذيب اللحية", duration: 30 },
     { value: "قص الشعر واللحية", duration: 60 },
     { value: "قص وتشذيب وعناية بالبشرة", duration: 90 },
-    { value: "ضفاير", duration: 60 },
-    { value: "كيرلي دائم", duration: 75 },
-    { value: "كيرلي كلاسيك", duration: 25 },
+    { value: "ضفاير", duration: 60, comingSoon: true },
+    { value: "كيرلي دائم", duration: 75, comingSoon: true },
+    { value: "كيرلي كلاسيك", duration: 25, comingSoon: true },
     { value: "الحمام المغربي — كلاسيك", duration: 35 },
     { value: "الحمام المغربي — ملكي", duration: 60 },
     { value: "مساج — كلاسيك", duration: 40 },
@@ -546,7 +546,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       </div>
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
-        {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
+        {bookingServices[lang].map((s) => <option key={s.value} value={s.value} disabled={s.comingSoon}>{s.value}{s.comingSoon ? (lang === "ar" ? " (قريباً)" : " (Coming soon)") : ""}</option>)}
       </select>
       <select aria-label={tr.selectWorker} value={preferredWorker} onChange={(e) => setPreferredWorker(e.target.value)} disabled={!service || workerNames.length === 0} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50">
         <option value="">{lang === "ar" ? "أي شخص متاح" : "Any available"}</option>
