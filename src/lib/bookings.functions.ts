@@ -6,12 +6,11 @@ const ALLOWED_WORKERS = ["Hamza", "Sayed", "Rasheed", "Ali", "Saber"] as const;
 // Per-worker working hours (Saudi local time), in minutes from local midnight.
 // `end` may exceed 24*60 to represent past-midnight close. Closed on Fridays.
 const WORKER_HOURS: Record<string, { start: number; end: number }> = {
-  Hamza:   { start: 10 * 60,      end: 21 * 60 + 30 },
-  Sayed:   { start: 13 * 60,      end: 24 * 60 },
+  Hamza:   { start: 10 * 60,      end: 21 * 60 },
+  Sayed:   { start: 12 * 60,      end: 23 * 60 },
   Saber:   { start: 15 * 60,      end: 26 * 60 },
-  Rasheed: { start: 14 * 60,      end: 24 * 60 },
+  Rasheed: { start: 14 * 60,      end: 26 * 60 },
   Ali:     { start: 14 * 60,      end: 24 * 60 },
-  
 };
 
 const ALLOWED_SERVICES_EN = [

@@ -204,10 +204,10 @@ const CLOSE_MIN = OPEN_MIN + 16 * 60;
 // Per-worker working hours (minutes from local midnight; end may exceed 24*60).
 // Closed Fridays for all workers.
 const WORKER_HOURS: Record<string, { start: number; end: number }> = {
-  Hamza:   { start: 10 * 60,      end: 21 * 60 + 30 },
-  Sayed:   { start: 13 * 60,      end: 24 * 60 },
+  Hamza:   { start: 10 * 60,      end: 21 * 60 },
+  Sayed:   { start: 12 * 60,      end: 23 * 60 },
   Saber:   { start: 15 * 60,      end: 26 * 60 },
-  Rasheed: { start: 14 * 60,      end: 24 * 60 },
+  Rasheed: { start: 14 * 60,      end: 26 * 60 },
   Ali:     { start: 14 * 60,      end: 24 * 60 },
   
 };
