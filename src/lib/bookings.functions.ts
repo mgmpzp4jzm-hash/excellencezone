@@ -129,13 +129,14 @@ export const createBooking = createServerFn({ method: "POST" })
     // On Fridays every worker is on duty for the full open-to-close window.
     const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
     const FRIDAY_CLOSE = 10 * 60 + 16 * 60; // 02:00 next day
+    const MIN_TAIL = 30; // Workers can start a service up to 30 min before their shift ends.
     const workerCovers = (worker: string) => {
       if (!(worker in WORKER_HOURS)) return false;
       if (effectiveDay === 5) {
-        return startMinFromMidnight >= FRIDAY_OPEN && endMinFromMidnight <= FRIDAY_CLOSE;
+        return startMinFromMidnight >= FRIDAY_OPEN && startMinFromMidnight + MIN_TAIL <= FRIDAY_CLOSE;
       }
       const wh = WORKER_HOURS[worker];
-      return startMinFromMidnight >= wh.start && endMinFromMidnight <= wh.end;
+      return startMinFromMidnight >= wh.start && startMinFromMidnight + MIN_TAIL <= wh.end;
     };
 
     const EXCLUDED_FROM_LOYALTY = new Set<string>([
