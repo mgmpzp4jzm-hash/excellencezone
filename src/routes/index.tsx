@@ -351,6 +351,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   };
 
   const isTaken = (slotHHMM: string) => {
+    if (isPastSlot(slotHHMM)) return true;
     const t = slotTimes(slotHHMM);
     if (!t) return false;
     const covering = workersCoveringSlot(slotHHMM);
