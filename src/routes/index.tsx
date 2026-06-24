@@ -256,15 +256,25 @@ function saudiNowMinutesForDate(dateStr: string): number | null {
 
 function buildSlots(duration: number, friday = false): string[] {
   if (!duration) return [];
-  const slots: string[] = [];
   const startMin = friday ? FRIDAY_OPEN : OPEN_MIN;
-  const lastStart = CLOSE_MIN - MIN_TAIL;
-  for (let m = startMin; m <= lastStart; m += SLOT_STEP) {
-    const h = Math.floor(m / 60) % 24;
-    const mm = m % 60;
-    slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
+  const set = new Set<number>();
+  // Primary slots step by the service duration.
+  const lastDurationStart = CLOSE_MIN - duration;
+  for (let m = startMin; m <= lastDurationStart; m += duration) set.add(m);
+  // Tail slots so workers can start a service up to MIN_TAIL before they close.
+  const tails = friday
+    ? [CLOSE_MIN - MIN_TAIL]
+    : Object.values(WORKER_HOURS).map((wh) => wh.end - MIN_TAIL);
+  for (const t of tails) {
+    if (t >= startMin && t + MIN_TAIL <= CLOSE_MIN) set.add(t);
   }
-  return slots;
+  return [...set]
+    .sort((a, b) => a - b)
+    .map((m) => {
+      const h = Math.floor(m / 60) % 24;
+      const mm = m % 60;
+      return `${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+    });
 }
 
 
