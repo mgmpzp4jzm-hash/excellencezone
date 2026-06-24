@@ -225,19 +225,16 @@ function slotAbsMin(slotHHMM: string): number {
 }
 
 const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
-const SLOT_STEP = 30; // 30-minute granularity so workers can start up to their last minutes.
-const MIN_TAIL = 30;  // Allow a worker to start a service up to MIN_TAIL min before their shift ends.
 
-function workerCoversSlot(workerEn: string, slotHHMM: string, _duration: number, friday = false): boolean {
+function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
   const s = slotAbsMin(slotHHMM);
-  // On Fridays every worker is on duty from Friday opening to closing.
   if (friday) {
     if (!(workerEn in WORKER_HOURS)) return false;
-    return s >= FRIDAY_OPEN && s + MIN_TAIL <= CLOSE_MIN;
+    return s >= FRIDAY_OPEN && s + duration <= CLOSE_MIN;
   }
   const wh = WORKER_HOURS[workerEn];
   if (!wh) return false;
-  return s >= wh.start && s + MIN_TAIL <= wh.end;
+  return s >= wh.start && s + duration <= wh.end;
 }
 
 // "Now" in Saudi local time, expressed as minutes from midnight on `dateStr`.
@@ -246,7 +243,6 @@ function saudiNowMinutesForDate(dateStr: string): number | null {
   if (!dateStr) return null;
   const today = saudiTodayISO();
   if (dateStr !== today) {
-    // If dateStr is before today, everything is past; if after, nothing is past.
     return dateStr < today ? Number.POSITIVE_INFINITY : null;
   }
   const now = new Date();
@@ -256,25 +252,15 @@ function saudiNowMinutesForDate(dateStr: string): number | null {
 
 function buildSlots(duration: number, friday = false): string[] {
   if (!duration) return [];
+  const slots: string[] = [];
   const startMin = friday ? FRIDAY_OPEN : OPEN_MIN;
-  const set = new Set<number>();
-  // Primary slots step by the service duration.
-  const lastDurationStart = CLOSE_MIN - duration;
-  for (let m = startMin; m <= lastDurationStart; m += duration) set.add(m);
-  // Tail slots so workers can start a service up to MIN_TAIL before they close.
-  const tails = friday
-    ? [CLOSE_MIN - MIN_TAIL]
-    : Object.values(WORKER_HOURS).map((wh) => wh.end - MIN_TAIL);
-  for (const t of tails) {
-    if (t >= startMin && t + MIN_TAIL <= CLOSE_MIN) set.add(t);
+  const lastStart = CLOSE_MIN - duration;
+  for (let m = startMin; m <= lastStart; m += duration) {
+    const h = Math.floor(m / 60) % 24;
+    const mm = m % 60;
+    slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
   }
-  return [...set]
-    .sort((a, b) => a - b)
-    .map((m) => {
-      const h = Math.floor(m / 60) % 24;
-      const mm = m % 60;
-      return `${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-    });
+  return slots;
 }
 
 
