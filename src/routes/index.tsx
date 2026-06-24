@@ -316,13 +316,18 @@ function BookingForm({ lang }: { lang: Lang }) {
   const workersCoveringSlot = (slotHHMM: string): string[] =>
     workerNames.filter((n) => {
       const en = nameToEn[n];
-      return en ? workerCoversSlot(en, slotHHMM, duration) : false;
+      return en ? workerCoversSlot(en, slotHHMM, duration, isFridayDate) : false;
     });
 
-  // Hide slots when no eligible worker is on duty (and the entire day on Fridays).
-  const visibleSlots = isFridayDate
-    ? []
-    : slots.filter((s) => workersCoveringSlot(s).length > 0);
+  // Block slots whose start time has already passed in Saudi local time.
+  const nowMin = saudiNowMinutesForDate(date);
+  const isPastSlot = (slotHHMM: string) =>
+    nowMin !== null && slotStartMin(slotHHMM) <= nowMin;
+
+  // Hide slots when no eligible worker is on duty, or the slot is in the past.
+  const visibleSlots = slots.filter(
+    (s) => !isPastSlot(s) && workersCoveringSlot(s).length > 0,
+  );
 
   // Workers to query/insert against. With "Any available" we restrict to workers
   // actually on duty for the chosen slot. With a preferred worker we send only them.
