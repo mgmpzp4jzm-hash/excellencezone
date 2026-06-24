@@ -480,14 +480,14 @@ function BookingForm({ lang }: { lang: Lang }) {
         notes ? `Notes: ${notes}` : "",
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
-      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       const specialistPhone = res.worker ? WORKER_PHONES[res.worker] : undefined;
+      // Open the specialist's WhatsApp first (during the user gesture so it isn't
+      // blocked) and the owner's WhatsApp in a short fallback chain. Both numbers
+      // always receive the booking message.
       if (specialistPhone) {
-        // Slight delay so the second tab isn't blocked by popup heuristics
-        setTimeout(() => {
-          window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
-        }, 400);
+        window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
       }
+      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
@@ -496,8 +496,8 @@ function BookingForm({ lang }: { lang: Lang }) {
 
 
   const timePlaceholder = lang === "ar"
-    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : isFridayDate ? "الصالون مغلق يوم الجمعة" : visibleSlots.length === 0 ? "لا يوجد مختص متاح في هذا اليوم" : "اختر الوقت")
-    : (!service ? "Select a service first" : !date ? "Select a date first" : isFridayDate ? "Closed on Fridays" : visibleSlots.length === 0 ? "No specialist available this day" : "Select time");
+    ? (!service ? "اختر الخدمة أولاً" : !date ? "اختر التاريخ أولاً" : visibleSlots.length === 0 ? "لا يوجد وقت متاح في هذا اليوم" : "اختر الوقت")
+    : (!service ? "Select a service first" : !date ? "Select a date first" : visibleSlots.length === 0 ? "No times available this day" : "Select time");
 
   const takenLabel = lang === "ar" ? "محجوز" : "Taken";
   const timeDisabled = !service || !date;
