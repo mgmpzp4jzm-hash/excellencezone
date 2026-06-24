@@ -225,16 +225,19 @@ function slotAbsMin(slotHHMM: string): number {
 }
 
 const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
-function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
+const SLOT_STEP = 30; // 30-minute granularity so workers can start up to their last minutes.
+const MIN_TAIL = 30;  // Allow a worker to start a service up to MIN_TAIL min before their shift ends.
+
+function workerCoversSlot(workerEn: string, slotHHMM: string, _duration: number, friday = false): boolean {
   const s = slotAbsMin(slotHHMM);
   // On Fridays every worker is on duty from Friday opening to closing.
   if (friday) {
     if (!(workerEn in WORKER_HOURS)) return false;
-    return s >= FRIDAY_OPEN && s + duration <= CLOSE_MIN;
+    return s >= FRIDAY_OPEN && s + MIN_TAIL <= CLOSE_MIN;
   }
   const wh = WORKER_HOURS[workerEn];
   if (!wh) return false;
-  return s >= wh.start && s + duration <= wh.end;
+  return s >= wh.start && s + MIN_TAIL <= wh.end;
 }
 
 // "Now" in Saudi local time, expressed as minutes from midnight on `dateStr`.
@@ -255,8 +258,8 @@ function buildSlots(duration: number, friday = false): string[] {
   if (!duration) return [];
   const slots: string[] = [];
   const startMin = friday ? FRIDAY_OPEN : OPEN_MIN;
-  const lastStart = CLOSE_MIN - duration;
-  for (let m = startMin; m <= lastStart; m += duration) {
+  const lastStart = CLOSE_MIN - MIN_TAIL;
+  for (let m = startMin; m <= lastStart; m += SLOT_STEP) {
     const h = Math.floor(m / 60) % 24;
     const mm = m % 60;
     slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
@@ -334,10 +337,15 @@ function BookingForm({ lang }: { lang: Lang }) {
   const isPastSlot = (slotHHMM: string) =>
     nowMin !== null && slotAbsMin(slotHHMM) <= nowMin;
 
-  // Hide slots when no eligible worker is on duty, or the slot is in the past.
-  const visibleSlots = slots.filter(
-    (s) => !isPastSlot(s) && workersCoveringSlot(s).length > 0,
-  );
+  // Hide slots when no eligible worker is on duty, when the preferred worker is
+  // off-duty for that slot, or the slot is in the past.
+  const visibleSlots = slots.filter((s) => {
+    if (isPastSlot(s)) return false;
+    const covering = workersCoveringSlot(s);
+    if (covering.length === 0) return false;
+    if (preferredWorker && !covering.includes(preferredWorker)) return false;
+    return true;
+  });
 
   // Workers to query/insert against. With "Any available" we restrict to workers
   // actually on duty for the chosen slot. With a preferred worker we send only them.
