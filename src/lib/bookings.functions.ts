@@ -125,9 +125,15 @@ export const createBooking = createServerFn({ method: "POST" })
     // For early-morning bookings (00:00–02:00), shift by +24h so they fall within the prior day's window.
     const startMinFromMidnight = totalMinutes + (isEarlyMorning ? 24 * 60 : 0);
     const endMinFromMidnight = startMinFromMidnight + data.durationMin;
+    // On Fridays every worker is on duty for the full open-to-close window.
+    const FRIDAY_OPEN = 10 * 60;
+    const FRIDAY_CLOSE = 10 * 60 + 16 * 60; // 02:00 next day
     const workerCovers = (worker: string) => {
+      if (!(worker in WORKER_HOURS)) return false;
+      if (effectiveDay === 5) {
+        return startMinFromMidnight >= FRIDAY_OPEN && endMinFromMidnight <= FRIDAY_CLOSE;
+      }
       const wh = WORKER_HOURS[worker];
-      if (!wh) return false;
       return startMinFromMidnight >= wh.start && endMinFromMidnight <= wh.end;
     };
 
