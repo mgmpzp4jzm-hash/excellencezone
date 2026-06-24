@@ -217,9 +217,16 @@ function slotStartMin(slotHHMM: string): number {
   return h * 60 + m;
 }
 
+// Absolute minutes from the start of the session day. Wrapped overnight slots
+// (e.g. "01:00" meaning the next-day early-morning session) get +24h.
+function slotAbsMin(slotHHMM: string): number {
+  const s = slotStartMin(slotHHMM);
+  return s < OPEN_MIN ? s + 24 * 60 : s;
+}
+
 const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
 function workerCoversSlot(workerEn: string, slotHHMM: string, duration: number, friday = false): boolean {
-  const s = slotStartMin(slotHHMM);
+  const s = slotAbsMin(slotHHMM);
   // On Fridays every worker is on duty from Friday opening to closing.
   if (friday) {
     if (!(workerEn in WORKER_HOURS)) return false;
@@ -244,17 +251,19 @@ function saudiNowMinutesForDate(dateStr: string): number | null {
   return saudi.getUTCHours() * 60 + saudi.getUTCMinutes();
 }
 
-function buildSlots(duration: number): string[] {
+function buildSlots(duration: number, friday = false): string[] {
   if (!duration) return [];
   const slots: string[] = [];
+  const startMin = friday ? FRIDAY_OPEN : OPEN_MIN;
   const lastStart = CLOSE_MIN - duration;
-  for (let m = OPEN_MIN; m <= lastStart; m += duration) {
+  for (let m = startMin; m <= lastStart; m += duration) {
     const h = Math.floor(m / 60) % 24;
     const mm = m % 60;
     slots.push(`${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}`);
   }
   return slots;
 }
+
 
 // Saudi Arabia is UTC+3, no DST. All booking date/time inputs are interpreted
 // as Saudi local time so client and server agree regardless of the visitor's
@@ -310,8 +319,8 @@ function BookingForm({ lang }: { lang: Lang }) {
   const workerNames = availableTeam.map((m) => m.name[lang]);
   const toEnList = (names: string[]) => names.map((n) => nameToEn[n] ?? n);
   const duration = selectedService?.duration ?? 0;
-  const slots = buildSlots(duration);
   const isFridayDate = date ? isFriday(date) : false;
+  const slots = buildSlots(duration, isFridayDate);
 
   // A worker can work this slot if their hours cover [start, start+duration].
   const workersCoveringSlot = (slotHHMM: string): string[] =>
@@ -323,7 +332,7 @@ function BookingForm({ lang }: { lang: Lang }) {
   // Block slots whose start time has already passed in Saudi local time.
   const nowMin = saudiNowMinutesForDate(date);
   const isPastSlot = (slotHHMM: string) =>
-    nowMin !== null && slotStartMin(slotHHMM) <= nowMin;
+    nowMin !== null && slotAbsMin(slotHHMM) <= nowMin;
 
   // Hide slots when no eligible worker is on duty, or the slot is in the past.
   const visibleSlots = slots.filter(
@@ -345,11 +354,13 @@ function BookingForm({ lang }: { lang: Lang }) {
     if (!date || !selectedService) return null;
     const [hh, mm] = slotHHMM.split(":").map(Number);
     const [Y, M, D] = date.split("-").map(Number);
-    // Interpret slot as Saudi local time so the UTC instant matches the server's check.
-    const start = saudiLocalToUTC(Y, M, D, hh, mm).getTime();
+    // Wrapped overnight slots (00:00–02:00) belong to the NEXT calendar day.
+    const dayOffset = slotAbsMin(slotHHMM) >= 24 * 60 ? 1 : 0;
+    const start = saudiLocalToUTC(Y, M, D + dayOffset, hh, mm).getTime();
     const end = start + selectedService.duration * 60_000;
     return { start, end };
   };
+
 
   const isTaken = (slotHHMM: string) => {
     if (isPastSlot(slotHHMM)) return true;
