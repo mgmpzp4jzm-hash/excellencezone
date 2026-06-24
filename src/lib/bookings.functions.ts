@@ -128,7 +128,7 @@ export const createBooking = createServerFn({ method: "POST" })
     const startMinFromMidnight = totalMinutes + (isEarlyMorning ? 24 * 60 : 0);
     const endMinFromMidnight = startMinFromMidnight + data.durationMin;
     // On Fridays every worker is on duty for the full open-to-close window.
-    const FRIDAY_OPEN = 10 * 60;
+    const FRIDAY_OPEN = 14 * 60 + 30; // Fridays open at 14:30 (2:30 PM)
     const FRIDAY_CLOSE = 10 * 60 + 16 * 60; // 02:00 next day
     const workerCovers = (worker: string) => {
       if (!(worker in WORKER_HOURS)) return false;
