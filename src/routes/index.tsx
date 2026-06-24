@@ -546,7 +546,7 @@ function BookingForm({ lang }: { lang: Lang }) {
       </div>
       <select aria-label={tr.selectService} value={service} onChange={(e) => handleServiceChange(e.target.value)} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none" required>
         <option value="">{tr.selectService}</option>
-        {bookingServices[lang].map((s) => <option key={s.value} value={s.value}>{s.value}</option>)}
+        {bookingServices[lang].map((s) => <option key={s.value} value={s.value} disabled={s.comingSoon}>{s.value}{s.comingSoon ? (lang === "ar" ? " (قريباً)" : " (Coming soon)") : ""}</option>)}
       </select>
       <select aria-label={tr.selectWorker} value={preferredWorker} onChange={(e) => setPreferredWorker(e.target.value)} disabled={!service || workerNames.length === 0} className="w-full bg-background border border-border px-4 py-3 text-sm focus:border-primary outline-none disabled:opacity-50">
         <option value="">{lang === "ar" ? "أي شخص متاح" : "Any available"}</option>
