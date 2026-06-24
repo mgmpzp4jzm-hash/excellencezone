@@ -112,10 +112,12 @@ export const createBooking = createServerFn({ method: "POST" })
     const day = saudiTime.getUTCDay();
     const totalMinutes = saudiTime.getUTCHours() * 60 + saudiTime.getUTCMinutes();
 
-    // The salon is closed on Fridays.
+    // Friday: all workers are on duty for the full open-to-close window (handled below).
     const isEarlyMorning = totalMinutes < 2 * 60; // 00:00–02:00 counts as the prior day's session
     const effectiveDay = isEarlyMorning ? (day + 6) % 7 : day;
-    if (effectiveDay === 5) {
+
+    // Reject bookings whose start time is already in the past.
+    if (start.getTime() <= Date.now()) {
       return { ok: false as const, error: "OUTSIDE_HOURS" };
     }
 
