@@ -497,13 +497,10 @@ function BookingForm({ lang }: { lang: Lang }) {
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
       const specialistPhone = res.worker ? WORKER_PHONES[res.worker] : undefined;
-      // Open the specialist's WhatsApp first (during the user gesture so it isn't
-      // blocked) and the owner's WhatsApp in a short fallback chain. Both numbers
-      // always receive the booking message.
+      // Send the booking message only to the specialist's WhatsApp.
       if (specialistPhone) {
-        window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
+        window.location.href = `https://wa.me/${specialistPhone}?text=${text}`;
       }
-      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
