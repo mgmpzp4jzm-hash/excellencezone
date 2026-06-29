@@ -497,13 +497,10 @@ function BookingForm({ lang }: { lang: Lang }) {
       ].filter(Boolean);
       const text = encodeURIComponent(lines.join("\n"));
       const specialistPhone = res.worker ? WORKER_PHONES[res.worker] : undefined;
-      // Open the specialist's WhatsApp first (during the user gesture so it isn't
-      // blocked) and the owner's WhatsApp in a short fallback chain. Both numbers
-      // always receive the booking message.
+      // Send the booking message only to the specialist's WhatsApp.
       if (specialistPhone) {
-        window.open(`https://wa.me/${specialistPhone}?text=${text}`, "_blank");
+        window.location.href = `https://wa.me/${specialistPhone}?text=${text}`;
       }
-      window.open(`https://wa.me/${OWNER_BOOKING_PHONE}?text=${text}`, "_blank");
       toast.success(lang === "ar" ? "تم تأكيد الحجز" : "Booking confirmed");
     } finally {
       setSubmitting(false);
@@ -621,7 +618,7 @@ const team = [
   { name: { en: "Sayed", ar: "سيد" }, nationality: { en: "Egypt", ar: "مصر" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
   
   { name: { en: "Saber", ar: "صابر" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفف" } },
-  { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" }, note: { en: "Contact privately for booking", ar: "تواصل خاص للحجز" } },
+  { name: { en: "Soufyan", ar: "سفيان" }, nationality: { en: "Morocco", ar: "المغرب" }, role: { en: "Barber & Stylist", ar: "حلاق ومصفّف" } },
 ];
 
 function MoroccanBathBenefits({ globalLang }: { globalLang: Lang }) {
@@ -792,9 +789,6 @@ function HomePage() {
             <div key={m.name.en} className="bg-background p-10 hover:bg-card transition-colors">
               <h3 className="font-serif text-2xl mb-2 text-primary">{m.name[lang]} <span className="text-base text-primary">({m.nationality[lang]})</span></h3>
               <p className="text-muted-foreground text-sm tracking-wide">{m.role[lang]}</p>
-              {"note" in m && m.note ? (
-                <p className="mt-2 text-primary text-xs tracking-wide italic">{m.note[lang]}</p>
-              ) : null}
             </div>
           ))}
         </div>
