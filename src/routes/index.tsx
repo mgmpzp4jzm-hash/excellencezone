@@ -195,6 +195,7 @@ const serviceWorkers: Record<string, string[]> = {
   "Massage — King": ["Ali"],
   "Manicure": ["Rasheed"],
   "Pedicure": ["Rasheed"],
+  "Manicure & Pedicure": ["Rasheed"],
   "Facial & Skin Care": ["Rasheed"],
 };
 
