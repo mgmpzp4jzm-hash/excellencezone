@@ -24,6 +24,7 @@ const ALLOWED_SERVICES_EN = [
   "Massage — King",
   "Manicure",
   "Pedicure",
+  "Manicure & Pedicure",
   "Facial & Skin Care",
 ] as const;
 
