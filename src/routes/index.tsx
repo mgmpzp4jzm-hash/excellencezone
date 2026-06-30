@@ -159,6 +159,7 @@ const bookingServices: Record<Lang, { value: string; duration: number; comingSoo
     { value: "Massage — King", duration: 60 },
     { value: "Manicure", duration: 30 },
     { value: "Pedicure", duration: 30 },
+    { value: "Manicure & Pedicure", duration: 60 },
     { value: "Facial & Skin Care", duration: 30 },
   ],
   ar: [
@@ -194,6 +195,7 @@ const serviceWorkers: Record<string, string[]> = {
   "Massage — King": ["Ali"],
   "Manicure": ["Rasheed"],
   "Pedicure": ["Rasheed"],
+  "Manicure & Pedicure": ["Rasheed"],
   "Facial & Skin Care": ["Rasheed"],
 };
 
