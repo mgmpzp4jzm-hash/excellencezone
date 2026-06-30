@@ -194,8 +194,34 @@ export const createBooking = createServerFn({ method: "POST" })
             isFree = true;
           }
         }
+        // Notify salon via Telegram (best-effort, never blocks booking)
+        try {
+          const botToken = process.env.TELEGRAM_BOT_TOKEN;
+          const chatId = process.env.TELEGRAM_SALON_CHAT_ID;
+          if (botToken && chatId) {
+            const when = new Date(start.getTime() + 3 * 60 * 60 * 1000)
+              .toISOString().replace("T", " ").slice(0, 16) + " (KSA)";
+            const text =
+              `🆕 حجز جديد / New Booking${isFree ? " — 🎁 FREE (5th)" : ""}\n` +
+              `👤 ${data.customerName}\n` +
+              `📞 ${data.customerPhone}\n` +
+              `💈 ${data.service}\n` +
+              `🧑‍🔧 ${worker}\n` +
+              `🗓 ${when}\n` +
+              `⏱ ${data.durationMin} min` +
+              (data.notes ? `\n📝 ${data.notes}` : "");
+            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chat_id: chatId, text }),
+            });
+          }
+        } catch (e) {
+          console.error("Telegram notify failed", e);
+        }
         return { ok: true as const, worker, isFree };
       }
+
       if (error.code === "23P01" || /overlap|exclude/i.test(error.message)) {
         lastErr = "SLOT_TAKEN";
         continue;
